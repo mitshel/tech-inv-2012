@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet version="1.0">
+  <view uin="3ryeclgyrksnw08km_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="delphi:e_class:src:tech_inv_2012:Main.@unitclass">
+      <property name="$shortcutReference" value="true" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.@unitclass.MainForm" />
+      <reference referencedUin="delphi:l_ast:src:tech_inv_2012:Main.@unitclass.MainForm" />
+    </reference>
+    <reference referencedUin="delphi:e_class:src:tech_inv_2012:Main.TMainForm">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="10,10,264,565" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.Ribbon1" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonPage1" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup1" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonPage2" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonPage3" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup2" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup3" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup4" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup5" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup6" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup7" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup8" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup9" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup10" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonPage4" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonPage5" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup11" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup12" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup13" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.ActionManager1" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.Action_db_open" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.action_db_close" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.Action_exit" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.ImageListDisabled" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.ImageListHot" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.RibbonGroup14" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.Action4" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.ScreenTipsManager1" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Main.TMainForm.action_admin_showhints" />
+      <reference referencedUin="delphi:e_method:src:tech_inv_2012:Main.TMainForm.Action_exitExecute(System.TObject)" />
+      <reference referencedUin="delphi:e_method:src:tech_inv_2012:Main.TMainForm.action_admin_showhintsExecute(System.TObject)" />
+      <reference referencedUin="delphi:e_method:src:tech_inv_2012:Main.TMainForm.FormShow(System.TObject)" />
+    </reference>
+  </view>
+</nodeSet>

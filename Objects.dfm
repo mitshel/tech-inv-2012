@@ -1,0 +1,19 @@
+object objects_form: Tobjects_form
+  Left = 0
+  Top = 0
+  Caption = #1054#1088#1075#1090#1077#1093#1085#1080#1082#1072
+  ClientHeight = 305
+  ClientWidth = 635
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsMDIChild
+  OldCreateOrder = False
+  Visible = True
+  WindowState = wsMaximized
+  PixelsPerInch = 96
+  TextHeight = 13
+end

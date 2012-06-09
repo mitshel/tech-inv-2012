@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.657,=\\FS-ARZ-1\VOL\HOMES\shelepnevdv\My Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.211,=\\FS-ARZ-1\VOL\HOMES\shelepnevdv\My Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.631,\\FS-ARZ-1\VOL\HOMES\shelepnevdv\My Documents\RAD Studio\Projects\Unit1.pas=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\Main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.631,\\FS-ARZ-1\VOL\HOMES\shelepnevdv\My Documents\RAD Studio\Projects\Unit1.dfm=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\Main.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.411,\\FS-ARZ-1\VOL\HOMES\shelepnevdv\My Documents\RAD Studio\Projects\Project1.dproj=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\Project1.dproj</Transaction>
+    <Transaction>2012.06.09 11:30:49.364,=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\ModelSupport_Project1\default.txaPackage</Transaction>
+    <Transaction>2012.06.09 11:30:57.530,=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\ModelSupport_Project1\default.txvpck</Transaction>
+    <Transaction>2012.06.09 11:30:59.488,=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\ModelSupport_Project1\Main\default.txvpck</Transaction>
+    <Transaction>2012.06.09 11:30:59.678,=\\Fs-arz-1\vol\HOMES\shelepnevdv\My Documents\DELPHI\RADStudioXE2\tech_inv_2012\ModelSupport_Project1\Project1\default.txvpck</Transaction>
+  </Transactions>
+</BorlandProject>

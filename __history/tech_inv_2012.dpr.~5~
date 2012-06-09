@@ -1,0 +1,19 @@
+program tech_inv_2012;
+
+uses
+  Vcl.Forms,
+  Main in 'Main.pas' {MainForm},
+  Data in 'Data.pas' {DM: TDataModule},
+  Constants in 'Constants.pas',
+  Objects in 'Objects.pas' {objects_form};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(Tobjects_form, objects_form);
+  Application.Run;
+end.

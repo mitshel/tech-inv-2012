@@ -1,0 +1,10 @@
+unit Constants;
+
+interface
+Var MainForm_ShowHints : Boolean;
+
+implementation
+
+Begin
+  MainForm_ShowHints:=True;
+end.

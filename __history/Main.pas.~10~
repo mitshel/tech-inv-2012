@@ -1,0 +1,58 @@
+unit Main;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Grids,
+  Vcl.ValEdit, Vcl.ComCtrls, Vcl.CategoryButtons, Vcl.ToolWin, Vcl.ActnMan,
+  Vcl.ActnCtrls, Vcl.Ribbon, Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList,
+  Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls;
+
+type
+  TMainForm = class(TForm)
+    Ribbon1: TRibbon;
+    RibbonPage1: TRibbonPage;
+    RibbonGroup1: TRibbonGroup;
+    RibbonPage2: TRibbonPage;
+    RibbonPage3: TRibbonPage;
+    RibbonGroup2: TRibbonGroup;
+    RibbonGroup3: TRibbonGroup;
+    RibbonGroup4: TRibbonGroup;
+    RibbonGroup5: TRibbonGroup;
+    RibbonGroup6: TRibbonGroup;
+    RibbonGroup7: TRibbonGroup;
+    RibbonGroup8: TRibbonGroup;
+    RibbonGroup9: TRibbonGroup;
+    RibbonGroup10: TRibbonGroup;
+    RibbonPage4: TRibbonPage;
+    RibbonPage5: TRibbonPage;
+    RibbonGroup11: TRibbonGroup;
+    RibbonGroup12: TRibbonGroup;
+    RibbonGroup13: TRibbonGroup;
+    ActionManager1: TActionManager;
+    Action1: TAction;
+    Action2: TAction;
+    Action3: TAction;
+    ImageListDisabled: TImageList;
+    ImageListHot: TImageList;
+    procedure Action3Execute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  MainForm: TMainForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TMainForm.Action3Execute(Sender: TObject);
+begin
+   Close;
+end;
+
+end.

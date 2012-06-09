@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nodeSet version="1.0">
+  <view uin="m000hicll0oh8puun_v">
+    <property name="$defaultDiagram" value="true" />
+    <property name="$metaclass" value="Package Diagram" />
+    <property name="$name" value="default" />
+    <reference referencedUin="delphi:e_class:src:tech_inv_2012:Data.@unitclass">
+      <property name="$shortcutReference" value="true" />
+      <reference referencedUin="delphi:e_field:src:tech_inv_2012:Data.@unitclass.DM" />
+      <reference referencedUin="delphi:l_ast:src:tech_inv_2012:Data.@unitclass.DM" />
+    </reference>
+    <reference referencedUin="delphi:e_class:src:tech_inv_2012:Data.TDM">
+      <property name="$shortcutReference" value="true" />
+      <property name="bounds" value="10,10,148,81" />
+    </reference>
+  </view>
+</nodeSet>
