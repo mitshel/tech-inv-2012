@@ -1,0 +1,50 @@
+unit Data;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, untAdoLoginDlg;
+
+type
+  TDM = class(TDataModule)
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    DatabaseIsOpen : Boolean;
+
+    Procedure OpenDatabase;
+    Procedure CloseDatabase;
+  end;
+
+var
+  DM: TDM;
+
+implementation
+
+{%CLASSGROUP 'System.Classes.TPersistent'}
+
+{$R *.dfm}
+
+procedure TDM.DataModuleCreate(Sender: TObject);
+begin
+  DatabaseIsOpen:=False;
+end;
+
+Procedure TDM.OpenDatabase;
+Begin
+  if Not LoginADODataBase(ADOConnection1,'','') Then exit;
+  ADOConnection1.Open;
+
+
+  DatabaseIsOpen:=True;
+End;
+
+Procedure TDM.CloseDatabase;
+Begin
+  //
+  DatabaseIsOpen:=False;
+End;
+
+end.

@@ -7,7 +7,10 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Grids,
   Vcl.ValEdit, Vcl.ComCtrls, Vcl.CategoryButtons, Vcl.ToolWin, Vcl.ActnMan,
   Vcl.ActnCtrls, Vcl.Ribbon, Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList,
-  Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ScreenTips;
+  Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ScreenTips,
+  Data;
+
+
 
 type
   TMainForm = class(TForm)
@@ -70,6 +73,7 @@ end;
 procedure TMainForm.FormShow(Sender: TObject);
 begin
   action_admin_showhints.Checked:=MainForm.ShowHint;
+  DM.OpenDatabase;
 end;
 
 end.

@@ -1,0 +1,42 @@
+unit Data;
+
+interface
+
+uses
+  System.SysUtils, System.Classes;
+
+type
+  TDM = class(TDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    Procedure OpenDatabase;
+    Procedure CloseDatabase;
+  end;
+
+var
+  DM: TDM;
+  DatabaseIsOpen : Boolean;
+
+implementation
+
+{%CLASSGROUP 'System.Classes.TPersistent'}
+
+{$R *.dfm}
+
+Procedure TDM.OpenDatabase;
+Begin
+  //
+  DatabaseIsOpen:=True;
+End;
+
+Procedure TDM.CloseDatabase;
+Begin
+  //
+  DatabaseIsOpen:=False;
+End;
+
+Begin
+  DatabaseIsOpen:=False;
+end.

@@ -86,6 +86,9 @@
 				<FormType>dfm</FormType>
 				<DesignClass>TDataModule</DesignClass>
 			</DCCReference>
+			<DCCReference Include="ADOLogin\untAdoLoginDlg.pas"/>
+			<DCCReference Include="ADOLogin\untStrHex.pas"/>
+			<DCCReference Include="ADOLogin\ActiveDs_TLB.pas"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>
@@ -155,6 +158,9 @@
 					<Platform value="Win32">True</Platform>
 				</Platforms>
 				<ModelSupport>True</ModelSupport>
+				<ActiveXProjectInfo>
+					<version>1</version>
+				</ActiveXProjectInfo>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>
