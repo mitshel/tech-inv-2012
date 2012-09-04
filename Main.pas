@@ -8,7 +8,7 @@ uses
   Vcl.ValEdit, Vcl.ComCtrls, Vcl.CategoryButtons, Vcl.ToolWin, Vcl.ActnMan,
   Vcl.ActnCtrls, Vcl.Ribbon, Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList,
   Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ScreenTips,
-  Data;
+  Data, Utils, Variables;
 
 
 
@@ -43,12 +43,42 @@ type
     Action4: TAction;
     ScreenTipsManager1: TScreenTipsManager;
     action_admin_showhints: TAction;
+    StatusBar1: TStatusBar;
+    CategoryPanelGroup1: TCategoryPanelGroup;
+    CategoryPanel1: TCategoryPanel;
+    CategoryPanel2: TCategoryPanel;
+    CategoryPanel3: TCategoryPanel;
+    CategoryPanel4: TCategoryPanel;
+    CategoryPanel5: TCategoryPanel;
+    CategoryImageList1: TImageList;
+    CategoryPanel6: TCategoryPanel;
+    Panel1: TPanel;
+    StaticText1: TStaticText;
+    Panel2: TPanel;
+    StaticText2: TStaticText;
+    Panel3: TPanel;
+    StaticText3: TStaticText;
+    Panel4: TPanel;
+    StaticText4: TStaticText;
+    Panel5: TPanel;
+    StaticText5: TStaticText;
+    Panel6: TPanel;
+    StaticText6: TStaticText;
+    Action1: TAction;
+    RibbonGroup15: TRibbonGroup;
     procedure Action_exitExecute(Sender: TObject);
     procedure action_admin_showhintsExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Action_db_openExecute(Sender: TObject);
+    procedure action_db_closeExecute(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CategoryPanel1Expand(Sender: TObject);
+    procedure Action1Execute(Sender: TObject);
   private
     { Private declarations }
   public
+  Procedure UpdateStatus;
+  Procedure UpdateRibbon;
     { Public declarations }
   end;
 
@@ -59,10 +89,29 @@ implementation
 
 {$R *.dfm}
 
+procedure TMainForm.Action1Execute(Sender: TObject);
+begin
+  DM.ShowSprFilials;
+end;
+
 procedure TMainForm.action_admin_showhintsExecute(Sender: TObject);
 begin
   MainForm.ShowHint:=Not MainForm.ShowHint;
   action_admin_showhints.Checked:=MainForm.ShowHint;
+end;
+
+procedure TMainForm.action_db_closeExecute(Sender: TObject);
+begin
+  if DM.pDatabaseIsOpen then DM.CloseDatabase;
+  UpdateStatus;
+  UpdateRibbon;
+end;
+
+procedure TMainForm.Action_db_openExecute(Sender: TObject);
+begin
+  if not DM.pDatabaseIsOpen then DM.OpenDatabase;
+  UpdateStatus;
+  UpdateRibbon;
 end;
 
 procedure TMainForm.Action_exitExecute(Sender: TObject);
@@ -70,10 +119,57 @@ begin
    Close;
 end;
 
+procedure TMainForm.CategoryPanel1Expand(Sender: TObject);
+Var i : integer;
+    catpanel : TCategoryPanel;
+    DeactivatePanel : Integer;
+
+begin
+  DeactivatePanel:=ActivePanel;
+  ActivePanel:=(sender as TCategoryPanel).Tag;
+  for i := 1 to 6 do begin
+      catpanel:=(FindComponent('CategoryPanel'+IntToStr(i)) AS TCategoryPanel);
+      if i<>ActivePanel then catpanel.Collapse;
+  end;
+  (FindComponent('Panel'+IntToStr(DeactivatePanel)) AS TPanel).Visible:=false;
+  (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Align:=alClient;
+  (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Visible:=True;
+end;
+
+procedure TMainForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  SaveWndPos(MainForm);
+  DM.CloseDatabase;
+end;
+
 procedure TMainForm.FormShow(Sender: TObject);
 begin
+  GetCurrentResolution;
   action_admin_showhints.Checked:=MainForm.ShowHint;
+  SetWndPos(MainForm);
   DM.OpenDatabase;
+  UpdateStatus;
+  ActivePanel:=panOrgtech;
+  CategoryPanelGroup1.CollapseAll;
+  (FindComponent('CategoryPanel'+IntToStr(ActivePanel)) AS TCategoryPanel).Expand;
 end;
+
+Procedure TMainForm.UpdateStatus;
+Begin
+  StatusBar1.Panels[0].Text:=DM.pLoginInfo.LoginName+'/'+DM.pLoginInfo.ServerName;
+  StatusBar1.Panels[1].Text:='Res:'+ScreenResolution;
+//  MainForm.StatusBar1.Panels[0].Text:=ActiveUser.name+'/'+ActiveUser.fio+'/'+roles[ActiveUser.mainRole];
+//  if pDatabaseIsOpen then
+//  StatusBar1.Panels[1].Text:='Записей:'+intToStr(DM.ADOQuery4.RecordCount);
+//
+end;
+
+Procedure TMainForm.UpdateRibbon;
+Begin
+  Action_db_open.Enabled:=Not DM.pDatabaseIsOpen;
+  Action_db_close.Enabled:=DM.pDatabaseIsOpen;
+end;
+
+
 
 end.

@@ -1,0 +1,19 @@
+unit Variables;
+
+interface
+
+Uses System.Classes, System.SysUtils;
+
+ Var FEXEDir              : String;
+     FDBConfigFileName    : String;
+     FUserConfigFileName  : String;
+     FUserVariables       : TStringList;
+
+implementation
+
+initialization
+      FEXEDir:=ExtractFilePath(ParamStr(0));
+      FDBConfigFileName:=FEXEDir + 'dbconf.xml';
+      FUserConfigFileName:=FEXEDir + 'userconf.xml';
+      FUserVariables:=TStringList.Create;
+end.

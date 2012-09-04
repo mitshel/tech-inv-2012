@@ -65,6 +65,11 @@
 			<DCC_RemoteDebug>true</DCC_RemoteDebug>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+			<VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
+			<VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+			<VerInfo_Debug>true</VerInfo_Debug>
+			<VerInfo_Locale>1049</VerInfo_Locale>
+			<VerInfo_Keys>CompanyName=Газпром трансгаз Нижний Новгород;FileDescription=;FileVersion=1.0.0.0;InternalName=tech_inv_2012;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=Учет Оргтехники 2012;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
 			<DCC_RemoteDebug>false</DCC_RemoteDebug>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -89,6 +94,13 @@
 			<DCCReference Include="ADOLogin\untAdoLoginDlg.pas"/>
 			<DCCReference Include="ADOLogin\untStrHex.pas"/>
 			<DCCReference Include="ADOLogin\ActiveDs_TLB.pas"/>
+			<DCCReference Include="Variables.pas"/>
+			<DCCReference Include="queryes.pas"/>
+			<DCCReference Include="Utils.pas"/>
+			<DCCReference Include="Filials.pas">
+				<Form>FilialsForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

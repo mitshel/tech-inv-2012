@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<databases><database ConnectionString="Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=tech_inv_2012;Data Source=ARZVM-IT-1\SQLEXPRESS" Name="tech_inv_2012" Default="1"/></databases></root>

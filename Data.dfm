@@ -4,7 +4,25 @@ object DM: TDM
   Height = 409
   Width = 540
   object ADOConnection1: TADOConnection
+    LoginPrompt = False
     Left = 32
     Top = 24
+  end
+  object ADOQueryLogin: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 32
+    Top = 80
+  end
+  object DataSourceFilials: TDataSource
+    DataSet = ADOQueryFilials
+    Left = 40
+    Top = 160
+  end
+  object ADOQueryFilials: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 40
+    Top = 208
   end
 end

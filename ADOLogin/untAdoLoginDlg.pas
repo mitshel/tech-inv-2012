@@ -110,6 +110,10 @@ type
     N2: TMenuItem;
     N3: TMenuItem;
     actCopy: TAction;
+    actMoveUp: TAction;
+    actMoveDown: TAction;
+    ToolButton3: TToolButton;
+    ToolButton6: TToolButton;
     procedure sgDatabasesDblClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure actAppendExecute(Sender: TObject);
@@ -121,6 +125,10 @@ type
     procedure actCopyExecute(Sender: TObject);
     procedure sgDatabasesSelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
+    procedure actMoveUpUpdate(Sender: TObject);
+    procedure actMoveDownUpdate(Sender: TObject);
+    procedure actMoveUpExecute(Sender: TObject);
+    procedure actMoveDownExecute(Sender: TObject);
   private
     FDBConfigFile: IXMLDocument;
     procedure SetColumnText(ACol, ARow: integer; AText: string);
@@ -821,6 +829,58 @@ begin
     UpdateRow(nNo);
     sgDatabases.Row := nNo;
   end;
+end;
+
+procedure TfrmEditDBList.actMoveDownExecute(Sender: TObject);
+var pTmp: Pointer;
+     n, nNo: Integer;
+     iDatabases, iDatabase: IXMLNode;
+begin
+  nNo := sgDatabases.Row;
+  if nNo >= sgDatabases.RowCount-1 then Exit;
+
+  iDatabase := IXMLNode(Pointer(sgDatabases.Objects[0, nNo]));
+  iDatabases := iDatabase.ParentNode;
+  n := iDatabases.ChildNodes.Remove(iDatabase);
+  iDatabases.ChildNodes.Insert(n+1, iDatabase);
+
+  pTmp := Pointer(sgDatabases.Objects[0, nNo+1]);
+  sgDatabases.Objects[0, nNo+1] := sgDatabases.Objects[0, nNo];
+  sgDatabases.Objects[0, nNo] := pTmp;
+  UpdateRow(nNo+1);
+  UpdateRow(nNo);
+  sgDatabases.Row := nNo+1;
+end;
+
+procedure TfrmEditDBList.actMoveDownUpdate(Sender: TObject);
+begin
+  actMoveDown.Enabled := (sgDatabases.Row < sgDatabases.RowCount-1);
+end;
+
+procedure TfrmEditDBList.actMoveUpExecute(Sender: TObject);
+var pTmp: Pointer;
+     n, nNo: Integer;
+     iDatabases, iDatabase: IXMLNode;
+begin
+  nNo := sgDatabases.Row;
+  if nNo <= 1 then Exit;
+
+  iDatabase := IXMLNode(Pointer(sgDatabases.Objects[0, nNo-1]));
+  iDatabases := iDatabase.ParentNode;
+  n := iDatabases.ChildNodes.Remove(iDatabase);
+  iDatabases.ChildNodes.Insert(n+1, iDatabase);
+
+  pTmp := Pointer(sgDatabases.Objects[0, nNo-1]);
+  sgDatabases.Objects[0, nNo-1] := sgDatabases.Objects[0, nNo];
+  sgDatabases.Objects[0, nNo] := pTmp;
+  UpdateRow(nNo-1);
+  UpdateRow(nNo);
+  sgDatabases.Row := nNo-1;
+end;
+
+procedure TfrmEditDBList.actMoveUpUpdate(Sender: TObject);
+begin
+  actMoveUp.Enabled := (sgDatabases.Row > 1);
 end;
 
 procedure TfrmEditDBList.actRenameExecute(Sender: TObject);

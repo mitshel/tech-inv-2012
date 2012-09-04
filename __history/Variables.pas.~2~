@@ -1,0 +1,17 @@
+unit Variables;
+
+interface
+
+Uses System.Classes;
+
+
+ Var FEXEDir              : String;
+     FDBConfigFileName    : String;
+     FUserConfigFileName  : String;
+     FUserVariables       : TStringList;
+
+implementation
+
+initialization
+      FEXEDir:=
+end.

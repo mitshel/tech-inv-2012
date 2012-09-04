@@ -1,0 +1,27 @@
+object DM: TDM
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 409
+  Width = 540
+  object ADOConnection1: TADOConnection
+    LoginPrompt = False
+    Left = 32
+    Top = 24
+  end
+  object ADOQueryLogin: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 32
+    Top = 80
+  end
+  object DataSourceFilials: TDataSource
+    Left = 40
+    Top = 160
+  end
+  object ADOQueryFilials: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 40
+    Top = 208
+  end
+end
