@@ -37,8 +37,7 @@ type
     Action_db_open: TAction;
     action_db_close: TAction;
     Action_exit: TAction;
-    ImageListDisabled: TImageList;
-    ImageListHot: TImageList;
+    ImageList16: TImageList;
     RibbonGroup14: TRibbonGroup;
     Action4: TAction;
     ScreenTipsManager1: TScreenTipsManager;
@@ -66,6 +65,16 @@ type
     StaticText6: TStaticText;
     Action1: TAction;
     RibbonGroup15: TRibbonGroup;
+    CategoryPanel7: TCategoryPanel;
+    CategoryPanel8: TCategoryPanel;
+    CategoryPanel9: TCategoryPanel;
+    Panel7: TPanel;
+    StaticText7: TStaticText;
+    Panel8: TPanel;
+    StaticText8: TStaticText;
+    Panel9: TPanel;
+    StaticText9: TStaticText;
+    ImageList32: TImageList;
     procedure Action_exitExecute(Sender: TObject);
     procedure action_admin_showhintsExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -127,7 +136,7 @@ Var i : integer;
 begin
   DeactivatePanel:=ActivePanel;
   ActivePanel:=(sender as TCategoryPanel).Tag;
-  for i := 1 to 6 do begin
+  for i := 1 to 9 do begin
       catpanel:=(FindComponent('CategoryPanel'+IntToStr(i)) AS TCategoryPanel);
       if i<>ActivePanel then catpanel.Collapse;
   end;
@@ -158,7 +167,9 @@ Procedure TMainForm.UpdateStatus;
 Begin
   StatusBar1.Panels[0].Text:=DM.pLoginInfo.LoginName+'/'+DM.pLoginInfo.ServerName;
   StatusBar1.Panels[1].Text:='Res:'+ScreenResolution;
-//  MainForm.StatusBar1.Panels[0].Text:=ActiveUser.name+'/'+ActiveUser.fio+'/'+roles[ActiveUser.mainRole];
+  StatusBar1.Panels[2].Text:=intToStr(DM.pFilialInfo.fil_id)+':'+DM.pFilialInfo.fil_code+':'+DM.pFilialInfo.fil_name;
+
+  //  MainForm.StatusBar1.Panels[0].Text:=ActiveUser.name+'/'+ActiveUser.fio+'/'+roles[ActiveUser.mainRole];
 //  if pDatabaseIsOpen then
 //  StatusBar1.Panels[1].Text:='Записей:'+intToStr(DM.ADOQuery4.RecordCount);
 //

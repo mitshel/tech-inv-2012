@@ -25,4 +25,10 @@ object DM: TDM
     Left = 40
     Top = 208
   end
+  object ADOQuery1: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 40
+    Top = 264
+  end
 end
