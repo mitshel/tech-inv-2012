@@ -10,7 +10,9 @@ uses
   Variables in 'Variables.pas',
   queryes in 'queryes.pas',
   Utils in 'Utils.pas',
-  Filials in 'Filials.pas' {FilialsForm};
+  Filials in 'Filials.pas' {FilialsForm},
+  Users in 'Users.pas' {UsersForm},
+  SysUsers in 'SysUsers.pas' {SysUsersForm};
 
 {$R *.res}
 
@@ -20,5 +22,7 @@ begin
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TDM, DM);
   Application.CreateForm(TFilialsForm, FilialsForm);
+  Application.CreateForm(TUsersForm, UsersForm);
+  Application.CreateForm(TSysUsersForm, SysUsersForm);
   Application.Run;
 end.

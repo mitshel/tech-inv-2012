@@ -75,6 +75,7 @@ type
     Panel9: TPanel;
     StaticText9: TStaticText;
     ImageList32: TImageList;
+    Action2: TAction;
     procedure Action_exitExecute(Sender: TObject);
     procedure action_admin_showhintsExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -83,6 +84,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CategoryPanel1Expand(Sender: TObject);
     procedure Action1Execute(Sender: TObject);
+    procedure Action2Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -101,6 +103,11 @@ implementation
 procedure TMainForm.Action1Execute(Sender: TObject);
 begin
   DM.ShowSprFilials;
+end;
+
+procedure TMainForm.Action2Execute(Sender: TObject);
+begin
+  DM.ShowUsers;
 end;
 
 procedure TMainForm.action_admin_showhintsExecute(Sender: TObject);

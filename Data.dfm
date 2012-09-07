@@ -29,6 +29,22 @@ object DM: TDM
     Connection = ADOConnection1
     Parameters = <>
     Left = 40
-    Top = 264
+    Top = 344
+  end
+  object DataSourceUsers: TDataSource
+    DataSet = ADOQueryUsers
+    Left = 120
+    Top = 160
+  end
+  object ADOQueryUsers: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 120
+    Top = 208
+  end
+  object DataSource1: TDataSource
+    DataSet = ADOQuery1
+    Left = 40
+    Top = 296
   end
 end

@@ -1,0 +1,42 @@
+unit Users;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.ToolWin, Vcl.ExtCtrls,
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TUsersForm = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    DBGrid1: TDBGrid;
+    Label1: TLabel;
+    Label2: TLabel;
+    GroupBox1: TGroupBox;
+    ComboBox1: TComboBox;
+    Label3: TLabel;
+    SpeedButton1: TSpeedButton;
+    Edit1: TEdit;
+    DBEdit1: TDBEdit;
+  private
+    { Private declarations }
+  public
+    st_changed : boolean;
+    { Public declarations }
+  end;
+
+var
+  UsersForm: TUsersForm;
+
+implementation
+
+Uses Main;
+
+{$R *.dfm}
+
+end.

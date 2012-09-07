@@ -3,7 +3,8 @@ unit Data;
 interface
 
 uses
-  System.SysUtils, System.Classes, untAdoLoginDlg, Data.DB, Data.Win.ADODB, Variants, Variables, Queryes;
+  System.SysUtils, System.Classes, System.UITypes, untAdoLoginDlg, Data.DB, Data.Win.ADODB, Variants, Variables, Queryes, Dialogs,
+  VCL.controls, Vcl.StdCtrls;
 
 Type TLoginInfo = Record
         LoginName  : String;
@@ -30,6 +31,9 @@ type
     DataSourceFilials: TDataSource;
     ADOQueryFilials: TADOQuery;
     ADOQuery1: TADOQuery;
+    DataSourceUsers: TDataSource;
+    ADOQueryUsers: TADOQuery;
+    DataSource1: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -45,8 +49,18 @@ type
     Procedure GetFilialInfo;
     Procedure GetUserRights;
 
+    //Настройка пользователей программы
+    Procedure ShowUsers;
+    Procedure GrantUserRights;
+    Procedure RevokeUserRights;
+    procedure UsersListAfterScroll(DataSet: TDataSet);
+    procedure UsersListBeforeScroll(DataSet: TDataSet);
+
+
     //Справочники
     Procedure ShowSprFilials;
+
+
   end;
 
 var
@@ -56,7 +70,7 @@ implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
-uses Main, Filials;
+uses Main, Filials, Users, SysUsers;
 
 {$R *.dfm}
 
@@ -163,5 +177,109 @@ Begin
 
   ADOQueryFilials.Close;
 End;
+
+Procedure TDM.GrantUserRights;
+var uid : integer;
+Begin
+  ADOQuery1.SQL.Clear;
+  ADOQuery1.SQL.Add(sql_sysusers);
+  ADOQuery1.Open;
+  with SysUsersForm do begin
+     DBGrid1.DataSource:=DM.DataSource1;
+     if (ShowModal=mrOk) and (Not ADOQuery1.IsEmpty) Then Begin
+          uid:=ADOQuery1['uid'];
+          ADOQueryUsers.Append;
+          ADOQueryUsers['uname']:=ADOQuery1['loginname'];
+          ADOQueryUsers['uid']:=uid;
+          ADOQueryUsers.Post;
+          ADOQueryUsers.Requery;
+          ADOQueryUsers.Locate('uid',uid,[]);
+     end;
+     DBGrid1.DataSource:=nil;
+  end;
+  ADOQuery1.Close;
+end;
+
+Procedure TDM.RevokeUserRights;
+Begin
+  if Not ADOQueryUsers.IsEmpty then
+  if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+  then ADOQueryUsers.Delete;
+end;
+
+
+Procedure TDM.ShowUsers;
+Begin
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQueryUsers.SQL.Clear;
+  ADOQueryUsers.SQL.Add(sql_GetUsers);
+  ADOQueryUsers.Open;
+  ADOQueryUsers.AfterScroll:=UsersListAfterScroll;
+  ADOQueryUsers.BeforeScroll:=UsersListBeforeScroll;
+
+  UsersListAfterScroll(ADOQueryUsers);
+  With UsersForm do begin
+    DBGrid1.DataSource:=DataSourceUsers;
+    DBEdit1.DataSource:=DataSourceUsers;
+    st_changed:=false;
+    ShowModal;
+    DBGrid1.DataSource:=nil;
+    DBEdit1.DataSource:=nil;
+  end;
+  UsersListBeforeScroll(ADOQueryUsers);
+
+  ADOQueryUsers.AfterScroll:=nil;
+  ADOQueryUsers.BeforeScroll:=nil;
+  ADOQueryUsers.Close;
+End;
+
+procedure TDM.UsersListAfterScroll(DataSet: TDataSet);
+Var access : String;
+    i      : integer;
+    cb     : TCheckBox;
+begin
+With UsersForm do begin
+  if ADOQueryUsers['status']<>Null then ComboBox1.ItemIndex:=ADOQueryUsers['status'] else ComboBox1.ItemIndex:=0;
+  if ADOQueryUsers['access']<>Null then access:=ADOQueryUsers['access'] else access:='';
+  if ADOQueryUsers['otv_id']<>Null then otv_id:=ADOQueryUsers['otv_id'] else otv_id:=-1;
+
+  for i:=1 to MaxRightCheckBox do begin
+      cb:=(FindComponent('CheckBox'+IntToStr(i)) as TCheckBox);
+      if (cb<>nil) then
+          cb.Checked:=(access[i]='1');
+  end;
+end;
+end;
+
+procedure TDM.UsersListBeforeScroll(DataSet: TDataSet);
+Var access   : string;
+    i        : integer;
+    cb       : TCheckBox;
+
+begin
+With UsersForm do
+  if st_changed Then begin
+     access:='';
+
+     for i:=1 to MaxRightCheckBox do begin
+         cb:=(UsersForm.FindComponent('CheckBox'+IntToStr(i)) as TCheckBox);
+         if ((cb<>nil) and cb.Checked) then access:=access+'1'
+         else access:=access+'0';
+     end;
+
+     ADOQueryUsers.Edit;
+     if otv_id>=0 then ADOQueryUsers['otv_id']:=otv_id else ADOQueryUsers['otv_id']:=NULL;
+     ADOQueryUsers['status']:=ComboBox1.ItemIndex;
+     ADOQueryUsers['access']:=access;
+     ADOQueryUsers.Post;
+
+     st_changed:=false;
+     if ADOQueryUsers['uid']=pLoginInfo.uid Then Begin
+         pLoginInfo.access:=access;
+     End
+  end;
+end;
+
 
 end.

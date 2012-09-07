@@ -2143,19 +2143,19 @@ object FilialsForm: TFilialsForm
       Width = 643
       Height = 38
       Align = alClient
-      ButtonHeight = 38
-      ButtonWidth = 39
+      ButtonHeight = 36
+      ButtonWidth = 40
       Caption = 'ToolBar1'
-      HotImages = MainForm.ImageList32
-      Images = MainForm.ImageList32
+      HotImages = MainForm.ImageList16
+      Images = MainForm.ImageList16
+      ShowCaptions = True
       TabOrder = 0
-      ExplicitHeight = 33
       object ToolButton1: TToolButton
         Left = 0
         Top = 0
         Hint = #1042#1099#1093#1086#1076
-        Caption = 'ToolButton1'
-        ImageIndex = 0
+        Caption = #1042#1099#1093#1086#1076
+        ImageIndex = 7
         OnClick = ToolButton1Click
       end
     end
