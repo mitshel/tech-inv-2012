@@ -67,6 +67,11 @@ const
 
       MaxRightCheckBox = 42;
 
+      msg_noRights       = 'Недостаточно прав для выполнения операции!';
+      msg_noAdminRights  = 'Для выполнения операции необходимы административные права!';
+      msg_noFreeLicenses = 'Недостаточно свободных лицензий в устанавливаемом комплекте!!!';
+
+
 
  Var FEXEDir              : String;
      FDBConfigFileName    : String;

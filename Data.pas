@@ -34,6 +34,8 @@ type
     DataSourceUsers: TDataSource;
     ADOQueryUsers: TADOQuery;
     DataSource1: TDataSource;
+    ADOQueryTowns: TADOQuery;
+    DataSourceTowns: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -55,10 +57,14 @@ type
     Procedure RevokeUserRights;
     procedure UsersListAfterScroll(DataSet: TDataSet);
     procedure UsersListBeforeScroll(DataSet: TDataSet);
+    Function AccessIsGranted(acs_id : integer) : boolean;
 
-
-    //Справочники
+    // Процедуры работы со справочником филиалов
     Procedure ShowSprFilials;
+
+    // Процедуры работы со справочником населенных пунктов
+    Procedure ShowTownWindow;
+
 
 
   end;
@@ -70,7 +76,7 @@ implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
-uses Main, Filials, Users, SysUsers;
+uses Main, Filials, Users, SysUsers, towns;
 
 {$R *.dfm}
 
@@ -166,6 +172,11 @@ End;
 
 Procedure TDM.ShowSprFilials;
 Begin
+  if pLoginInfo.mainRole<>role_Admin then begin
+     MessageDlg(msg_noAdminRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
   if Not pDataBaseIsOpen Then Exit;
   ADOQueryFilials.SQL.Clear;
   ADOQueryFilials.SQL.Add(sql_GetFilials);
@@ -181,6 +192,11 @@ End;
 Procedure TDM.GrantUserRights;
 var uid : integer;
 Begin
+  if pLoginInfo.mainRole<>role_Admin then begin
+     MessageDlg(msg_noAdminRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
   ADOQuery1.SQL.Clear;
   ADOQuery1.SQL.Add(sql_sysusers);
   ADOQuery1.Open;
@@ -202,6 +218,11 @@ end;
 
 Procedure TDM.RevokeUserRights;
 Begin
+  if pLoginInfo.mainRole<>role_Admin then begin
+     MessageDlg(msg_noAdminRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
   if Not ADOQueryUsers.IsEmpty then
   if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
   then ADOQueryUsers.Delete;
@@ -210,6 +231,11 @@ end;
 
 Procedure TDM.ShowUsers;
 Begin
+  if pLoginInfo.mainRole<>role_Admin then begin
+     MessageDlg(msg_noAdminRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
   if Not pDataBaseIsOpen Then Exit;
 
   ADOQueryUsers.SQL.Clear;
@@ -237,36 +263,27 @@ End;
 procedure TDM.UsersListAfterScroll(DataSet: TDataSet);
 Var access : String;
     i      : integer;
-    cb     : TCheckBox;
 begin
 With UsersForm do begin
   if ADOQueryUsers['status']<>Null then ComboBox1.ItemIndex:=ADOQueryUsers['status'] else ComboBox1.ItemIndex:=0;
   if ADOQueryUsers['access']<>Null then access:=ADOQueryUsers['access'] else access:='';
   if ADOQueryUsers['otv_id']<>Null then otv_id:=ADOQueryUsers['otv_id'] else otv_id:=-1;
 
-  for i:=1 to MaxRightCheckBox do begin
-      cb:=(FindComponent('CheckBox'+IntToStr(i)) as TCheckBox);
-      if (cb<>nil) then
-          cb.Checked:=(access[i]='1');
-  end;
+  for i:=1 to MaxRightCheckBox do
+      CheckListBox1.Checked[i-1]:=(access[i]='1');
 end;
 end;
 
 procedure TDM.UsersListBeforeScroll(DataSet: TDataSet);
 Var access   : string;
     i        : integer;
-    cb       : TCheckBox;
-
 begin
 With UsersForm do
   if st_changed Then begin
      access:='';
 
-     for i:=1 to MaxRightCheckBox do begin
-         cb:=(UsersForm.FindComponent('CheckBox'+IntToStr(i)) as TCheckBox);
-         if ((cb<>nil) and cb.Checked) then access:=access+'1'
-         else access:=access+'0';
-     end;
+     for i:=1 to MaxRightCheckBox do
+         if (CheckListBox1.Checked[i-1]) then access:=access+'1' else access:=access+'0';
 
      ADOQueryUsers.Edit;
      if otv_id>=0 then ADOQueryUsers['otv_id']:=otv_id else ADOQueryUsers['otv_id']:=NULL;
@@ -280,6 +297,34 @@ With UsersForm do
      End
   end;
 end;
+
+Function TDM.AccessIsGranted(acs_id : integer) : boolean;
+begin
+  if ((pLoginInfo.mainRole<>role_Admin) and (pLoginInfo.mainRole<>role_User))
+  then result:=false
+  else result:=(pLoginInfo.access[acs_id]='1');
+end;
+
+Procedure TDM.ShowTownWindow;
+Begin
+  if Not pDataBaseIsOpen Then Exit;
+  if not AccessIsGranted(acs_spr_town) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+  ADOQueryTowns.SQL.Clear;
+  ADOQueryTowns.SQL.Add(sql_GetTowns);
+  ADOQueryTowns.Open;
+
+  With TownsForm Do begin
+      isSelectForm:=False;
+      DBGrid1.DataSource:=DataSourceTowns;
+      ShowModal;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQueryTowns.Close;
+End;
+
 
 
 end.

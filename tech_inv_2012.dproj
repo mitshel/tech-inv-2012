@@ -109,6 +109,10 @@
 				<Form>SysUsersForm</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
+			<DCCReference Include="Towns.pas">
+				<Form>TownsForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

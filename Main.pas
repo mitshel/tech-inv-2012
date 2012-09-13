@@ -8,7 +8,7 @@ uses
   Vcl.ValEdit, Vcl.ComCtrls, Vcl.CategoryButtons, Vcl.ToolWin, Vcl.ActnMan,
   Vcl.ActnCtrls, Vcl.Ribbon, Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList,
   Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ScreenTips,
-  Data, Utils, Variables;
+  Data, Utils, Variables, Vcl.DBGrids;
 
 
 
@@ -25,9 +25,6 @@ type
     RibbonGroup5: TRibbonGroup;
     RibbonGroup6: TRibbonGroup;
     RibbonGroup7: TRibbonGroup;
-    RibbonGroup8: TRibbonGroup;
-    RibbonGroup9: TRibbonGroup;
-    RibbonGroup10: TRibbonGroup;
     RibbonPage4: TRibbonPage;
     RibbonPage5: TRibbonPage;
     RibbonGroup11: TRibbonGroup;
@@ -76,6 +73,18 @@ type
     StaticText9: TStaticText;
     ImageList32: TImageList;
     Action2: TAction;
+    Panel10: TPanel;
+    DBGrid1: TDBGrid;
+    action_s1: TAction;
+    action_s2: TAction;
+    action_s3: TAction;
+    action_s4: TAction;
+    action_s5: TAction;
+    action_s6: TAction;
+    action_s7: TAction;
+    action_s8: TAction;
+    action_s9: TAction;
+    action_s10: TAction;
     procedure Action_exitExecute(Sender: TObject);
     procedure action_admin_showhintsExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -85,6 +94,7 @@ type
     procedure CategoryPanel1Expand(Sender: TObject);
     procedure Action1Execute(Sender: TObject);
     procedure Action2Execute(Sender: TObject);
+    procedure action_s1Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -133,6 +143,11 @@ end;
 procedure TMainForm.Action_exitExecute(Sender: TObject);
 begin
    Close;
+end;
+
+procedure TMainForm.action_s1Execute(Sender: TObject);
+begin
+  DM.ShowTownWindow;
 end;
 
 procedure TMainForm.CategoryPanel1Expand(Sender: TObject);

@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.ToolWin, Vcl.ExtCtrls,
-  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls;
+  Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.CheckLst;
 
 type
   TUsersForm = class(TForm)
@@ -23,14 +24,13 @@ type
     SpeedButton1: TSpeedButton;
     Edit1: TEdit;
     DBEdit1: TDBEdit;
-    CheckBox1: TCheckBox;
-    CheckBox2: TCheckBox;
-    CheckBox3: TCheckBox;
-    CheckBox4: TCheckBox;
+    CheckListBox1: TCheckListBox;
+    BitBtn1: TBitBtn;
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
     procedure ComboBox1Select(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
+    procedure CheckListBox1ClickCheck(Sender: TObject);
   private
     { Private declarations }
   public
@@ -49,6 +49,11 @@ Uses Main, Data;
 {$R *.dfm}
 
 procedure TUsersForm.CheckBox1Click(Sender: TObject);
+begin
+  st_changed:=true;
+end;
+
+procedure TUsersForm.CheckListBox1ClickCheck(Sender: TObject);
 begin
   st_changed:=true;
 end;

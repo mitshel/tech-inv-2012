@@ -15,6 +15,7 @@ sql_sysusers        = 'select DISTINCT loginname = (case when (o.sid = 0x00) the
                       'where ((o.issqlrole != 1 and o.isapprole != 1) or (o.sid = 0x00) and o.hasdbaccess = 1) and o.isaliased != 1 '+
                       'and not o.uid in (select uid from ti_Users) and (loginname is not null) '+
                       'order by loginname';
+sql_GetTowns        = 'select * from ti_towns';
 
 
 implementation
