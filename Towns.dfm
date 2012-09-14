@@ -29,7 +29,6 @@ object TownsForm: TTownsForm
     Images = MainForm.ImageList16
     ShowCaptions = True
     TabOrder = 0
-    ExplicitWidth = 645
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -37,18 +36,21 @@ object TownsForm: TTownsForm
       ImageIndex = 5
       ParentShowHint = False
       ShowHint = False
+      OnClick = ToolButton1Click
     end
     object ToolButton2: TToolButton
       Left = 57
       Top = 0
       Caption = #1048#1079#1084#1077#1085#1080#1090#1100
       ImageIndex = 17
+      OnClick = ToolButton2Click
     end
     object ToolButton3: TToolButton
       Left = 114
       Top = 0
       Caption = #1059#1076#1072#1083#1080#1090#1100
       ImageIndex = 6
+      OnClick = ToolButton3Click
     end
     object ToolButton8: TToolButton
       Left = 171
@@ -63,12 +65,14 @@ object TownsForm: TTownsForm
       Top = 0
       Caption = #1042#1099#1073#1088#1072#1090#1100
       ImageIndex = 18
+      OnClick = ToolButton4Click
     end
     object ToolButton5: TToolButton
       Left = 236
       Top = 0
       Caption = #1054#1090#1084#1077#1085#1072
       ImageIndex = 19
+      OnClick = ToolButton5Click
     end
     object ToolButton7: TToolButton
       Left = 293
@@ -92,6 +96,29 @@ object TownsForm: TTownsForm
       Caption = 'ToolButton9'
       ImageIndex = 6
       Style = tbsSeparator
+    end
+    object Panel1: TPanel
+      Left = 366
+      Top = 0
+      Width = 243
+      Height = 36
+      Align = alClient
+      TabOrder = 0
+      object Label1: TLabel
+        Left = 8
+        Top = 11
+        Width = 34
+        Height = 13
+        Caption = #1055#1086#1080#1089#1082':'
+      end
+      object Edit1: TEdit
+        Left = 48
+        Top = 7
+        Width = 177
+        Height = 21
+        TabOrder = 0
+        OnChange = Edit1Change
+      end
     end
   end
   object DBGrid1: TDBGrid

@@ -13,7 +13,8 @@ uses
   Filials in 'Filials.pas' {FilialsForm},
   Users in 'Users.pas' {UsersForm},
   SysUsers in 'SysUsers.pas' {SysUsersForm},
-  Towns in 'Towns.pas' {TownsForm};
+  Towns in 'Towns.pas' {TownsForm},
+  Edit1Field in 'Edit1Field.pas' {Edit1FieldForm};
 
 {$R *.res}
 
@@ -26,5 +27,6 @@ begin
   Application.CreateForm(TUsersForm, UsersForm);
   Application.CreateForm(TSysUsersForm, SysUsersForm);
   Application.CreateForm(TTownsForm, TownsForm);
+  Application.CreateForm(TEdit1FieldForm, Edit1FieldForm);
   Application.Run;
 end.

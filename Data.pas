@@ -64,10 +64,11 @@ type
 
     // Процедуры работы со справочником населенных пунктов
     Procedure ShowTownWindow;
-
-
-
-  end;
+    Procedure AddTown;
+    Procedure EditTown;
+    Procedure DelTown;
+    Procedure LocateTown(town_name : String);
+ end;
 
 var
   DM: TDM;
@@ -76,7 +77,7 @@ implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
-uses Main, Filials, Users, SysUsers, towns;
+uses Main, Filials, Users, SysUsers, towns, Edit1Field;
 
 {$R *.dfm}
 
@@ -308,10 +309,7 @@ end;
 Procedure TDM.ShowTownWindow;
 Begin
   if Not pDataBaseIsOpen Then Exit;
-  if not AccessIsGranted(acs_spr_town) then begin
-     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
-     exit;
-  end;
+
   ADOQueryTowns.SQL.Clear;
   ADOQueryTowns.SQL.Add(sql_GetTowns);
   ADOQueryTowns.Open;
@@ -325,6 +323,63 @@ Begin
   ADOQueryTowns.Close;
 End;
 
+Procedure TDM.AddTown;
+Begin
+  if not AccessIsGranted(acs_spr_town) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with Edit1FieldForm do begin
+     Caption:='Добавить населенный пункт';
+     Label1.Caption:='Название населенного пункта:';
+     Edit1.Text:='';
+     if (ShowModal=mrOk) Then Begin
+          ADOQueryTowns.Append;
+          ADOQueryTowns['town_name']:=Edit1.Text;
+          ADOQueryTowns.Post;
+     end;
+  end;
+End;
+
+Procedure TDM.EditTown;
+Begin
+  if not AccessIsGranted(acs_spr_town) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with Edit1FieldForm do begin
+     Caption:='Изменить населенный пункт';
+     Label1.Caption:='Название населенного пункта:';
+     Edit1.Text:=ADOQueryTowns['town_name'];
+     if (ShowModal=mrOk) Then Begin
+          ADOQueryTowns.Edit;
+          ADOQueryTowns['town_name']:=Edit1.Text;
+          ADOQueryTowns.Post;
+     end;
+  end;
+End;
+
+Procedure TDM.DelTown;
+Begin
+  if not AccessIsGranted(acs_spr_town) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  if Not ADOQueryTowns.Eof Then
+  if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+  then begin
+     ADOQueryTowns.Delete;
+  end;
+End;
+
+Procedure TDM.LocateTown(town_name : String);
+Begin
+  ADOQueryTowns.Locate('town_name',town_name,[loCaseInsensitive, loPartialKey]);
+End;
 
 
 end.
+
