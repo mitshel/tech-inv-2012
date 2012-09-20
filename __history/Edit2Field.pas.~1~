@@ -1,0 +1,24 @@
+unit Edit2Field;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TEdit2FieldForm = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Edit2FieldForm: TEdit2FieldForm;
+
+implementation
+
+{$R *.dfm}
+
+end.

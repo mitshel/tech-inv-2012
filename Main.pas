@@ -95,6 +95,7 @@ type
     procedure Action1Execute(Sender: TObject);
     procedure Action2Execute(Sender: TObject);
     procedure action_s1Execute(Sender: TObject);
+    procedure action_s2Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -148,6 +149,11 @@ end;
 procedure TMainForm.action_s1Execute(Sender: TObject);
 begin
   DM.ShowTownWindow;
+end;
+
+procedure TMainForm.action_s2Execute(Sender: TObject);
+begin
+  DM.ShowPromplWindow;
 end;
 
 procedure TMainForm.CategoryPanel1Expand(Sender: TObject);

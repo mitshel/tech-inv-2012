@@ -36,6 +36,8 @@ type
     DataSource1: TDataSource;
     ADOQueryTowns: TADOQuery;
     DataSourceTowns: TDataSource;
+    DataSourcePrompl: TDataSource;
+    ADOQueryPrompl: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -64,10 +66,19 @@ type
 
     // Процедуры работы со справочником населенных пунктов
     Procedure ShowTownWindow;
+    Function  SelectTown : integer;
     Procedure AddTown;
     Procedure EditTown;
     Procedure DelTown;
     Procedure LocateTown(town_name : String);
+
+    // Процедуры работы со справочником промплщадок
+    Procedure ShowPromplWindow;
+    Procedure AddPrompl;
+    Procedure EditPrompl;
+    Procedure DelPrompl;
+    Procedure LocatePrompl(Prompl_name : String);
+
  end;
 
 var
@@ -77,7 +88,7 @@ implementation
 
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
-uses Main, Filials, Users, SysUsers, towns, Edit1Field;
+uses Main, Filials, Users, SysUsers, towns, Edit1Field, prompl, EditPrompl;
 
 {$R *.dfm}
 
@@ -323,6 +334,33 @@ Begin
   ADOQueryTowns.Close;
 End;
 
+Function TDM.SelectTown : integer;
+var mr : integer;
+Begin
+  mr:=mrCancel;
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQueryTowns.SQL.Clear;
+  ADOQueryTowns.SQL.Add(sql_GetTowns);
+  ADOQueryTowns.Open;
+
+  With TownsForm Do begin
+      isSelectForm:=true;
+      sel_town_id:=-1;
+      sel_town_name:='';
+      DBGrid1.DataSource:=DataSourceTowns;
+      mr:=ShowModal;
+      if  ModalResult=mrOk then Begin
+         sel_town_id:=ADOQueryTowns['town_id'];
+         sel_town_name:=ADOQueryTowns['town_name'];
+      end;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQueryTowns.Close;
+  result:=mr;
+End;
+
+
 Procedure TDM.AddTown;
 Begin
   if not AccessIsGranted(acs_spr_town) then begin
@@ -377,8 +415,91 @@ End;
 
 Procedure TDM.LocateTown(town_name : String);
 Begin
-  ADOQueryTowns.Locate('town_name',town_name,[loCaseInsensitive, loPartialKey]);
+  ADOQueryTowns.Locate('town_name','%'+town_name,[loCaseInsensitive, loPartialKey]);
 End;
+
+Procedure TDM.ShowPromplWindow;
+Begin
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQueryPrompl.SQL.Clear;
+  ADOQueryPrompl.SQL.Add(sql_GetPrompl);
+  ADOQueryPrompl.Open;
+
+  With PromplForm Do begin
+      isSelectForm:=False;
+      DBGrid1.DataSource:=DataSourcePrompl;
+      ShowModal;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQueryPrompl.Close;
+End;
+
+Procedure TDM.AddPrompl;
+Begin
+  if not AccessIsGranted(acs_spr_prompl) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with EditPromplForm do begin
+     Caption:='Добавить промплощадку';
+     Edit1.Text:='';
+     Edit2.Text:='';
+     town_id:=-1;
+     if (ShowModal=mrOk) Then Begin
+          ADOQueryPrompl.Append;
+          ADOQueryPrompl['prompl_name']:=Edit1.Text;
+          ADOQueryPrompl['town_id']:=town_id;
+          ADOQueryPrompl.Post;
+     end;
+  end;
+End;
+
+Procedure TDM.EditPrompl;
+Var prompl_id : integer;
+Begin
+  if not AccessIsGranted(acs_spr_prompl) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with EditPromplForm do begin
+     Caption:='Изменить промплощадку';
+     Edit1.Text:=ADOQueryPrompl['prompl_name'];
+     Edit2.Text:=ADOQueryPrompl['town_name'];
+     town_id:=ADOQueryPrompl['town_id'];
+     prompl_id:=ADOQueryPrompl['prompl_id'];
+     if (ShowModal=mrOk) Then Begin
+          ADOQueryPrompl.Edit;
+          ADOQueryPrompl['prompl_name']:=Edit1.Text;
+          ADOQueryPrompl['town_id']:=town_id;
+          ADOQueryPrompl.Post;
+          ADOQueryPrompl.Requery();
+          ADOQueryPrompl.Locate('prompl_id',prompl_id,[]);
+     end;
+  end;
+End;
+
+Procedure TDM.DelPrompl;
+Begin
+  if not AccessIsGranted(acs_spr_prompl) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  if Not ADOQueryPrompl.Eof Then
+  if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+  then begin
+     ADOQueryPrompl.Delete;
+  end;
+End;
+
+Procedure TDM.LocatePrompl(prompl_name : String);
+Begin
+  ADOQueryPrompl.Locate('prompl_name','%'+prompl_name,[loCaseInsensitive, loPartialKey]);
+End;
+
 
 
 end.

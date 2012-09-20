@@ -14,7 +14,9 @@ uses
   Users in 'Users.pas' {UsersForm},
   SysUsers in 'SysUsers.pas' {SysUsersForm},
   Towns in 'Towns.pas' {TownsForm},
-  Edit1Field in 'Edit1Field.pas' {Edit1FieldForm};
+  Edit1Field in 'Edit1Field.pas' {Edit1FieldForm},
+  prompl in 'prompl.pas' {PromplForm},
+  EditPrompl in 'EditPrompl.pas' {EditPromplForm};
 
 {$R *.res}
 
@@ -28,5 +30,7 @@ begin
   Application.CreateForm(TSysUsersForm, SysUsersForm);
   Application.CreateForm(TTownsForm, TownsForm);
   Application.CreateForm(TEdit1FieldForm, Edit1FieldForm);
+  Application.CreateForm(TPromplForm, PromplForm);
+  Application.CreateForm(TEditPromplForm, EditPromplForm);
   Application.Run;
 end.

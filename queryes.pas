@@ -16,7 +16,10 @@ sql_sysusers        = 'select DISTINCT loginname = (case when (o.sid = 0x00) the
                       'and not o.uid in (select uid from ti_Users) and (loginname is not null) '+
                       'order by loginname';
 sql_GetTowns        = 'select * from ti_towns where fil_id=dbo.ti_fnGetActiveFilial() order by town_name';
-
+sql_GetPrompl       = 'select a.*, b.town_name from ti_prompl a '+
+                      'left join ti_towns b on a.town_id=b.town_id '+
+                      'where a.fil_id=dbo.ti_fnGetActiveFilial() '+
+                      'order by prompl_name';
 
 implementation
 

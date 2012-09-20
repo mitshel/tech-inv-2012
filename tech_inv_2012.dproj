@@ -117,6 +117,14 @@
 				<Form>Edit1FieldForm</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
+			<DCCReference Include="prompl.pas">
+				<Form>PromplForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="EditPrompl.pas">
+				<Form>EditPromplForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

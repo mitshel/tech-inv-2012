@@ -31,11 +31,15 @@ type
     procedure ToolButton2Click(Sender: TObject);
     procedure ToolButton3Click(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
+    procedure DBGrid1DblClick(Sender: TObject);
+    procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
     { Public declarations }
     isSelectForm : boolean;
+    sel_town_id  : integer;
+    sel_town_name : String;
   end;
 
 var
@@ -45,6 +49,17 @@ implementation
 Uses Main, Data;
 
 {$R *.dfm}
+
+procedure TTownsForm.DBGrid1DblClick(Sender: TObject);
+begin
+  if isSelectForm then ModalResult:=mrOk;
+end;
+
+procedure TTownsForm.DBGrid1KeyPress(Sender: TObject; var Key: Char);
+begin
+   if key=#13 then ModalResult:=mrOk;
+   if key=#27 then ModalResult:=mrCancel;
+end;
 
 procedure TTownsForm.Edit1Change(Sender: TObject);
 begin

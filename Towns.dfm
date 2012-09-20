@@ -4,7 +4,7 @@ object TownsForm: TTownsForm
   BorderStyle = bsDialog
   Caption = #1053#1072#1089#1077#1083#1077#1085#1085#1099#1077' '#1087#1091#1085#1082#1090#1099
   ClientHeight = 310
-  ClientWidth = 626
+  ClientWidth = 634
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,7 +19,7 @@ object TownsForm: TTownsForm
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 626
+    Width = 634
     Height = 36
     AutoSize = True
     ButtonHeight = 36
@@ -103,6 +103,8 @@ object TownsForm: TTownsForm
       Width = 243
       Height = 36
       Align = alClient
+      Color = clMenuBar
+      ParentBackground = False
       TabOrder = 0
       object Label1: TLabel
         Left = 8
@@ -113,18 +115,19 @@ object TownsForm: TTownsForm
       end
       object Edit1: TEdit
         Left = 48
-        Top = 7
+        Top = 9
         Width = 177
         Height = 21
         TabOrder = 0
         OnChange = Edit1Change
+        OnKeyPress = DBGrid1KeyPress
       end
     end
   end
   object DBGrid1: TDBGrid
     Left = 0
     Top = 36
-    Width = 626
+    Width = 634
     Height = 274
     Align = alClient
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -134,6 +137,8 @@ object TownsForm: TTownsForm
     TitleFont.Height = -11
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
+    OnDblClick = DBGrid1DblClick
+    OnKeyPress = DBGrid1KeyPress
     Columns = <
       item
         Expanded = False
