@@ -16,7 +16,15 @@ uses
   Towns in 'Towns.pas' {TownsForm},
   Edit1Field in 'Edit1Field.pas' {Edit1FieldForm},
   prompl in 'prompl.pas' {PromplForm},
-  EditPrompl in 'EditPrompl.pas' {EditPromplForm};
+  EditPrompl in 'EditPrompl.pas' {EditPromplForm},
+  Building in 'Building.pas' {BuildingForm},
+  EditBuild in 'EditBuild.pas' {EditBuildForm},
+  Serv in 'Serv.pas' {ServForm},
+  EditServ in 'EditServ.pas' {EditServForm},
+  Places in 'Places.pas' {PlacesForm},
+  EditPlace in 'EditPlace.pas' {EditPlaceForm},
+  UTypes in 'UTypes.pas' {TypesForm},
+  Mark in 'Mark.pas' {MarkForm};
 
 {$R *.res}
 
@@ -32,5 +40,13 @@ begin
   Application.CreateForm(TEdit1FieldForm, Edit1FieldForm);
   Application.CreateForm(TPromplForm, PromplForm);
   Application.CreateForm(TEditPromplForm, EditPromplForm);
+  Application.CreateForm(TBuildingForm, BuildingForm);
+  Application.CreateForm(TEditBuildForm, EditBuildForm);
+  Application.CreateForm(TServForm, ServForm);
+  Application.CreateForm(TEditServForm, EditServForm);
+  Application.CreateForm(TPlacesForm, PlacesForm);
+  Application.CreateForm(TEditPlaceForm, EditPlaceForm);
+  Application.CreateForm(TTypesForm, TypesForm);
+  Application.CreateForm(TMarkForm, MarkForm);
   Application.Run;
 end.

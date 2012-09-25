@@ -11,7 +11,6 @@ sql_GetUsers        = 'select * from ti_Users';
 sql_sysusers        = 'select DISTINCT loginname = (case when (o.sid = 0x00) then NULL else l.loginname end),'+
                       'o.uid from dbo.sysusers o '+
                       'left join master.dbo.syslogins l on l.sid = o.sid '+
-//                    'where ((o.issqlrole != 1 and o.isapprole != 1 and o.status != 0) or (o.sid = 0x00) and o.hasdbaccess = 1)and o.isaliased != 1 '+
                       'where ((o.issqlrole != 1 and o.isapprole != 1) or (o.sid = 0x00) and o.hasdbaccess = 1) and o.isaliased != 1 '+
                       'and not o.uid in (select uid from ti_Users) and (loginname is not null) '+
                       'order by loginname';
@@ -20,6 +19,32 @@ sql_GetPrompl       = 'select a.*, b.town_name from ti_prompl a '+
                       'left join ti_towns b on a.town_id=b.town_id '+
                       'where a.fil_id=dbo.ti_fnGetActiveFilial() '+
                       'order by prompl_name';
+sql_delPrompl       = 'delete from ti_prompl where prompl_id=:prompl_id';
+sql_GetBuild        = 'select a.*, b.prompl_name, b.fil_id from ti_building a '+
+                      'left join ti_prompl b on a.prompl_id=b.prompl_id '+
+                      'where b.fil_id=dbo.ti_fnGetActiveFilial() '+
+                      'order by prompl_name, a.build_name';
+sql_delBuild        = 'delete from ti_building where build_id=:build_id';
+sql_GetServ         = 'select * from ti_serv a '+
+                      'where a.fil_id=dbo.ti_fnGetActiveFilial() '+
+                      'order by serv_name';
+sql_delServ         = 'delete from ti_serv where serv_id=:serv_id';
+sql_getPlaces       = 'select a.*, b.Build_name, c.prompl_name, d.town_name, e.serv_name, b.prompl_id '+
+                      'from ti_Places a '+
+                      'left join ti_building b on a.build_id=b.build_id '+
+                      'left join ti_prompl c on b.prompl_id=c.prompl_id '+
+                      'left join ti_Towns d on c.town_id=d.town_id '+
+                      'left join ti_serv e on a.serv_id=e.serv_id '+
+                      'where e.fil_id=dbo.ti_fnGetActiveFilial() '+
+                      'order by town_name, prompl_name, build_name, kab_n';
+sql_delplace        = 'delete from ti_places where place_id=:place_id';
+sql_GetTypes        = 'select * from ti_types order by type_name';
+sql_getMark         = 'select a.*, b.mark_name as enlarge_name from ti_Mark a '+
+                      'left join ti_Mark b on a.enlarge_id=b.mark_id '+
+                      'order by a.mark_name';
+sql_delMark         = 'delete from ti_mark where mark_id=:mark_id';
+
+
 
 implementation
 

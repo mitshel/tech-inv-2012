@@ -1,0 +1,24 @@
+unit EditPlace;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TEditPlaceForm = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  EditPlaceForm: TEditPlaceForm;
+
+implementation
+
+{$R *.dfm}
+
+end.

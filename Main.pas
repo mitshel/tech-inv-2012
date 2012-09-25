@@ -25,9 +25,7 @@ type
     RibbonGroup5: TRibbonGroup;
     RibbonGroup6: TRibbonGroup;
     RibbonGroup7: TRibbonGroup;
-    RibbonPage4: TRibbonPage;
     RibbonPage5: TRibbonPage;
-    RibbonGroup11: TRibbonGroup;
     RibbonGroup12: TRibbonGroup;
     RibbonGroup13: TRibbonGroup;
     ActionManager1: TActionManager;
@@ -96,6 +94,11 @@ type
     procedure Action2Execute(Sender: TObject);
     procedure action_s1Execute(Sender: TObject);
     procedure action_s2Execute(Sender: TObject);
+    procedure action_s3Execute(Sender: TObject);
+    procedure action_s5Execute(Sender: TObject);
+    procedure action_s4Execute(Sender: TObject);
+    procedure action_s6Execute(Sender: TObject);
+    procedure action_s7Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -154,6 +157,31 @@ end;
 procedure TMainForm.action_s2Execute(Sender: TObject);
 begin
   DM.ShowPromplWindow;
+end;
+
+procedure TMainForm.action_s3Execute(Sender: TObject);
+begin
+  DM.ShowBuildWindow;
+end;
+
+procedure TMainForm.action_s4Execute(Sender: TObject);
+begin
+  DM.ShowPlacesWindow;
+end;
+
+procedure TMainForm.action_s5Execute(Sender: TObject);
+begin
+  DM.ShowServWindow;
+end;
+
+procedure TMainForm.action_s6Execute(Sender: TObject);
+begin
+  DM.ShowTypesWindow;
+end;
+
+procedure TMainForm.action_s7Execute(Sender: TObject);
+begin
+  DM.ShowMarkWindow;
 end;
 
 procedure TMainForm.CategoryPanel1Expand(Sender: TObject);

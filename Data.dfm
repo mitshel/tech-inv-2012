@@ -1,8 +1,8 @@
 object DM: TDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 409
-  Width = 540
+  Height = 619
+  Width = 641
   object ADOConnection1: TADOConnection
     LoginPrompt = False
     Left = 32
@@ -28,8 +28,8 @@ object DM: TDM
   object ADOQuery1: TADOQuery
     Connection = ADOConnection1
     Parameters = <>
-    Left = 40
-    Top = 344
+    Left = 24
+    Top = 552
   end
   object DataSourceUsers: TDataSource
     DataSet = ADOQueryUsers
@@ -44,8 +44,8 @@ object DM: TDM
   end
   object DataSource1: TDataSource
     DataSet = ADOQuery1
-    Left = 40
-    Top = 296
+    Left = 24
+    Top = 504
   end
   object ADOQueryTowns: TADOQuery
     Connection = ADOConnection1
@@ -68,5 +68,66 @@ object DM: TDM
     Parameters = <>
     Left = 288
     Top = 208
+  end
+  object DataSourceBuild: TDataSource
+    DataSet = ADOQueryBuild
+    Left = 368
+    Top = 160
+  end
+  object ADOQueryBuild: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 368
+    Top = 208
+  end
+  object ADOQueryDynamic: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 112
+    Top = 552
+  end
+  object DataSourceServ: TDataSource
+    DataSet = ADOQueryServ
+    Left = 448
+    Top = 160
+  end
+  object ADOQueryServ: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 448
+    Top = 208
+  end
+  object DataSourcePlaces: TDataSource
+    DataSet = ADOQueryPlaces
+    Left = 528
+    Top = 160
+  end
+  object ADOQueryPlaces: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 528
+    Top = 208
+  end
+  object DataSourceTypes: TDataSource
+    DataSet = ADOQueryTypes
+    Left = 40
+    Top = 272
+  end
+  object ADOQueryTypes: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 40
+    Top = 320
+  end
+  object DataSourceMark: TDataSource
+    DataSet = ADOQueryMark
+    Left = 120
+    Top = 272
+  end
+  object ADOQueryMark: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 120
+    Top = 320
   end
 end

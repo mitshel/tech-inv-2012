@@ -1,0 +1,65 @@
+unit Building;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin;
+
+type
+  TBuildingForm = class(TForm)
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton9: TToolButton;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Edit1: TEdit;
+    DBGrid1: TDBGrid;
+    procedure FormShow(Sender: TObject);
+    procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
+    procedure Edit1Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    isSelectForm : boolean;
+    { Public declarations }
+  end;
+
+var
+  BuildingForm: TBuildingForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TBuildingForm.DBGrid1KeyPress(Sender: TObject; var Key: Char);
+begin
+   if key=#13 then ModalResult:=mrOk;
+   if key=#27 then ModalResult:=mrCancel;
+end;
+
+procedure TBuildingForm.Edit1Change(Sender: TObject);
+begin
+  DM.LocateBuild(Edit1.Text);
+end;
+
+procedure TBuildingForm.FormShow(Sender: TObject);
+begin
+   ToolButton1.Visible:=Not isSelectForm;
+   ToolButton2.Visible:=Not isSelectForm;
+   ToolButton3.Visible:=Not isSelectForm;
+   ToolButton4.Visible:=isSelectForm;
+   ToolButton5.Visible:=isSelectForm;
+   ToolButton6.Visible:=Not isSelectForm;
+   Edit1.Text:='';
+end;
+
+end.

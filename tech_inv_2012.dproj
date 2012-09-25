@@ -125,6 +125,38 @@
 				<Form>EditPromplForm</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
+			<DCCReference Include="Building.pas">
+				<Form>BuildingForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="EditBuild.pas">
+				<Form>EditBuildForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="Serv.pas">
+				<Form>ServForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="EditServ.pas">
+				<Form>EditServForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="Places.pas">
+				<Form>PlacesForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="EditPlace.pas">
+				<Form>EditPlaceForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="UTypes.pas">
+				<Form>TypesForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="Mark.pas">
+				<Form>MarkForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

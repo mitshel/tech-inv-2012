@@ -32,7 +32,8 @@ type
     procedure ToolButton3Click(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure DBGrid1DblClick(Sender: TObject);
-    procedure DBGrid1KeyPress(Sender: TObject; var Key: Char);
+    procedure DBGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -55,10 +56,19 @@ begin
   if isSelectForm then ModalResult:=mrOk;
 end;
 
-procedure TTownsForm.DBGrid1KeyPress(Sender: TObject; var Key: Char);
+procedure TTownsForm.DBGrid1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-   if key=#13 then ModalResult:=mrOk;
-   if key=#27 then ModalResult:=mrCancel;
+  if Key=45 Then ToolButton1Click(ToolButton1); //Add
+  if Key=46 Then ToolButton3Click(ToolButton3); //Del
+
+  if not IsSelectForm Then begin
+      if Key=13 Then ToolButton2Click(ToolButton2); //Edit
+      if Key=27 then ToolButton6Click(Sender);      //Exit
+  end else begin
+      if Key=13 Then ModalResult:=mrOK; //Ok
+      if Key=27 then ModalResult:=mrCancel; //Cancel
+  end;
 end;
 
 procedure TTownsForm.Edit1Change(Sender: TObject);
@@ -75,6 +85,7 @@ begin
    ToolButton5.Visible:=isSelectForm;
    ToolButton6.Visible:=Not isSelectForm;
    Edit1.Text:='';
+   ActiveControl:=DBGrid1;
 end;
 
 procedure TTownsForm.ToolButton1Click(Sender: TObject);
