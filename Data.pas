@@ -49,6 +49,8 @@ type
     ADOQueryTypes: TADOQuery;
     DataSourceMark: TDataSource;
     ADOQueryMark: TADOQuery;
+    DataSourceEnlarge: TDataSource;
+    ADOQueryEnlarge: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -129,7 +131,6 @@ type
     Procedure EditMark;
     Procedure DelMark;
     Procedure LocateMark(Mark_name : String);
-
  end;
 
 var
@@ -140,7 +141,7 @@ implementation
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
 uses Main, Filials, Users, SysUsers, towns, Edit1Field, prompl, EditPrompl, EditBuild,
-  Building, Serv, EditServ, Places, EditPlace, UTypes;
+  Building, Serv, EditServ, Places, EditPlace, UTypes, Mark, EditMark;
 
 {$R *.dfm}
 
@@ -1065,6 +1066,9 @@ Begin
   ADOQueryMark.SQL.Clear;
   ADOQueryMark.SQL.Add(sql_GetMark);
   ADOQueryMark.Open;
+  ADOQueryEnlarge.SQL.Clear;
+  ADOQueryEnlarge.SQL.Add(sql_GetEnlarge);
+  ADOQueryEnlarge.Open;
 
   With MarkForm Do begin
       isSelectForm:=False;
@@ -1073,6 +1077,7 @@ Begin
       DBGrid1.DataSource:=nil;
   End;
   ADOQueryMark.Close;
+  ADOQueryEnlarge.Close;
 End;
 
 Function TDM.SelectMark : integer;
@@ -1084,6 +1089,9 @@ Begin
   ADOQueryMark.SQL.Clear;
   ADOQueryMark.SQL.Add(sql_GetMark);
   ADOQueryMark.Open;
+  ADOQueryEnlarge.SQL.Clear;
+  ADOQueryEnlarge.SQL.Add(sql_GetEnlarge);
+  ADOQueryEnlarge.Open;
 
   With MarkForm Do begin
       isSelectForm:=true;
@@ -1098,28 +1106,29 @@ Begin
       DBGrid1.DataSource:=nil;
   End;
   ADOQueryMark.Close;
+  ADOQueryEnlarge.Close;
   result:=mr;
 End;
 
-Procedure TDM.AddMark;
-Begin
-  if not AccessIsGranted(acs_spr_Mark) then begin
+Procedure TDM.AddMark;Begin
+  if not AccessIsGranted(acs_spr_marks) then begin
      MessageDlg(msg_noRights,mtInformation,[mbOk],0);
      exit;
   end;
 
   with EditMarkForm do begin
-     Caption:='Добавить строение';
+     Caption:='Добавить Марку оборудования';
      Edit1.Text:='';
-     Edit2.Text:='';
-     prompl_id:=-1;
+     enlarge_id:=-1;
+     DBLookupComboBox1.KeyValue:=Enlarge_id;
      if (ShowModal=mrOk) Then Begin
+          enlarge_id:=DBLookupComboBox1.KeyValue;
           ADOQueryMark.Append;
           ADOQueryMark['Mark_name']:=Edit1.Text;
-          ADOQueryMark['prompl_id']:=prompl_id;
+          if enlarge_id=-1 then ADOQueryMark['enlarge_id']:=NULL else ADOQueryMark['enlarge_id']:=enlarge_id;
           ADOQueryMark.Post;
           ADOQueryMark.Requery();
-          ADOQueryMark.Locate('Mark_name;prompl_id',VarArrayOf([Edit1.text, prompl_id]),[]);
+          ADOQueryMark.Locate('mark_name',Edit1.text,[]);
      end;
   end;
 End;
@@ -1131,18 +1140,27 @@ Begin
      MessageDlg(msg_noRights,mtInformation,[mbOk],0);
      exit;
   end;
-
   with EditMarkForm do begin
-     Caption:='Изменить строение';
+     Caption:='Изменить Марку оборудования';
      Edit1.Text:=ADOQueryMark['mark_name'];
-     Edit2.Text:=ADOQueryMark['prompl_name'];
-     prompl_id:=ADOQueryMark['prompl_id'];
+     if ADOQueryMark['enlarge_id']=NULL then enlarge_id:=-1 else enlarge_id:=ADOQueryMark['enlarge_id'];
+     DBLookupComboBox1.KeyValue:=Enlarge_id;
      Mark_id:=ADOQueryMark['Mark_id'];
      if (ShowModal=mrOk) Then Begin
-          ADOQueryMark.Edit;
-          ADOQueryMark['Mark_name']:=Edit1.Text;
-          ADOQueryMark['prompl_id']:=prompl_id;
-          ADOQueryMark.Post;
+          enlarge_id:=DBLookupComboBox1.KeyValue;
+//          ADOQueryMark.Edit;
+//          ADOQueryMark['Mark_name']:=Edit1.Text;
+//          if enlarge_id=-1 then ADOQueryMark['enlarge_id']:=NULL else ADOQueryMark['enlarge_id']:=enlarge_id;
+//          ADOQueryMark.Post;
+          ADOQueryDynamic.SQL.Clear;
+          ADOQueryDynamic.SQL.Add(sql_UpdateMark);
+          ADOQueryDynamic.Parameters.ParamByName('Mark_id').Value:=Mark_id;
+          ADOQueryDynamic.Parameters.ParamByName('Mark_name').Value:=Edit1.Text;
+          if enlarge_id=-1 then ADOQueryDynamic.Parameters.ParamByName('enlarge_id').Value:=NULL
+                           else ADOQueryDynamic.Parameters.ParamByName('enlarge_id').Value:=enlarge_id;
+          ADOQueryDynamic.Prepared:=True;
+          ADOQueryDynamic.ExecSQL;
+
           ADOQueryMark.Requery();
           ADOQueryMark.Locate('Mark_id',Mark_id,[]);
      end;

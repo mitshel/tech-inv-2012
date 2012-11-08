@@ -42,7 +42,13 @@ sql_GetTypes        = 'select * from ti_types order by type_name';
 sql_getMark         = 'select a.*, b.mark_name as enlarge_name from ti_Mark a '+
                       'left join ti_Mark b on a.enlarge_id=b.mark_id '+
                       'order by a.mark_name';
+//sql_getMark         = 'select * from ti_Mark order by mark_name';
+sql_getEnlarge      = 'select -1 as mark_id, '' - Обобщение отсутствует - '' as mark_name union '+
+                      '(select mark_id, mark_name from ti_Mark) '+
+                      'order by 2';
+
 sql_delMark         = 'delete from ti_mark where mark_id=:mark_id';
+sql_updateMark      = 'update ti_mark set mark_name=:mark_name, enlarge_id=:enlarge_id where mark_id=:mark_id';
 
 
 

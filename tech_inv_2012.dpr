@@ -24,7 +24,8 @@ uses
   Places in 'Places.pas' {PlacesForm},
   EditPlace in 'EditPlace.pas' {EditPlaceForm},
   UTypes in 'UTypes.pas' {TypesForm},
-  Mark in 'Mark.pas' {MarkForm};
+  Mark in 'Mark.pas' {MarkForm},
+  EditMark in 'EditMark.pas' {EditMarkForm};
 
 {$R *.res}
 
@@ -48,5 +49,6 @@ begin
   Application.CreateForm(TEditPlaceForm, EditPlaceForm);
   Application.CreateForm(TTypesForm, TypesForm);
   Application.CreateForm(TMarkForm, MarkForm);
+  Application.CreateForm(TEditMarkForm, EditMarkForm);
   Application.Run;
 end.
