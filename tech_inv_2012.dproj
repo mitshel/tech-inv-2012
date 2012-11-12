@@ -161,6 +161,18 @@
 				<Form>EditMarkForm</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
+			<DCCReference Include="Vendors.pas">
+				<Form>VendorsForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="Suppliers.pas">
+				<Form>SuppliersForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="EditSuppl.pas">
+				<Form>EditSupplForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

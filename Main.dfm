@@ -115,46 +115,10 @@ object MainForm: TMainForm
         Page = RibbonPage5
       end>
     TabIndex = 2
-    ExplicitTop = -2
     DesignSize = (
       1072
       143)
     StyleName = 'Ribbon - Luna'
-    object RibbonPage5: TRibbonPage
-      Left = 0
-      Top = 50
-      Width = 1071
-      Height = 93
-      Caption = #1040#1076#1084#1080#1085#1080#1089#1090#1088#1080#1088#1086#1074#1072#1085#1080#1077
-      Index = 3
-      object RibbonGroup12: TRibbonGroup
-        Left = 4
-        Top = 3
-        Width = 117
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
-        GroupIndex = 0
-      end
-      object RibbonGroup13: TRibbonGroup
-        Left = 123
-        Top = 3
-        Width = 156
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
-        GroupIndex = 1
-      end
-      object RibbonGroup15: TRibbonGroup
-        Left = 281
-        Top = 3
-        Width = 138
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1076#1072#1085#1085#1099#1093
-        GroupIndex = 2
-      end
-    end
     object RibbonPage1: TRibbonPage
       Left = 0
       Top = 50
@@ -223,6 +187,41 @@ object MainForm: TMainForm
         ActionManager = ActionManager1
         Caption = #1055#1086#1080#1089#1082' '#1076#1072#1085#1085#1099#1093
         GroupIndex = 1
+      end
+    end
+    object RibbonPage5: TRibbonPage
+      Left = 0
+      Top = 50
+      Width = 1071
+      Height = 93
+      Caption = #1040#1076#1084#1080#1085#1080#1089#1090#1088#1080#1088#1086#1074#1072#1085#1080#1077
+      Index = 3
+      object RibbonGroup12: TRibbonGroup
+        Left = 4
+        Top = 3
+        Width = 117
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
+        GroupIndex = 0
+      end
+      object RibbonGroup13: TRibbonGroup
+        Left = 123
+        Top = 3
+        Width = 156
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+        GroupIndex = 1
+      end
+      object RibbonGroup15: TRibbonGroup
+        Left = 281
+        Top = 3
+        Width = 138
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1076#1072#1085#1085#1099#1093
+        GroupIndex = 2
       end
     end
     object RibbonPage3: TRibbonPage
@@ -880,11 +879,13 @@ object MainForm: TMainForm
       Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
       Caption = #1055#1088#1086#1080#1079#1074#1086#1076#1080#1090#1077#1083#1080
       ImageIndex = 14
+      OnExecute = action_s8Execute
     end
     object action_s9: TAction
       Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
       Caption = #1055#1086#1089#1090#1072#1074#1097#1080#1082#1080
       ImageIndex = 15
+      OnExecute = action_s9Execute
     end
     object action_s10: TAction
       Category = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
@@ -896,7 +897,7 @@ object MainForm: TMainForm
     Left = 800
     Top = 56
     Bitmap = {
-      494C010114006800840110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010114006800880110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000006000000001002000000000000060
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1786,7 +1787,7 @@ object MainForm: TMainForm
     Left = 744
     Top = 56
     Bitmap = {
-      494C0101090050004C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010109005000500020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000005C92FF005C92FF005C92FF3A81AAC5B2CDDE4D00000000000000000000
@@ -3383,7 +3384,7 @@ object MainForm: TMainForm
     Left = 744
     Top = 104
     Bitmap = {
-      494C010105001400480020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101050014004C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000FEFEFE01FDFD
       FD02FBFBFB04FAFAFA05F8F8F807F6F6F609F4F4F40BF3F3F30CF2F2F20DF2F2

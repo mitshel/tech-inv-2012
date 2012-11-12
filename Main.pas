@@ -8,7 +8,7 @@ uses
   Vcl.ValEdit, Vcl.ComCtrls, Vcl.CategoryButtons, Vcl.ToolWin, Vcl.ActnMan,
   Vcl.ActnCtrls, Vcl.Ribbon, Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList,
   Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ScreenTips,
-  Data, Utils, Variables, Vcl.DBGrids;
+  Utils, Variables, Vcl.DBGrids;
 
 
 
@@ -99,6 +99,8 @@ type
     procedure action_s4Execute(Sender: TObject);
     procedure action_s6Execute(Sender: TObject);
     procedure action_s7Execute(Sender: TObject);
+    procedure action_s8Execute(Sender: TObject);
+    procedure action_s9Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -111,6 +113,7 @@ var
   MainForm: TMainForm;
 
 implementation
+Uses Data;
 
 {$R *.dfm}
 
@@ -182,6 +185,16 @@ end;
 procedure TMainForm.action_s7Execute(Sender: TObject);
 begin
   DM.ShowMarkWindow;
+end;
+
+procedure TMainForm.action_s8Execute(Sender: TObject);
+begin
+  DM.ShowVendorWindow;
+end;
+
+procedure TMainForm.action_s9Execute(Sender: TObject);
+begin
+  DM.ShowSupplWindow;
 end;
 
 procedure TMainForm.CategoryPanel1Expand(Sender: TObject);

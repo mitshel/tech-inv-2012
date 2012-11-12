@@ -38,11 +38,17 @@ sql_getPlaces       = 'select a.*, b.Build_name, c.prompl_name, d.town_name, e.s
                       'where e.fil_id=dbo.ti_fnGetActiveFilial() '+
                       'order by town_name, prompl_name, build_name, kab_n';
 sql_delplace        = 'delete from ti_places where place_id=:place_id';
+sql_getVendor       = 'select * from ti_Vendor order by vendor_name';
+sql_getSuppl        = 'select * from ti_suppliers a '+
+                      'where a.fil_id=dbo.ti_fnGetActiveFilial() '+
+                      'order by suppl_name';
+sql_delSuppl        = 'delete from ti_suppliers where suppl_id=:suppl_id';
+
+//Централизованные НСИ
 sql_GetTypes        = 'select * from ti_types order by type_name';
 sql_getMark         = 'select a.*, b.mark_name as enlarge_name from ti_Mark a '+
                       'left join ti_Mark b on a.enlarge_id=b.mark_id '+
                       'order by a.mark_name';
-//sql_getMark         = 'select * from ti_Mark order by mark_name';
 sql_getEnlarge      = 'select -1 as mark_id, '' - Обобщение отсутствует - '' as mark_name union '+
                       '(select mark_id, mark_name from ti_Mark) '+
                       'order by 2';

@@ -51,6 +51,10 @@ type
     ADOQueryMark: TADOQuery;
     DataSourceEnlarge: TDataSource;
     ADOQueryEnlarge: TADOQuery;
+    ADOQueryVendor: TADOQuery;
+    DataSourceVendor: TDataSource;
+    DataSourceSuppl: TDataSource;
+    ADOQuerySuppl: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -131,6 +135,24 @@ type
     Procedure EditMark;
     Procedure DelMark;
     Procedure LocateMark(Mark_name : String);
+
+    // Процедуры работы со справочником Производителей
+    Procedure ShowVendorWindow;
+    Function  SelectVendor : integer;
+    Procedure AddVendor;
+    Procedure EditVendor;
+    Procedure DelVendor;
+    Procedure LocateVendor(vendor_name : String);
+
+    // Процедуры работы со справочником Посавщиков
+    Procedure ShowSupplWindow;
+    Function  SelectSuppl : integer;
+    Procedure AddSuppl;
+    Procedure EditSuppl;
+    Procedure DelSuppl;
+    Procedure LocateSuppl(suppl_name : String);
+
+
  end;
 
 var
@@ -141,7 +163,8 @@ implementation
 {%CLASSGROUP 'System.Classes.TPersistent'}
 
 uses Main, Filials, Users, SysUsers, towns, Edit1Field, prompl, EditPrompl, EditBuild,
-  Building, Serv, EditServ, Places, EditPlace, UTypes, Mark, EditMark;
+  Building, Serv, EditServ, Places, EditPlace, UTypes, Mark, EditMark, Vendors, Suppliers,
+  EditSuppl;
 
 {$R *.dfm}
 
@@ -811,7 +834,7 @@ Begin
           ADOQueryServ['serv_cat']:=Edit3.Text;
           ADOQueryServ.Post;
           ADOQueryServ.Requery();
-          ADOQueryBuild.Locate('serv_id',serv_id,[]);
+          ADOQueryServ.Locate('serv_id',serv_id,[]);
      end;
   end;
 End;
@@ -1198,6 +1221,248 @@ End;
 Procedure TDM.LocateMark(Mark_name : String);
 Begin
   ADOQueryMark.Locate('mark_name','%'+Mark_name,[loCaseInsensitive, loPartialKey]);
+End;
+
+Procedure TDM.ShowVendorWindow;
+Begin
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQueryVendor.SQL.Clear;
+  ADOQueryVendor.SQL.Add(sql_GetVendor);
+  ADOQueryVendor.Open;
+
+  With VendorsForm Do begin
+      isSelectForm:=False;
+      DBGrid1.DataSource:=DataSourceVendor;
+      ShowModal;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQueryVendor.Close;
+End;
+
+Function TDM.SelectVendor : integer;
+var mr : integer;
+Begin
+  mr:=mrCancel;
+  result:=mr;
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQueryVendor.SQL.Clear;
+  ADOQueryVendor.SQL.Add(sql_GetVendor);
+  ADOQueryVendor.Open;
+
+  With VendorsForm Do begin
+      isSelectForm:=true;
+      sel_vendor_id:=-1;
+      sel_vendor_name:='';
+      DBGrid1.DataSource:=DataSourceVendor;
+      mr:=ShowModal;
+      if  ModalResult=mrOk then Begin
+         sel_vendor_id:=ADOQueryVendor['vendor_id'];
+         sel_vendor_name:=ADOQueryVendor['vendor_name'];
+      end;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQueryVendor.Close;
+  result:=mr;
+End;
+
+
+Procedure TDM.AddVendor;
+Begin
+  if not AccessIsGranted(acs_spr_vendor) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with Edit1FieldForm do begin
+     Caption:='Добавить производителя';
+     Label1.Caption:='Наименование производителя:';
+     Edit1.Text:='';
+     if (ShowModal=mrOk) Then Begin
+          ADOQueryVendor.Append;
+          ADOQueryVendor['vendor_name']:=Edit1.Text;
+          ADOQueryVendor.Post;
+     end;
+  end;
+End;
+
+Procedure TDM.EditVendor;
+Begin
+  if not AccessIsGranted(acs_spr_vendor) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with Edit1FieldForm do begin
+     Caption:='Изменить производителя';
+     Label1.Caption:='Наименование производителя:';
+     Edit1.Text:=ADOQueryVendor['vendor_name'];
+     if (ShowModal=mrOk) Then Begin
+          ADOQueryVendor.Edit;
+          ADOQueryVendor['vendor_name']:=Edit1.Text;
+          ADOQueryVendor.Post;
+     end;
+  end;
+End;
+
+Procedure TDM.DelVendor;
+Begin
+  if not AccessIsGranted(acs_spr_vendor) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  if Not ADOQueryVendor.Eof Then
+  if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+  then begin
+     ADOQueryVendor.Delete;
+  end;
+End;
+
+Procedure TDM.LocateVendor(vendor_name : String);
+Begin
+  ADOQueryVendor.Locate('vendor_name','%'+vendor_name,[loCaseInsensitive, loPartialKey]);
+End;
+
+Procedure TDM.ShowSupplWindow;
+Begin
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQuerySuppl.SQL.Clear;
+  ADOQuerySuppl.SQL.Add(sql_GetSuppl);
+  ADOQuerySuppl.Open;
+
+  With SuppliersForm Do begin
+      isSelectForm:=False;
+      DBGrid1.DataSource:=DataSourceSuppl;
+      ShowModal;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQuerySuppl.Close;
+End;
+
+Function TDM.SelectSuppl : integer;
+var mr : integer;
+Begin
+  mr:=mrCancel;
+  result:=mr;
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQuerySuppl.SQL.Clear;
+  ADOQuerySuppl.SQL.Add(sql_GetSuppl);
+  ADOQuerySuppl.Open;
+
+  With SuppliersForm Do begin
+      isSelectForm:=true;
+      sel_suppl_id:=-1;
+      sel_suppl_name:='';
+      DBGrid1.DataSource:=DataSourceSuppl;
+      mr:=ShowModal;
+      if  ModalResult=mrOk then Begin
+         sel_suppl_id:=ADOQuerySuppl['suppl_id'];
+         sel_suppl_name:=ADOQuerySuppl['suppl_name'];
+      end;
+      DBGrid1.DataSource:=nil;
+  End;
+  ADOQuerySuppl.Close;
+  result:=mr;
+End;
+
+
+Procedure TDM.AddSuppl;
+Begin
+  if not AccessIsGranted(acs_spr_suppl) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with EditSupplForm do begin
+     Caption:='Добавить поставщика';
+     Edit1.Text:='';
+     Edit2.Text:='';
+     Edit3.Text:='';
+     Edit4.Text:='';
+     Edit5.Text:='';
+     Edit6.Text:='';
+     if (ShowModal=mrOk) Then Begin
+          ADOQuerySuppl.Append;
+          ADOQuerySuppl['suppl_name']:=Edit1.Text;
+          ADOQuerySuppl['suppl_short_name']:=Edit2.Text;
+          ADOQuerySuppl['director_fio']:=Edit3.Text;
+          ADOQuerySuppl['director_tel']:=Edit4.Text;
+          ADOQuerySuppl['contact_fio']:=Edit5.Text;
+          ADOQuerySuppl['contact_tel']:=Edit6.Text;
+          ADOQuerySuppl.Post;
+          ADOQuerySuppl.Requery();
+          ADOQuerySuppl.Locate('suppl_name',Edit1.Text,[]);
+     end;
+  end;
+End;
+
+Procedure TDM.EditSuppl;
+Var suppl_id : integer;
+Begin
+  if not AccessIsGranted(acs_spr_suppl) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with EditSupplForm do begin
+     Caption:='Изменить поставщика';
+     Edit1.Text:=ADOQuerySuppl['suppl_name'];
+     Edit2.Text:=ADOQuerySuppl['suppl_short_name'];
+     if ADOQuerySuppl['director_fio']<>NULL Then Edit3.Text:=ADOQuerySuppl['director_fio'] else Edit3.text:='';
+     if ADOQuerySuppl['director_tel']<>NULL Then Edit4.Text:=ADOQuerySuppl['director_tel'] else Edit4.text:='';
+     if ADOQuerySuppl['contact_fio']<>NULL Then Edit5.Text:=ADOQuerySuppl['contact_fio'] else Edit5.text:='';
+     if ADOQuerySuppl['contact_tel']<>NULL Then Edit6.Text:=ADOQuerySuppl['contact_tel'] else Edit6.text:='';
+     suppl_id:=ADOQuerySuppl['suppl_id'];
+     if (ShowModal=mrOk) Then Begin
+          ADOQuerySuppl.Edit;
+          ADOQuerySuppl['suppl_name']:=Edit1.Text;
+          ADOQuerySuppl['suppl_short_name']:=Edit2.Text;
+          ADOQuerySuppl['director_fio']:=Edit3.Text;
+          ADOQuerySuppl['director_tel']:=Edit4.Text;
+          ADOQuerySuppl['contact_fio']:=Edit5.Text;
+          ADOQuerySuppl['contact_tel']:=Edit6.Text;
+          ADOQuerySuppl.Post;
+          ADOQuerySuppl.Requery();
+          ADOQuerySuppl.Locate('suppl_id',suppl_id,[]);
+     end;
+  end;
+End;
+
+Procedure TDM.DelSuppl;
+Var Suppl_id : integer;
+    bm    : TBookmark;
+Begin
+  if not AccessIsGranted(acs_spr_suppl) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  if Not ADOQuerySuppl.Eof Then
+  if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+  then begin
+     bm:=ADOQuerySuppl.GetBookmark;
+     suppl_id:=ADOQuerySuppl['suppl_id'];
+     try
+       ADOQueryDynamic.SQL.Clear;
+       ADOQueryDynamic.SQL.Add(sql_delSuppl);
+       ADOQueryDynamic.Parameters.ParamByName('suppl_id').Value:=suppl_id;
+       ADOQueryDynamic.Prepared:=True;
+       ADOQueryDynamic.ExecSQL;
+       ADOQuerySuppl.Requery();
+        try ADOQuerySuppl.GotoBookmark(bm); except end;
+     finally
+        ADOQuerySuppl.FreeBookmark(bm);
+     end;
+  end;
+End;
+
+Procedure TDM.LocateSuppl(suppl_name : String);
+Begin
+  ADOQuerySuppl.Locate('suppl_name','%'+suppl_name,[loCaseInsensitive, loPartialKey]);
 End;
 
 

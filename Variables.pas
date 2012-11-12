@@ -27,7 +27,7 @@ const
       acs_spr_town  = 3;
       acs_spr_prompl= 4;
       acs_spr_build = 5;
-      acs_spr_manuf = 6;
+      acs_spr_vendor= 6;
       acs_spr_types = 7;
       acs_spr_parts = 8;
       acs_spr_os    = 9;

@@ -141,4 +141,26 @@ object DM: TDM
     Left = 200
     Top = 320
   end
+  object ADOQueryVendor: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 280
+    Top = 320
+  end
+  object DataSourceVendor: TDataSource
+    DataSet = ADOQueryVendor
+    Left = 280
+    Top = 272
+  end
+  object DataSourceSuppl: TDataSource
+    DataSet = ADOQuerySuppl
+    Left = 360
+    Top = 272
+  end
+  object ADOQuerySuppl: TADOQuery
+    Connection = ADOConnection1
+    Parameters = <>
+    Left = 360
+    Top = 320
+  end
 end

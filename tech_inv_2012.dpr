@@ -25,7 +25,10 @@ uses
   EditPlace in 'EditPlace.pas' {EditPlaceForm},
   UTypes in 'UTypes.pas' {TypesForm},
   Mark in 'Mark.pas' {MarkForm},
-  EditMark in 'EditMark.pas' {EditMarkForm};
+  EditMark in 'EditMark.pas' {EditMarkForm},
+  Vendors in 'Vendors.pas' {VendorsForm},
+  Suppliers in 'Suppliers.pas' {SuppliersForm},
+  EditSuppl in 'EditSuppl.pas' {EditSupplForm};
 
 {$R *.res}
 
@@ -50,5 +53,8 @@ begin
   Application.CreateForm(TTypesForm, TypesForm);
   Application.CreateForm(TMarkForm, MarkForm);
   Application.CreateForm(TEditMarkForm, EditMarkForm);
+  Application.CreateForm(TVendorsForm, VendorsForm);
+  Application.CreateForm(TSuppliersForm, SuppliersForm);
+  Application.CreateForm(TEditSupplForm, EditSupplForm);
   Application.Run;
 end.

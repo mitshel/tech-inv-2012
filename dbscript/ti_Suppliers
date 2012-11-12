@@ -1,0 +1,103 @@
+GO
+TRUNCATE TABLE [dbo].[ti_Suppliers];
+GO
+SET IDENTITY_INSERT [dbo].[ti_Suppliers] ON;
+GO
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(1, 'Начальные Данные (2008)', 'НД08', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(2, 'РИАН-НИЖНИЙ', 'РИАН', 'Минин Александр Иванович (коммерческий)', '78-78-00', 'Лядова Ирина', '78-78-00');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(3, 'Принято от ЦПК', 'Принято от ЦПК', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(4, 'ООО ВНИИЭФ-ВОЛГОГАЗ', 'ВННИИЭФ-ВОЛГОГАЗ', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(5, 'ICL-КПО-ВС', 'ICL-КПО-ВС', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(6, 'ЗАО ЦКТ МАЙ', 'МАЙ', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(7, 'Служба КИПиА, АСУ А и ТМ', 'КИПиА', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(8, 'ООО "Газпром трансгаз НН"', 'ГТНН', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(9, 'Компьютер службы связи', 'СС', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(10, 'Стройка КС Новоарзамасская', 'КС Новоарзамасская', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(11, 'Компьютер ПЛНК', '-', '-', '-', '-', '-');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(12, 'ИП Горюнов', 'ИП Горюнов', 'Горюнов', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(13, 'Стройка КС Лукояновская', 'КС Лукояновская', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(14, 'СБ Самара', 'СБ Самара', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(15, 'НОУ ОНУТЦ ОАО "ГАЗПРОМ"', 'ОНУТЦ', 'Пасленов А.П.', '0112-573001', 'Горина Т.Р.', '(700) 32406 ');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(16, 'Принято от Арзамасского ЛПУ МГ', 'Принято от Арзамасск', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(17, 'ООО Волгогазавтоматика', 'ООО Вогогазавтоматик', '', '', '', '');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(18, 'Активные технологии', 'Активные технологии', 'Щукин Максим', '(831) 464-93', 'Тренёв Евгений', '(8312) 464-9');
+
+INSERT INTO [dbo].[ti_Suppliers]
+	([suppl_id], [suppl_name], [suppl_short_name], [Director_FIO], [Director_tel], [Contact_fio], [Contact_tel])
+VALUES
+	(19, 'ООО "Трансазсервис"', 'ТГС', '', '', '', '');
+
+GO
+SET IDENTITY_INSERT [dbo].[ti_Suppliers] OFF;
+GO
