@@ -8,7 +8,7 @@ uses
   Vcl.ValEdit, Vcl.ComCtrls, Vcl.CategoryButtons, Vcl.ToolWin, Vcl.ActnMan,
   Vcl.ActnCtrls, Vcl.Ribbon, Vcl.RibbonLunaStyleActnCtrls, Vcl.ActnList,
   Vcl.Buttons, Vcl.ImgList, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ScreenTips,
-  Utils, Variables, Vcl.DBGrids;
+  Utils, Variables, Vcl.DBGrids, Vcl.ButtonGroup;
 
 
 
@@ -83,6 +83,12 @@ type
     action_s8: TAction;
     action_s9: TAction;
     action_s10: TAction;
+    ButtonGroup1: TButtonGroup;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    Action3: TAction;
+    Action5: TAction;
     procedure Action_exitExecute(Sender: TObject);
     procedure action_admin_showhintsExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);

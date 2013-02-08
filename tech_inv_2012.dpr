@@ -28,7 +28,8 @@ uses
   EditMark in 'EditMark.pas' {EditMarkForm},
   Vendors in 'Vendors.pas' {VendorsForm},
   Suppliers in 'Suppliers.pas' {SuppliersForm},
-  EditSuppl in 'EditSuppl.pas' {EditSupplForm};
+  EditSuppl in 'EditSuppl.pas' {EditSupplForm},
+  ADUsers in 'ADUsers.pas' {ADUsersForm};
 
 {$R *.res}
 
@@ -56,5 +57,6 @@ begin
   Application.CreateForm(TVendorsForm, VendorsForm);
   Application.CreateForm(TSuppliersForm, SuppliersForm);
   Application.CreateForm(TEditSupplForm, EditSupplForm);
+  Application.CreateForm(TADUsersForm, ADUsersForm);
   Application.Run;
 end.
