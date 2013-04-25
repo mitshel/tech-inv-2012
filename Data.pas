@@ -1300,9 +1300,20 @@ Begin
 End;
 
 procedure TDM.ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+Var fam,search : String;
 begin
   Accept:=True;
-
+  // Если включена кнопка фильтрации токда выбираем значения совпадающие с SearchEdit.Text
+  if MainForm.Action6.Checked then begin
+     Accept:=False;
+     search:=UPPERCASE(MainForm.SearchEdit.Text);
+     if Assigned(DataSet.FieldByName('F')) then  begin
+        fam:= UPPERCASE(DataSet.FieldByName('F').Value);
+        Accept:= Accept or (Pos(search,fam)<>0);
+     end;
+//      if Assigned(DataSet.FieldByName('F')) then
+//       Accept:= Accept or (strpos(DataSet.FieldByName('Login').Value,MainForm.SearchEdit.Text)<>NIL);
+  end;
 end;
 
 Procedure TDM.EditVendor;
@@ -1544,7 +1555,7 @@ End;
 Procedure TDM.PanelFilter(SearchText : String; panel : Integer);
 Begin
   case Panel of
-      panUsers: ADOQueryPers.Locate('f',SearchText,[loCaseInsensitive, loPartialKey]);
+      panUsers: ADOQueryPers.Filtered:=true;
   end;
 End;
 

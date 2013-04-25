@@ -342,7 +342,7 @@ begin
   (FindComponent('CategoryPanel'+IntToStr(ActivePanel)) AS TCategoryPanel).Expand;
 
   With RibbonStatus[panOrgtech] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
-  With RibbonStatus[panUsers] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=False; ActiveTab:=1; end;
+  With RibbonStatus[panUsers] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
   With RibbonStatus[panProg] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
   With RibbonStatus[panNetwork] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
   With RibbonStatus[panSKS] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
@@ -418,7 +418,9 @@ End;
 
 procedure TMainForm.SearchEditChange(Sender: TObject);
 begin
-   DM.PanelSearch(SearchEdit.Text,ActivePanel);
+   if Action6.Checked
+   then DM.PanelFilter(SearchEdit.Text,ActivePanel)
+   else DM.PanelSearch(SearchEdit.Text,ActivePanel);
 end;
 
 Function TMainForm.RestoreFormParametres(Form : TForm; Reg : TRegistry;wh : boolean = true) : Boolean;
