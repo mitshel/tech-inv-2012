@@ -55,7 +55,10 @@ type
     DataSourceVendor: TDataSource;
     DataSourceSuppl: TDataSource;
     ADOQuerySuppl: TADOQuery;
+    DataSourcePers: TDataSource;
+    ADOQueryPers: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
+    procedure ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
   private
     { Private declarations }
   public
@@ -69,6 +72,10 @@ type
     Procedure GetLoginInfo;
     Procedure GetFilialInfo;
     Procedure GetUserRights;
+
+    // Процедуры поиска и фильтрации
+    Procedure PanelSearch(SearchText : String; panel : Integer);
+    Procedure PanelFilter(SearchText : String; panel : Integer);
 
     //Настройка пользователей программы
     Procedure ShowUsers;
@@ -144,7 +151,7 @@ type
     Procedure DelVendor;
     Procedure LocateVendor(vendor_name : String);
 
-    // Процедуры работы со справочником Посавщиков
+    // Процедуры работы со справочником Поставщиков
     Procedure ShowSupplWindow;
     Function  SelectSuppl : integer;
     Procedure AddSuppl;
@@ -152,6 +159,10 @@ type
     Procedure DelSuppl;
     Procedure LocateSuppl(suppl_name : String);
 
+    // Работа с панелью пользователей
+    Procedure OpenPanelUsers;
+    Procedure ClosePanelUsers;
+    Procedure PersonalPanelFilter(ADReg, ADDisabled, ADNoreg : boolean);
 
  end;
 
@@ -193,6 +204,7 @@ Begin
        ServerName :='-';
        DBName     :='-';
   end;
+  if ADOQueryPers.Active then ADOQueryPers.Close;
 End;
 
 Procedure TDM.GetLoginInfo;
@@ -1287,6 +1299,12 @@ Begin
   end;
 End;
 
+procedure TDM.ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+begin
+  Accept:=True;
+
+end;
+
 Procedure TDM.EditVendor;
 Begin
   if not AccessIsGranted(acs_spr_vendor) then begin
@@ -1463,6 +1481,71 @@ End;
 Procedure TDM.LocateSuppl(suppl_name : String);
 Begin
   ADOQuerySuppl.Locate('suppl_name','%'+suppl_name,[loCaseInsensitive, loPartialKey]);
+End;
+
+Procedure TDM.OpenPanelUsers;
+Begin
+ ADOQueryPers.SQL.Clear;
+ ADOQueryPers.SQL.Add(sql_getOtv);
+ ADOQueryPers.Open;
+ MainForm.DBGridPers.DataSource:=DataSourcePers;
+End;
+
+Procedure TDM.ClosePanelUsers;
+Begin
+ MainForm.DBGridPers.DataSource:=nil;
+ ADOQueryPers.Close;
+End;
+
+Procedure TDM.PersonalPanelFilter(ADReg, ADDisabled, ADNoreg : boolean);
+var fstr : string;
+    f_or  : boolean;
+Begin
+  fstr:='([ad_id]=-1';
+  f_or:=true;
+
+  if ADReg then begin
+     if f_or then fstr:=fstr+') or (';
+     fstr:=fstr+'[ad_id]<>NULL';
+     if not ADDisabled then begin
+         fstr:=fstr+' and [isBlocked]=NULL and [isDisable]=NULL';
+     end
+  end;
+
+  if ADDisabled then begin
+     if f_or then fstr:=fstr+') or (';
+     fstr:=fstr+'[ad_id]<>NULL and [isBlocked]<>NULL';
+  end;
+
+  if ADDisabled then begin
+     if f_or then fstr:=fstr+') or (';
+     fstr:=fstr+'[ad_id]<>NULL and [isDisable]<>NULL';
+  end;
+
+  if ADNoreg then begin
+     if f_or then fstr:=fstr+') or (';
+     fstr:=fstr+'[ad_id]=NULL';
+  end;
+
+  if f_or then fstr:=fstr+')';
+
+  ADOQueryPers.Filter:=fstr;
+  ADOQueryPers.Filtered:=true;
+//  OtvForm.StatusBar1.Panels[0].Text:='Записей:'+intToStr(DM.ADOQuery10.RecordCount);
+End;
+
+Procedure TDM.PanelSearch(SearchText : String; panel : Integer);
+Begin
+  case Panel of
+      panUsers: ADOQueryPers.Locate('f',SearchText,[loCaseInsensitive, loPartialKey]);
+  end;
+End;
+
+Procedure TDM.PanelFilter(SearchText : String; panel : Integer);
+Begin
+  case Panel of
+      panUsers: ADOQueryPers.Locate('f',SearchText,[loCaseInsensitive, loPartialKey]);
+  end;
 End;
 
 

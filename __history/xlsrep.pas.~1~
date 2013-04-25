@@ -1,0 +1,153 @@
+unit xlsrep;
+interface
+Uses DB, DBGrids, VAriants, ComObj, SysUtils, Windows, DBGridEh;
+
+Procedure ExcelExp(ds : TDataset);
+Procedure ExcelExp1(grid : TDBGrid; lastselected : boolean);
+Procedure ExcelExpEh1(grid : TDBGridEh; lastselected : boolean);
+
+implementation
+
+Procedure ExcelExp(ds : TDataset);
+var  XL, XArr: Variant;
+    fcount,i,strc   : integer;
+begin
+   fcount:=ds.FieldCount;
+   XArr:=VarArrayCreate([1,fcount],varVariant);
+   XL:=CreateOLEObject('Excel.Application');     // Создание OLE объекта
+   XL.WorkBooks.add;
+   XL.visible:=false;
+
+   // Выводим заголовок
+   for i:=0 to fcount-1 do begin
+       Xarr[i+1]:=ds.Fields[i].FieldName;
+   end;
+   XL.Range['A1',CHR(64+fcount)+'1'].Value := XArr;
+
+
+   // Выводим всё остальное
+   strc:=1;
+   ds.First;
+   while not ds.eof do begin
+         inc(strc);
+         for i:=0 to fcount-1 do begin
+             XArr[i+1]:=ds.Fields[i].Value;
+         end;
+         XL.Range['A'+IntToStr(strc),CHR(64+fcount)+IntToStr(strc)].Value := XArr;
+         ds.Next;
+   end;
+
+    XL.Range['A1',CHR(64+fcount)+IntToStr(strc)].select;
+    // XL.cells.select;                     // Выбираем все
+    //XL.Selection.Font.Name:='Garamond';
+    //XL.Selection.Font.Size:=10;
+    XL.selection.Columns.AutoFit;
+    XL.Range['A1','A1'].select;
+    XL.Displayalerts:=False;
+    XL.visible:=True;
+
+//    XL.WorkBooks[1].Save;
+//    XL.Quit;
+end;
+
+Procedure ExcelExp1(grid : TDBGrid; lastselected : boolean);
+var XL, XArr: Variant;
+    fcount,i,strc   : integer;
+begin
+   fcount:=grid.Columns.Count;
+   XArr:=VarArrayCreate([1,fcount],varVariant);
+   XL:=CreateOLEObject('Excel.Application');     // Создание OLE объекта
+   XL.WorkBooks.add;
+   XL.visible:=false;
+
+   // Выводим заголовок
+   for i:=0 to fcount-1 do begin
+       Xarr[i+1]:=grid.Columns[i].Title.Caption;
+   end;
+   XL.Range['A1',CHR(64+fcount)+'1'].Value := XArr;
+//   XL.Range['A1',CHR(64+fcount)+'1'].Select;
+//   XL.Selection.Color:=RGB(100,100,100);
+     XL.Range['A1',CHR(64+fcount)+'1'].Interior.Color:=RGB(200,200,200);
+
+   // Выводим всё остальное
+   strc:=1;
+   grid.DataSource.DataSet.First;
+   while not grid.DataSource.DataSet.eof do begin
+         inc(strc);
+         for i:=0 to fcount-1 do begin
+             XArr[i+1]:=grid.Fields[i].Value;
+         end;
+         XL.Range['A'+IntToStr(strc),CHR(64+fcount)+IntToStr(strc)].Value := XArr;
+         grid.DataSource.DataSet.Next;
+   end;
+
+    XL.Range['A1',CHR(64+fcount)+IntToStr(strc)].select;
+    // XL.cells.select;                     // Выбираем все
+    //XL.Selection.Font.Name:='Garamond';
+    //XL.Selection.Font.Size:=10;
+    XL.selection.Columns.AutoFit;
+    XL.Selection.borders.linestyle:=1;
+    if lastselected then
+    XL.Range['A'+IntToStr(strc),CHR(64+fcount)+IntToStr(strc)].Interior.Color:=RGB(200,200,250);
+    XL.Range['A1','A1'].Select;
+    XL.Displayalerts:=False;
+    XL.visible:=True;
+
+//    XL.WorkBooks[1].Save;
+//    XL.Quit;
+end;
+
+Procedure ExcelExpEh1(grid : TDBGridEh; lastselected : boolean);
+var XL, XArr: Variant;
+    fcount,i,strc   : integer;
+begin
+   fcount:=grid.Columns.Count;
+   XArr:=VarArrayCreate([1,fcount],varVariant);
+   XL:=CreateOLEObject('Excel.Application');     // Создание OLE объекта
+   XL.WorkBooks.add;
+   XL.visible:=false;
+
+   // Выводим заголовок
+   for i:=0 to fcount-1 do begin
+       Xarr[i+1]:=grid.Columns[i].Title.Caption;
+   end;
+   XL.Range['A1',CHR(64+fcount)+'1'].Value := XArr;
+//   XL.Range['A1',CHR(64+fcount)+'1'].Select;
+//   XL.Selection.Color:=RGB(100,100,100);
+     XL.Range['A1',CHR(64+fcount)+'1'].Interior.Color:=RGB(200,200,200);
+
+   // Выводим всё остальное
+   strc:=1;
+   grid.DataSource.DataSet.First;
+   while not grid.DataSource.DataSet.eof do begin
+         inc(strc);
+         for i:=0 to fcount-1 do begin
+           if grid.Columns[i].Field<>nil then begin
+             try
+                XArr[i+1]:=grid.Fields[i].Value
+             except
+                XArr[i+1]:=NULL;
+             end
+           end;
+         end;
+         XL.Range['A'+IntToStr(strc),CHR(64+fcount)+IntToStr(strc)].Value := XArr;
+         grid.DataSource.DataSet.Next;
+   end;
+
+    XL.Range['A1',CHR(64+fcount)+IntToStr(strc)].select;
+    // XL.cells.select;                     // Выбираем все
+    //XL.Selection.Font.Name:='Garamond';
+    //XL.Selection.Font.Size:=10;
+    XL.selection.Columns.AutoFit;
+    XL.Selection.borders.linestyle:=1;
+    if lastselected then
+    XL.Range['A'+IntToStr(strc),CHR(64+fcount)+IntToStr(strc)].Interior.Color:=RGB(200,200,250);
+    XL.Range['A1','A1'].Select;
+    XL.Displayalerts:=False;
+    XL.visible:=True;
+
+//    XL.WorkBooks[1].Save;
+//    XL.Quit;
+end;
+
+end.

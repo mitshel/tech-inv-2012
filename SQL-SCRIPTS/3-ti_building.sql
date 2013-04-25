@@ -1,39 +1,196 @@
-truncate table ti_building
+--ALTER TABLE tblPlaces DROP CONSTRAINT FK_TBLPLACE_REFERENCE_TBLBUILD;
+--ALTER TABLE tblCableJournal DROP CONSTRAINT FK_TBLCABLE_REFERENCE_TBLBUILD;
 
-SET IDENTITY_INSERT ti_building ON
-insert into ti_building(build_id, prompl_id, build_name) values(1,1,'Здание АБК (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(2,2,'Пожарный БОКС (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(3,1,'Здание СЭБ (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(4,2,'Здание Связи (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(5,3,'ЦПК (Калинина, 25)')
-insert into ti_building(build_id, prompl_id, build_name) values(6,2,'Здание АБК (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(7,1,'Здание КИП (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(8,1,'Здание АТЦ (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(9,1,'Столовая Березка (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(10,1,'Здание СБ (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(11,1,'Здание АВП (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(12,1,'Здание Главного склада (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(13,1,'Здание склада ГСМ (arz)')
-insert into ti_building(build_id, prompl_id, build_name) values(15,2,'Блок-Бокс ЛИСКЦ (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(16,5,'Волгаталеком')
-insert into ti_building(build_id, prompl_id, build_name) values(17,3,'ЦПК (Лаборатория Сварки)')
-insert into ti_building(build_id, prompl_id, build_name) values(18,6,'ГРС ПЕШЕЛАНЬ')
-insert into ti_building(build_id, prompl_id, build_name) values(19,4,'Здание АБК (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(20,4,'Гараж на 10 автомобилей (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(21,4,'Здание ЭБ (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(22,4,'БЭС (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(23,4,'Здание ТЗП (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(24,4,'Здание РЭБ (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(25,4,'КПП с проходной (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(26,4,'КПП (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(27,4,'Столовая (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(28,4,'КТП АВО газа (narz)')
-insert into ti_building(build_id, prompl_id, build_name) values(29,2,'Здание ЭБ (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(30,2,'Здание РЭБ (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(31,2,'Здание ТЗП (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(32,2,'КПП с проходной (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(33,2,'КПП (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(34,2,'Гараж (luk)')
-insert into ti_building(build_id, prompl_id, build_name) values(35,2,'Столовая (luk)')
-SET IDENTITY_INSERT ti_building OFF
-go
+DELETE FROM [dbo].[ti_Places];
+GO
+DELETE FROM [dbo].[ti_Building];
+GO
+SET IDENTITY_INSERT [dbo].[ti_Building] ON;
+GO
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(1, 1, 'Здание АБК (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(2, 2, 'Пожарный БОКС (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(3, 1, 'Здание СЭБ (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(4, 2, 'Здание Связи (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(5, 3, 'ЦПК (Калинина, 25)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(6, 2, 'Здание АБК (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(7, 1, 'Здание КИП (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(8, 1, 'Здание АТЦ (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(9, 1, 'Столовая Березка (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(10, 1, 'Здание СБ (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(11, 1, 'Здание АВП (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(12, 1, 'Здание Главного склада (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(13, 1, 'Здание склада ГСМ (arz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(15, 2, 'Блок-Бокс ЛИСКЦ (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(16, 5, 'Волгаталеком');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(17, 3, 'ЦПК (Лаборатория Сварки)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(18, 6, 'ГРС ПЕШЕЛАНЬ');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(19, 4, 'Здание АБК (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(20, 4, 'Гараж на 10 автомобилей (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(21, 4, 'Здание ЭБ (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(22, 4, 'БЭС (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(23, 4, 'Здание ТЗП (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(24, 4, 'Здание РЭБ (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(25, 4, 'КПП с проходной (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(26, 4, 'КПП (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(27, 4, 'Столовая (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(28, 4, 'КТП АВО газа (narz)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(29, 2, 'Здание ЭБ (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(30, 2, 'Здание РЭБ (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(31, 2, 'Здание ТЗП (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(32, 2, 'КПП с проходной (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(33, 2, 'КПП (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(34, 2, 'Гараж (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(35, 2, 'Столовая (luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(36, 2, 'Здание ПЭБ ( luk)');
+
+INSERT INTO [dbo].[ti_Building]
+	([Build_id], [prompl_id], [Build_name])
+VALUES
+	(37, 1, 'Трасса Г/П Починки Грязовец');
+
+GO
+SET IDENTITY_INSERT [dbo].[ti_Building] OFF;
+GO
+--ALTER TABLE [tblPlaces] ADD CONSTRAINT [FK_TBLPLACE_REFERENCE_TBLBUILD] FOREIGN KEY([Build_id]) REFERENCES [ti_Building]([Build_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+--ALTER TABLE [tblCableJournal] ADD CONSTRAINT [FK_TBLCABLE_REFERENCE_TBLBUILD] FOREIGN KEY([Build_id]) REFERENCES [ti_Building]([Build_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+GO

@@ -55,6 +55,8 @@ sql_getEnlarge      = 'select -1 as mark_id, '' - Обобщение отсутствует - '' as 
 
 sql_delMark         = 'delete from ti_mark where mark_id=:mark_id';
 sql_updateMark      = 'update ti_mark set mark_name=:mark_name, enlarge_id=:enlarge_id where mark_id=:mark_id';
+sql_getOtv          = 'select * from ti_vPersonal where fil_id=dbo.ti_fnGetActiveFilial() order by f';
+
 
 
 

@@ -29,7 +29,8 @@ uses
   Vendors in 'Vendors.pas' {VendorsForm},
   Suppliers in 'Suppliers.pas' {SuppliersForm},
   EditSuppl in 'EditSuppl.pas' {EditSupplForm},
-  ADUsers in 'ADUsers.pas' {ADUsersForm};
+  ADUsers in 'ADUsers.pas' {ADUsersForm},
+  xlsrep in 'xlsrep.pas';
 
 {$R *.res}
 

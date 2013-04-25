@@ -1,8 +1,8 @@
 object DM: TDM
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Height = 619
-  Width = 641
+  Height = 821
+  Width = 792
   object ADOConnection1: TADOConnection
     LoginPrompt = False
     Left = 32
@@ -28,8 +28,8 @@ object DM: TDM
   object ADOQuery1: TADOQuery
     Connection = ADOConnection1
     Parameters = <>
-    Left = 24
-    Top = 552
+    Left = 16
+    Top = 736
   end
   object DataSourceUsers: TDataSource
     DataSet = ADOQueryUsers
@@ -44,8 +44,8 @@ object DM: TDM
   end
   object DataSource1: TDataSource
     DataSet = ADOQuery1
-    Left = 24
-    Top = 504
+    Left = 16
+    Top = 688
   end
   object ADOQueryTowns: TADOQuery
     Connection = ADOConnection1
@@ -83,8 +83,8 @@ object DM: TDM
   object ADOQueryDynamic: TADOQuery
     Connection = ADOConnection1
     Parameters = <>
-    Left = 112
-    Top = 552
+    Left = 104
+    Top = 736
   end
   object DataSourceServ: TDataSource
     DataSet = ADOQueryServ
@@ -162,5 +162,17 @@ object DM: TDM
     Parameters = <>
     Left = 360
     Top = 320
+  end
+  object DataSourcePers: TDataSource
+    DataSet = ADOQueryPers
+    Left = 32
+    Top = 376
+  end
+  object ADOQueryPers: TADOQuery
+    Connection = ADOConnection1
+    OnFilterRecord = ADOQueryPersFilterRecord
+    Parameters = <>
+    Left = 32
+    Top = 424
   end
 end
