@@ -145,6 +145,9 @@ type
     procedure Action6Execute(Sender: TObject);
     procedure UpdateFilteredText;
     procedure Action3Execute(Sender: TObject);
+    procedure ButtonGroup1Items0Click(Sender: TObject);
+    procedure ButtonGroup1Items1Click(Sender: TObject);
+    procedure ButtonGroup1Items2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -256,10 +259,25 @@ begin
   DM.ShowSupplWindow;
 end;
 
+procedure TMainForm.ButtonGroup1Items0Click(Sender: TObject);
+begin
+   DM.AddPersonal;
+end;
+
+procedure TMainForm.ButtonGroup1Items1Click(Sender: TObject);
+begin
+   DM.EditPersonal;
+end;
+
+procedure TMainForm.ButtonGroup1Items2Click(Sender: TObject);
+begin
+  DM.DelPersonal;
+end;
+
 procedure TMainForm.CategoryPanel1Collapse(Sender: TObject);
 begin
   case (sender as TCategoryPanel).Tag of
-       panUsers: DM.ClosePanelUsers;
+       panUsers: DM.ClosePanelPersonal;
   end;
 end;
 
@@ -281,9 +299,10 @@ begin
   (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Visible:=True;
 
   case ActivePanel of
-       panUsers: DM.OpenPanelUsers;
+       panUsers: DM.OpenPanelPersonal;
   end;
   RestorePanelRibbon;
+  SearchEditChange(Sender);
 end;
 
 procedure TMainForm.CheckBox1Click(Sender: TObject);
@@ -295,11 +314,7 @@ procedure TMainForm.DBGridPersDrawColumnCell(Sender: TObject; const Rect: TRect;
   DataCol: Integer; Column: TColumn; State: TGridDrawState);
 begin
   if Not VarisNull(DBGridPers.DataSource.DataSet.FieldByName('ad_id').Value)
-  then
-//    if gdSelected in state then
-//       DBGridPers.Canvas.Font.Color:=clYellow
-//     else
-       DBGridPers.Canvas.Font.Color:=clBlue;
+  then DBGridPers.Canvas.Font.Color:=clBlue;
 
   if (Not VarisNull(DBGridPers.DataSource.DataSet.FieldByName('isBlocked').Value) and
       DBGridPers.DataSource.DataSet.FieldByName('isBlocked').Value<>0) or

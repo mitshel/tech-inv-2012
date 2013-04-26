@@ -4,7 +4,7 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{34C5D2CB-BB11-4003-AB77-735DB24163B6}" Name="Учет оргтехники" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../../tech_inv_xe/PD-model/Учет оргтехники.pdm"/>
+		<Model Expanded="Yes" ID="{34C5D2CB-BB11-4003-AB77-735DB24163B6}" Loaded="No" Name="Учет оргтехники" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../../tech_inv_xe/PD-model/Учет оргтехники.pdm"/>
 		<Model Expanded="Yes" ID="{B1808F37-393C-4ECE-8D80-57662C7D5DE1}" Name="Учет оргтехники 2012" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Учет оргтехники 2012.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>

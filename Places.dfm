@@ -29,8 +29,6 @@ object PlacesForm: TPlacesForm
     Images = MainForm.ImageList16
     ShowCaptions = True
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitWidth = 653
     object ToolButton1: TToolButton
       Left = 0
       Top = 0

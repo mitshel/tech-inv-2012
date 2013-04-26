@@ -7,6 +7,8 @@ Uses System.Classes, System.SysUtils;
 const
      cRegKey = 'Software\DSSoft\ti2002\controls';
 
+     initialDT : TDateTime = 36526;
+
      panOrgtech           = 1;
      panUsers             = 2;
      panProg              = 3;
@@ -38,7 +40,7 @@ const
      acs_spr_suppl = 13;
      acs_prihod_add= 14;
      acs_obj_move  = 15;
-     acs_otv_change= 16;
+     acs_personal_change= 16;
      acs_invent    = 17;
      acs_invent_parts  = 18;
      acs_invent_po     = 19;

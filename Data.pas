@@ -122,6 +122,7 @@ type
 
     // Процедуры работы со справочником рабочих мест
     Procedure ShowPlacesWindow;
+    Function  SelectPlace : integer;
     Procedure AddPlace;
     Procedure EditPlace;
     Procedure DelPlace;
@@ -160,9 +161,11 @@ type
     Procedure LocateSuppl(suppl_name : String);
 
     // Работа с панелью пользователей
-    Procedure OpenPanelUsers;
-    Procedure ClosePanelUsers;
-
+    Procedure OpenPanelPersonal;
+    Procedure ClosePanelPersonal;
+    Procedure AddPersonal;
+    Procedure EditPersonal;
+    Procedure DelPersonal;
  end;
 
 var
@@ -174,7 +177,7 @@ implementation
 
 uses Main, Filials, Users, SysUsers, towns, Edit1Field, prompl, EditPrompl, EditBuild,
   Building, Serv, EditServ, Places, EditPlace, UTypes, Mark, EditMark, Vendors, Suppliers,
-  EditSuppl;
+  EditSuppl, AddPersonal, ADUsers;
 
 {$R *.dfm}
 
@@ -788,11 +791,15 @@ Begin
       isSelectForm:=true;
       sel_serv_id:=-1;
       sel_serv_name:='';
+      sel_Serv_cat:='';
+      sel_Serv_grp:='';
       DBGrid1.DataSource:=DataSourceServ;
       mr:=ShowModal;
       if  ModalResult=mrOk then Begin
          sel_serv_id:=ADOQueryServ['serv_id'];
          sel_serv_name:=ADOQueryServ['serv_name'];
+         sel_Serv_cat:=ADOQueryServ['serv_cat'];
+         sel_Serv_grp:=ADOQueryServ['serv_grp'];
       end;
       DBGrid1.DataSource:=nil;
   End;
@@ -990,6 +997,36 @@ End;
 Procedure TDM.LocatePlace(place_name : String);
 Begin
   ADOQueryPlaces.Locate('kab_name','%'+place_name,[loCaseInsensitive, loPartialKey]);
+End;
+
+Function TDM.SelectPlace : integer;
+var mr : integer;
+Begin
+  mr:=mrCancel;
+  result:=mr;
+  if Not pDataBaseIsOpen Then Exit;
+
+  ADOQueryPlaces.SQL.Clear;
+  ADOQueryPlaces.SQL.Add(sql_GetPlaces);
+  ADOQueryPlaces.Open;
+
+  With PlacesForm Do begin
+      isSelectForm:=True;
+      sel_place_id := -1;
+      sel_prompl_id := -1;
+      sel_place_name :='';
+      DBGrid1.DataSource:=DataSourcePlaces;
+      mr:=ShowModal;
+      if  ModalResult=mrOk then Begin
+         sel_place_id:=ADOQueryPlaces['place_id'];
+         sel_prompl_id:=ADOQueryPlaces['prompl_id'];
+         sel_place_name:=String(ADOQueryPlaces['town_name'])+', '+String(ADOQueryPlaces['prompl_name'])+', '+String(ADOQueryPlaces['Build_name'])+', Каб.№'+String(ADOQueryPlaces['Kab_n'])+', ('+String(ADOQueryPlaces['Kab_name'])+')';
+      end;
+      DBGrid1.DataSource:=nil;
+  End;
+
+  ADOQueryPlaces.Close;
+  result:=mr;
 End;
 
 Procedure TDM.ShowTypesWindow;
@@ -1299,29 +1336,6 @@ Begin
   end;
 End;
 
-procedure TDM.ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
-Var str,search : String;
-    adreg, adotkl, adnoreg : boolean;
-begin
-  Accept:=True;
-  search:=ANSIUPPERCASE(MainForm.SearchEdit.Text);
-  // Если включена кнопка фильтрации тогда выбираем значения совпадающие с SearchEdit.Text
-  if (MainForm.Action6.Checked and (search<>'')) then begin
-     Accept:=False;
-     if Assigned(DataSet.FieldByName('F')) then
-        Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('F').Value))<>0);
-     if Assigned(DataSet.FieldByName('Login')) then
-        Accept:= Accept or (POS(search, ANSIUPPERCASE(DataSet.FieldByName('Login').Value))<>0);
-  end;
-  // в любом случае применяем фильтр для Чекбоксов
-  adreg:=MainForm.CheckBox1.checked and ((DataSet.FieldByName('ad_id').Value<>NULL) and (DataSet.FieldByName('ad_id').Value<>-1));
-  adotkl:=((DataSet.FieldByName('isBlocked').Value<>NULL) or (DataSet.FieldByName('isDisable').Value<>NULL));
-  if adotkl then adreg:=False;
-  adotkl:=MainForm.CheckBox2.checked and adotkl;
-  adnoreg:=MainForm.CheckBox3.checked and ( (DataSet.FieldByName('ad_id').Value=NULL ) or (DataSet.FieldByName('ad_id').Value=-1) );
-  Accept:=Accept and (adreg or adotkl or adnoreg);
-end;
-
 Procedure TDM.EditVendor;
 Begin
   if not AccessIsGranted(acs_spr_vendor) then begin
@@ -1501,18 +1515,196 @@ Begin
   ADOQuerySuppl.Locate('suppl_name','%'+suppl_name,[loCaseInsensitive, loPartialKey]);
 End;
 
-Procedure TDM.OpenPanelUsers;
+Procedure TDM.OpenPanelPersonal;
 Begin
  ADOQueryPers.SQL.Clear;
- ADOQueryPers.SQL.Add(sql_getOtv);
+ ADOQueryPers.SQL.Add(sql_getPersonal);
  ADOQueryPers.Open;
  MainForm.DBGridPers.DataSource:=DataSourcePers;
 End;
 
-Procedure TDM.ClosePanelUsers;
+Procedure TDM.ClosePanelPersonal;
 Begin
  MainForm.DBGridPers.DataSource:=nil;
  ADOQueryPers.Close;
+End;
+
+procedure TDM.ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+Var str,search : String;
+    adreg, adotkl, adnoreg : boolean;
+begin
+  Accept:=True;
+  search:=ANSIUPPERCASE(MainForm.SearchEdit.Text);
+  // Если включена кнопка фильтрации тогда выбираем значения совпадающие с SearchEdit.Text
+  if (MainForm.Action6.Checked and (search<>'')) then begin
+     Accept:=False;
+     if Assigned(DataSet.FieldByName('F')) then
+        Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('F').Value))<>0);
+     if Assigned(DataSet.FieldByName('Login')) then
+        Accept:= Accept or (POS(search, ANSIUPPERCASE(DataSet.FieldByName('Login').Value))<>0);
+  end;
+  // в любом случае применяем фильтр для Чекбоксов
+  adreg:=MainForm.CheckBox1.checked and ((DataSet.FieldByName('ad_id').Value<>NULL) and (DataSet.FieldByName('ad_id').Value<>-1));
+  adotkl:=((DataSet.FieldByName('isBlocked').Value<>NULL) or (DataSet.FieldByName('isDisable').Value<>NULL));
+  if adotkl then adreg:=False;
+  adotkl:=MainForm.CheckBox2.checked and adotkl;
+  adnoreg:=MainForm.CheckBox3.checked and ( (DataSet.FieldByName('ad_id').Value=NULL ) or (DataSet.FieldByName('ad_id').Value=-1) );
+  Accept:=Accept and (adreg or adotkl or adnoreg);
+end;
+
+Procedure TDM.AddPersonal;
+Begin
+  if not AccessIsGranted(acs_personal_change) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with AddPersonalForm do begin
+     serv_id:=-1;
+     Prompl_id:=-1;
+     place_id:=-1;
+     Edit1.Text:='';
+     Edit2.Text:='';
+     Edit3.Text:='';
+     Edit4.Text:='';
+     Edit5.Text:='';
+     Edit6.Text:='';
+     CheckBox1.Checked:=False;
+     CheckBox2.Checked:=False;
+ //    checkbox2.OnClick:=CheckBox2Click;
+     Edit7.Text:='';
+     Edit8.Text:='';
+
+     // Данные из Active Directory
+     Edit9.Text:='';
+     Edit10.Text:='';
+     Edit11.Text:='';
+     Edit12.Text:='';
+     Edit13.Text:='';
+     Edit14.Text:='';
+     Edit15.Text:='';
+
+     DateTimePicker1.DateTime:=InitialDT;
+
+ //    ADUsersForm.sel_aduser_id:=-1;
+
+     if (ShowModal=mrOk) Then Begin
+         ADOQueryPers.Append;
+         ADOQueryPers['tab']:=Edit1.Text;
+         ADOQueryPers['f']:=Edit2.Text;
+         ADOQueryPers['i']:=Edit3.Text;
+         ADOQueryPers['o']:=Edit4.Text;
+         ADOQueryPers['dol']:=Edit5.Text;
+         ADOQueryPers['serv_id']:=Serv_id;
+         ADOQueryPers['place_id']:=place_id;
+         ADOQueryPers['ad_ved_n']:=Edit8.Text;
+
+         if  DateTimePicker1.DateTime=InitialDT then ADOQueryPers['ad_ved_date']:=NULL else ADOQueryPers['ad_ved_date']:=DateTimePicker1.DateTime;
+         if CheckBox1.Checked Then ADOQueryPers['fit']:=1 else ADOQueryPers['fit']:=0;
+
+ //        if ADUsersForm.sel_aduser_id=-1 then
+ //           ADOQuery10['ad_id']:=null
+ //        else
+ //           ADOQuery10.FieldByName('ad_id').AsInteger:=ADUsersForm.sel_aduser_id;
+         ADOQueryPers.Post;
+         ADOQueryPers.Requery;
+         ADOQueryPers.Locate('tab;f;i;o',VarArrayOf([Edit1.Text,Edit2.Text,Edit3.Text,Edit4.Text]),[]);
+     end;
+  end;
+End;
+
+Procedure TDM.EditPersonal;
+Begin
+  if not AccessIsGranted(acs_personal_change) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  with AddPersonalForm do begin
+     pers_id:=ADOQueryPers['pers_id'];
+
+     if ADOQueryPers['serv_id']<>NULL Then serv_id:=ADOQueryPers['serv_id'] else serv_id:=-1;
+     if ADOQueryPers['serv_grp']<>NULL Then serv_grp:=ADOQueryPers['serv_grp'] else serv_grp:='-';
+     if ADOQueryPers['serv_cat']<>NULL Then serv_cat:=ADOQueryPers['serv_cat'] else serv_cat:='-';
+     if ADOQueryPers['place_id']<>NULL Then place_id:=ADOQueryPers['place_id'] else place_id:=-1;
+     if ADOQueryPers['prompl_id']<>NULL Then prompl_id:=ADOQueryPers['prompl_id'] else prompl_id:=-1;
+     if ADOQueryPers['tab']<>NULL Then Edit1.Text:=ADOQueryPers['tab'] else Edit1.Text:='';
+     if ADOQueryPers['f']<>NULL Then Edit2.Text:=ADOQueryPers['f'] else Edit2.Text:='';
+     if ADOQueryPers['i']<>NULL Then Edit3.Text:=ADOQueryPers['i'] else Edit3.Text:='';
+     if ADOQueryPers['o']<>NULL Then Edit4.Text:=ADOQueryPers['o'] else Edit4.Text:='';
+     if ADOQueryPers['dol']<>NULL Then Edit5.Text:=ADOQueryPers['dol'] else Edit5.Text:='';
+     if ADOQueryPers['serv_name']<>NULL Then Edit6.Text:=ADOQueryPers['Serv_name'] else Edit6.Text:='';
+     Edit7.Text:=String(ADOQueryPers['town_name'])+', '+String(ADOQueryPers['prompl_name'])+', '+String(ADOQueryPers['Build_name'])+', Каб.№'+String(ADOQueryPers['Kab_n'])+', ('+String(ADOQueryPers['Kab_name'])+')';
+     if ADOQueryPers['ad_ved_n']<> NULL Then Edit8.Text:=ADOQueryPers['ad_ved_n'] else Edit8.Text:='';
+     if ADOQueryPers['ad_ved_date']<> NULL Then DateTimePicker1.DateTime:=ADOQueryPers['ad_ved_date'] else DateTimePicker1.DateTime:=InitialDT;
+
+     checkBox1.Checked:=(ADOQueryPers['fit']=1);
+     checkBox2.Checked:=not (ADOQueryPers['ad_id']=null);
+//     checkbox2.OnClick:=CheckBox2Click;
+
+     if ADOQueryPers['sn']<> NULL Then Edit10.Text:=ADOQueryPers['sn'] else Edit10.Text:='';
+     if ADOQueryPers['GivenName']<> NULL Then Edit11.Text:=ADOQueryPers['GivenName'] else Edit11.Text:='';
+     if ADOQueryPers['initials']<> NULL Then Edit12.Text:=ADOQueryPers['initials'] else Edit12.Text:='';
+     if ADOQueryPers['Login']<> NULL Then Edit9.Text:=ADOQueryPers['Login'] else Edit9.Text:='';
+     if ADOQueryPers['Title']<> NULL Then Edit13.Text:=ADOQueryPers['Title'] else Edit13.Text:='';
+     if ADOQueryPers['Department']<> NULL Then Edit14.Text:=ADOQueryPers['Department'] else Edit14.Text:='';
+     if ADOQueryPers['TelephoneNumber']<> NULL Then Edit15.Text:=ADOQueryPers['TelephoneNumber'] else Edit15.Text:='';
+
+//     if ADOQueryPers['ad_id']<>NULL Then ADUsersForm.sel_aduser_id:=ADOQueryPers0['ad_id'] else ADUsersForm.sel_aduser_id:=-1;
+
+     if (ShowModal=mrOk) Then Begin
+         ADOQueryPers.Edit;
+         ADOQueryPers['tab']:=Edit1.Text;
+         ADOQueryPers['f']:=Edit2.Text;
+         ADOQueryPers['i']:=Edit3.Text;
+         ADOQueryPers['o']:=Edit4.Text;
+         ADOQueryPers['dol']:=Edit5.Text;
+         ADOQueryPers['serv_id']:=Serv_id;
+         ADOQueryPers['place_id']:=place_id;
+
+         if CheckBox1.Checked Then ADOQueryPers['fit']:=1 else ADOQueryPers['fit']:=0;
+
+         ADOQueryPers['ad_ved_n']:=Edit8.Text;
+         if  DateTimePicker1.DateTime=InitialDT then ADOQueryPers['ad_ved_date']:=NULL else ADOQueryPers['ad_ved_date']:=DateTimePicker1.DateTime;
+
+//         if ADUsersForm.sel_aduser_id=-1 then
+//            ADOQueryPers.FieldByName('ad_id').AsVariant:=NULL
+//         else
+//            ADOQueryPers.FieldByName('ad_id').AsInteger:=ADUsersForm.sel_aduser_id;
+
+         ADOQueryPers.Post;
+         ADOQueryPers.Requery;
+         ADOQueryPers.Locate('pers_id',pers_id,[]);
+     end;
+  end;
+End;
+
+Procedure TDM.DelPersonal;
+Var pers_id : integer;
+    bm    : TBookmark;
+Begin
+  if not AccessIsGranted(acs_personal_change) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  if Not ADOQueryPers.Eof Then
+  if MessageDlg('Удалить запись?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+  then begin
+     bm:=ADOQueryPers.GetBookmark;
+     pers_id:=ADOQueryPers['pers_id'];
+     try
+       ADOQueryDynamic.SQL.Clear;
+       ADOQueryDynamic.SQL.Add(sql_delPersonal);
+       ADOQueryDynamic.Parameters.ParamByName('pers_id').Value:=pers_id;
+       ADOQueryDynamic.Prepared:=True;
+       ADOQueryDynamic.ExecSQL;
+       ADOQueryPers.Requery();
+        try ADOQueryPers.GotoBookmark(bm); except end;
+     finally
+        ADOQueryPers.FreeBookmark(bm);
+     end;
+  end;
 End;
 
 Procedure TDM.PanelSearch(SearchText : String; panel : Integer);

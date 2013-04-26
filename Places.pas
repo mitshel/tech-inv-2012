@@ -38,6 +38,9 @@ type
     { Private declarations }
   public
     isSelectForm : boolean;
+    sel_place_id : Integer;
+    sel_prompl_id : Integer;
+    sel_place_name : String;
     { Public declarations }
   end;
 

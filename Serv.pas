@@ -40,6 +40,8 @@ type
     isSelectForm : boolean;
     sel_serv_id : integer;
     sel_serv_name : string;
+    sel_serv_cat  : string;
+    sel_serv_grp  : string;
     { Public declarations }
   end;
 
