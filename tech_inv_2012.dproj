@@ -179,6 +179,10 @@
 				<FormType>dfm</FormType>
 			</DCCReference>
 			<DCCReference Include="xlsrep.pas"/>
+			<DCCReference Include="AddPersonal.pas">
+				<Form>AddPersonalForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

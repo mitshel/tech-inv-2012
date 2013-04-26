@@ -183,6 +183,7 @@ procedure TMainForm.Action6Execute(Sender: TObject);
 begin
   Action6.Checked:=not Action6.Checked;
   UpdateFilteredText;
+  SearchEditChange(Sender);
 end;
 
 procedure TMainForm.action_admin_showhintsExecute(Sender: TObject);
@@ -287,7 +288,7 @@ end;
 
 procedure TMainForm.CheckBox1Click(Sender: TObject);
 begin
-  DM.PersonalPanelFilter(checkBox1.Checked,checkBox2.Checked,checkBox3.Checked)
+    DM.PanelFilter(ActivePanel);
 end;
 
 procedure TMainForm.DBGridPersDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -402,7 +403,7 @@ end;
 
 Procedure TMainForm.UpdateFilteredText;
 Begin
-  if Action6.Checked then Action6.Caption:='Фильтрация включена' else Action6.Caption:='Фильтрация выключена'
+  if Action6.Checked then Action6.Caption:='Фильтрация включена' else Action6.Caption:='Фильтрация выключена';
 End;
 
 
@@ -419,7 +420,7 @@ End;
 procedure TMainForm.SearchEditChange(Sender: TObject);
 begin
    if Action6.Checked
-   then DM.PanelFilter(SearchEdit.Text,ActivePanel)
+   then DM.PanelFilter(ActivePanel)
    else DM.PanelSearch(SearchEdit.Text,ActivePanel);
 end;
 

@@ -30,7 +30,8 @@ uses
   Suppliers in 'Suppliers.pas' {SuppliersForm},
   EditSuppl in 'EditSuppl.pas' {EditSupplForm},
   ADUsers in 'ADUsers.pas' {ADUsersForm},
-  xlsrep in 'xlsrep.pas';
+  xlsrep in 'xlsrep.pas',
+  AddPersonal in 'AddPersonal.pas' {AddPersonalForm};
 
 {$R *.res}
 
@@ -59,5 +60,6 @@ begin
   Application.CreateForm(TSuppliersForm, SuppliersForm);
   Application.CreateForm(TEditSupplForm, EditSupplForm);
   Application.CreateForm(TADUsersForm, ADUsersForm);
+  Application.CreateForm(TAddPersonalForm, AddPersonalForm);
   Application.Run;
 end.

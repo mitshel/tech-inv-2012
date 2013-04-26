@@ -75,7 +75,7 @@ type
 
     // Процедуры поиска и фильтрации
     Procedure PanelSearch(SearchText : String; panel : Integer);
-    Procedure PanelFilter(SearchText : String; panel : Integer);
+    Procedure PanelFilter(panel : Integer);
 
     //Настройка пользователей программы
     Procedure ShowUsers;
@@ -162,7 +162,6 @@ type
     // Работа с панелью пользователей
     Procedure OpenPanelUsers;
     Procedure ClosePanelUsers;
-    Procedure PersonalPanelFilter(ADReg, ADDisabled, ADNoreg : boolean);
 
  end;
 
@@ -371,7 +370,7 @@ With UsersForm do begin
 
   for i:=1 to MaxRightCheckBox do
       CheckListBox1.Checked[i-1]:=(access[i]='1');
-end;
+  end;
 end;
 
 procedure TDM.UsersListBeforeScroll(DataSet: TDataSet);
@@ -420,6 +419,7 @@ Begin
       DBGrid1.DataSource:=nil;
   End;
   ADOQueryTowns.Close;
+
 End;
 
 Function TDM.SelectTown : integer;
@@ -1300,20 +1300,26 @@ Begin
 End;
 
 procedure TDM.ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
-Var fam,search : String;
+Var str,search : String;
+    adreg, adotkl, adnoreg : boolean;
 begin
   Accept:=True;
-  // Если включена кнопка фильтрации токда выбираем значения совпадающие с SearchEdit.Text
-  if MainForm.Action6.Checked then begin
+  search:=ANSIUPPERCASE(MainForm.SearchEdit.Text);
+  // Если включена кнопка фильтрации тогда выбираем значения совпадающие с SearchEdit.Text
+  if (MainForm.Action6.Checked and (search<>'')) then begin
      Accept:=False;
-     search:=UPPERCASE(MainForm.SearchEdit.Text);
-     if Assigned(DataSet.FieldByName('F')) then  begin
-        fam:= UPPERCASE(DataSet.FieldByName('F').Value);
-        Accept:= Accept or (Pos(search,fam)<>0);
-     end;
-//      if Assigned(DataSet.FieldByName('F')) then
-//       Accept:= Accept or (strpos(DataSet.FieldByName('Login').Value,MainForm.SearchEdit.Text)<>NIL);
+     if Assigned(DataSet.FieldByName('F')) then
+        Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('F').Value))<>0);
+     if Assigned(DataSet.FieldByName('Login')) then
+        Accept:= Accept or (POS(search, ANSIUPPERCASE(DataSet.FieldByName('Login').Value))<>0);
   end;
+  // в любом случае применяем фильтр для Чекбоксов
+  adreg:=MainForm.CheckBox1.checked and ((DataSet.FieldByName('ad_id').Value<>NULL) and (DataSet.FieldByName('ad_id').Value<>-1));
+  adotkl:=((DataSet.FieldByName('isBlocked').Value<>NULL) or (DataSet.FieldByName('isDisable').Value<>NULL));
+  if adotkl then adreg:=False;
+  adotkl:=MainForm.CheckBox2.checked and adotkl;
+  adnoreg:=MainForm.CheckBox3.checked and ( (DataSet.FieldByName('ad_id').Value=NULL ) or (DataSet.FieldByName('ad_id').Value=-1) );
+  Accept:=Accept and (adreg or adotkl or adnoreg);
 end;
 
 Procedure TDM.EditVendor;
@@ -1347,6 +1353,7 @@ Begin
   then begin
      ADOQueryVendor.Delete;
   end;
+
 End;
 
 Procedure TDM.LocateVendor(vendor_name : String);
@@ -1508,43 +1515,6 @@ Begin
  ADOQueryPers.Close;
 End;
 
-Procedure TDM.PersonalPanelFilter(ADReg, ADDisabled, ADNoreg : boolean);
-var fstr : string;
-    f_or  : boolean;
-Begin
-  fstr:='([ad_id]=-1';
-  f_or:=true;
-
-  if ADReg then begin
-     if f_or then fstr:=fstr+') or (';
-     fstr:=fstr+'[ad_id]<>NULL';
-     if not ADDisabled then begin
-         fstr:=fstr+' and [isBlocked]=NULL and [isDisable]=NULL';
-     end
-  end;
-
-  if ADDisabled then begin
-     if f_or then fstr:=fstr+') or (';
-     fstr:=fstr+'[ad_id]<>NULL and [isBlocked]<>NULL';
-  end;
-
-  if ADDisabled then begin
-     if f_or then fstr:=fstr+') or (';
-     fstr:=fstr+'[ad_id]<>NULL and [isDisable]<>NULL';
-  end;
-
-  if ADNoreg then begin
-     if f_or then fstr:=fstr+') or (';
-     fstr:=fstr+'[ad_id]=NULL';
-  end;
-
-  if f_or then fstr:=fstr+')';
-
-  ADOQueryPers.Filter:=fstr;
-  ADOQueryPers.Filtered:=true;
-//  OtvForm.StatusBar1.Panels[0].Text:='Записей:'+intToStr(DM.ADOQuery10.RecordCount);
-End;
-
 Procedure TDM.PanelSearch(SearchText : String; panel : Integer);
 Begin
   case Panel of
@@ -1552,13 +1522,12 @@ Begin
   end;
 End;
 
-Procedure TDM.PanelFilter(SearchText : String; panel : Integer);
+Procedure TDM.PanelFilter(panel : Integer);
 Begin
   case Panel of
-      panUsers: ADOQueryPers.Filtered:=true;
+      panUsers: Begin ADOQueryPers.Filtered:=False; ADOQueryPers.Filtered:=true; End;
   end;
 End;
-
 
 end.
 
