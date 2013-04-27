@@ -148,6 +148,7 @@ type
     procedure ButtonGroup1Items0Click(Sender: TObject);
     procedure ButtonGroup1Items1Click(Sender: TObject);
     procedure ButtonGroup1Items2Click(Sender: TObject);
+    procedure ButtonGroup1Items3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -163,7 +164,7 @@ var
   MainForm: TMainForm;
 
 implementation
-Uses Data;
+Uses Data, ADUsers;
 
 {$R *.dfm}
 
@@ -274,6 +275,11 @@ begin
   DM.DelPersonal;
 end;
 
+procedure TMainForm.ButtonGroup1Items3Click(Sender: TObject);
+begin
+  DM.ShowADUsersWindow;
+end;
+
 procedure TMainForm.CategoryPanel1Collapse(Sender: TObject);
 begin
   case (sender as TCategoryPanel).Tag of
@@ -337,6 +343,8 @@ begin
     RootKey:=HKEY_CURRENT_USER;
     if OpenKey(cRegKey,True) then begin
       SaveDBGridParam(MainForm.DBGridPers,reg);
+      SaveFormParametres(ADUsersForm,reg);
+      SaveDBGridParam(ADUsersForm.DBGrid1,reg);
     end;
   Finally
     Free;
@@ -373,6 +381,8 @@ begin
     RootKey:=HKEY_CURRENT_USER;
     if OpenKey(cRegKey,True) then begin
       RestoreDBGridParam(MainForm.DBGridPers,reg);
+      RestoreFormParametres(ADUsersForm,reg,True);
+      RestoreDBGridParam(ADUsersForm.DBGrid1,reg);
     end;
   Finally
     Free;

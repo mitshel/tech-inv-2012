@@ -1,0 +1,107 @@
+unit ADUsers;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls,
+  Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.ToolWin;
+
+type
+  TADUsersForm = class(TForm)
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton8: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton7: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton9: TToolButton;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Edit1: TEdit;
+    DBGrid1: TDBGrid;
+    CheckBox1: TCheckBox;
+    procedure ToolButton4Click(Sender: TObject);
+    procedure ToolButton5Click(Sender: TObject);
+    procedure ToolButton1Click(Sender: TObject);
+    procedure ToolButton6Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure Edit1Change(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    isSelectForm : Boolean;
+    sel_aduser_id : integer;
+    sel_Login     : String;
+    sel_sn        : String;
+    sel_GivenName : String;
+    sel_initials  : String;
+    sel_title     : String;
+    sel_Department: String;
+    sel_tel       : String;
+  end;
+
+var
+  ADUsersForm: TADUsersForm;
+
+implementation
+Uses Data;
+
+{$R *.dfm}
+
+procedure TADUsersForm.DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+  DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+
+  if Not VarisNull(DBGrid1.DataSource.DataSet.FieldByName('isBlocked').Value) and
+     DBGrid1.DataSource.DataSet.FieldByName('isBlocked').Value<>0
+     then DBGrid1.Canvas.Font.Color:=clRed;
+
+  if Not VarisNull(DBGrid1.DataSource.DataSet.FieldByName('isDisable').Value) and
+     DBGrid1.DataSource.DataSet.FieldByName('isDisable').Value<>0
+     then
+     if gdSelected in state then
+       DBGrid1.Canvas.Font.Color:=clYellow
+     else
+       DBGrid1.Canvas.Font.Color:=clBlue;
+
+  DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  DBGrid1.Canvas.Font.Style:=[];
+end;
+
+procedure TADUsersForm.Edit1Change(Sender: TObject);
+begin
+  DM.LocateADUsers(Edit1.Text);
+end;
+
+procedure TADUsersForm.FormShow(Sender: TObject);
+begin
+   ToolButton4.Visible:=isSelectForm;
+   ToolButton5.Visible:=isSelectForm;
+end;
+
+procedure TADUsersForm.ToolButton1Click(Sender: TObject);
+begin
+  DM.ADRefresh;
+end;
+
+procedure TADUsersForm.ToolButton4Click(Sender: TObject);
+begin
+  modalResult:=mrOk;
+end;
+
+procedure TADUsersForm.ToolButton5Click(Sender: TObject);
+begin
+  ModalResult:=mrCancel;
+end;
+
+procedure TADUsersForm.ToolButton6Click(Sender: TObject);
+begin
+  Close;
+end;
+
+end.

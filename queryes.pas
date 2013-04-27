@@ -57,6 +57,8 @@ sql_delMark         = 'delete from ti_mark where mark_id=:mark_id';
 sql_updateMark      = 'update ti_mark set mark_name=:mark_name, enlarge_id=:enlarge_id where mark_id=:mark_id';
 sql_getPersonal     = 'select * from ti_vPersonal where fil_id=dbo.ti_fnGetActiveFilial() order by f';
 sql_delPersonal     = 'delete from ti_Personal where pers_id=:pers_id';
+sql_getADUSers      = 'select * from ti_ADUsers where isdeleted is null order by sn';
+sql_getADUSers2     = 'select * from ti_ADUSers a where not exists (select aduser_id from ti_personal b where a.aduser_id=b.aduser_id) and isdeleted is null';
 
 implementation
 

@@ -54,6 +54,9 @@ type
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure CheckBox2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -70,7 +73,7 @@ var
 
 implementation
 
-Uses Data, Serv, Places;
+Uses Data, Serv, Places, ADUsers;
 
 {$R *.dfm}
 
@@ -93,6 +96,20 @@ begin
   end;
 end;
 
+procedure TAddPersonalForm.Button3Click(Sender: TObject);
+begin
+  if (Edit2.Text='') or (Edit3.Text='') or (Edit4.Text='') or (Edit5.Text='') or (Edit6.Text='') or (Edit7.Text='') or (Prompl_Id<0)
+  Then MessageDlg('Внимание: Не все данные заполнены!!!',mtInformation,[mbOk],0)
+  Else DM.AddADUser;
+end;
+
+procedure TAddPersonalForm.Button4Click(Sender: TObject);
+begin
+  if (Edit2.Text='') or (Edit3.Text='') or (Edit4.Text='') or (Edit5.Text='') or (Edit6.Text='') or (Edit7.Text='') or (Prompl_Id<0)
+  Then MessageDlg('Внимание: Не все данные заполнены!!!',mtInformation,[mbOk],0)
+  Else DM.UpdateADUser;
+end;
+
 procedure TAddPersonalForm.Button5Click(Sender: TObject);
 begin
   if CheckBox2.Checked Then Begin
@@ -103,6 +120,26 @@ begin
   End
   else MessageDlg('Внимание: Нет информации о регистрации пользователя в AD!!!',mtInformation,[mbOk],0);
 end;
+
+procedure TAddPersonalForm.CheckBox2Click(Sender: TObject);
+Var is_reg : boolean;
+begin
+  if checkbox2.checked then
+      is_reg:=DM.RegisterADUser
+  else is_reg:=Not DM.UnRegisterADUser;
+  checkbox2.OnClick:=nil;
+  checkbox2.checked:=is_reg;
+  checkbox2.OnClick:=CheckBox2Click;
+  Edit9.Text:=ADUsersForm.sel_Login;
+  Edit10.Text:=ADUsersForm.sel_sn;
+  Edit11.Text:=ADUsersForm.sel_GivenName;
+  Edit12.Text:=ADUsersForm.sel_initials;
+  Edit13.Text:=ADUsersForm.sel_title;
+  Edit14.Text:=ADUsersForm.sel_Department;
+  Edit15.Text:=ADUsersForm.sel_tel;
+//  Button2.Enabled:= Not CheckBox2.Checked;
+end;
+
 
 procedure TAddPersonalForm.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);

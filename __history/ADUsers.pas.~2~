@@ -1,0 +1,33 @@
+unit ADUsers;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TADUsersForm = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    isSelectForm : Boolean;
+    sel_aduser_id : integer;
+    sel_Login     : String;
+    sel_sn        : String;
+    sel_GivenName : String;
+    sel_initials  : String;
+    sel_title     : String;
+    sel_Department: String;
+    sel_tel       : String;
+  end;
+
+var
+  ADUsersForm: TADUsersForm;
+
+implementation
+
+{$R *.dfm}
+
+end.

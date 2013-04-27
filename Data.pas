@@ -57,6 +57,8 @@ type
     ADOQuerySuppl: TADOQuery;
     DataSourcePers: TDataSource;
     ADOQueryPers: TADOQuery;
+    DataSourceADUSers: TDataSource;
+    ADOQueryADUsers: TADOQuery;
     procedure DataModuleCreate(Sender: TObject);
     procedure ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
   private
@@ -166,6 +168,18 @@ type
     Procedure AddPersonal;
     Procedure EditPersonal;
     Procedure DelPersonal;
+
+    // Работа с Окном ActiveDirectory
+    Function RegisterADUser : Boolean;
+    Function UnRegisterADUser : Boolean;
+    Procedure ShowADUsersWindow;
+    Procedure ReloadADUSers;
+    Procedure ADRefresh;
+    Function SelectADUser(f : string) : Boolean;
+    Procedure LocateADUsers(strSearch : String);
+    Procedure AddADUser;
+    Procedure UpdateADUser;
+
  end;
 
 var
@@ -1560,6 +1574,7 @@ Begin
   end;
 
   with AddPersonalForm do begin
+     Caption:='Добавить пользователя ИУС';
      serv_id:=-1;
      Prompl_id:=-1;
      place_id:=-1;
@@ -1570,8 +1585,9 @@ Begin
      Edit5.Text:='';
      Edit6.Text:='';
      CheckBox1.Checked:=False;
+     checkbox2.OnClick:=nil;
      CheckBox2.Checked:=False;
- //    checkbox2.OnClick:=CheckBox2Click;
+     checkbox2.OnClick:=CheckBox2Click;
      Edit7.Text:='';
      Edit8.Text:='';
 
@@ -1586,7 +1602,7 @@ Begin
 
      DateTimePicker1.DateTime:=InitialDT;
 
- //    ADUsersForm.sel_aduser_id:=-1;
+     ADUsersForm.sel_aduser_id:=-1;
 
      if (ShowModal=mrOk) Then Begin
          ADOQueryPers.Append;
@@ -1602,10 +1618,10 @@ Begin
          if  DateTimePicker1.DateTime=InitialDT then ADOQueryPers['ad_ved_date']:=NULL else ADOQueryPers['ad_ved_date']:=DateTimePicker1.DateTime;
          if CheckBox1.Checked Then ADOQueryPers['fit']:=1 else ADOQueryPers['fit']:=0;
 
- //        if ADUsersForm.sel_aduser_id=-1 then
- //           ADOQuery10['ad_id']:=null
- //        else
- //           ADOQuery10.FieldByName('ad_id').AsInteger:=ADUsersForm.sel_aduser_id;
+         if ADUsersForm.sel_aduser_id=-1 then
+            ADOQueryPers['ad_id']:=null
+         else
+            ADOQueryPers.FieldByName('ad_id').AsInteger:=ADUsersForm.sel_aduser_id;
          ADOQueryPers.Post;
          ADOQueryPers.Requery;
          ADOQueryPers.Locate('tab;f;i;o',VarArrayOf([Edit1.Text,Edit2.Text,Edit3.Text,Edit4.Text]),[]);
@@ -1621,6 +1637,7 @@ Begin
   end;
 
   with AddPersonalForm do begin
+     Caption:='Изменить пользователя ИУС';
      pers_id:=ADOQueryPers['pers_id'];
 
      if ADOQueryPers['serv_id']<>NULL Then serv_id:=ADOQueryPers['serv_id'] else serv_id:=-1;
@@ -1639,8 +1656,9 @@ Begin
      if ADOQueryPers['ad_ved_date']<> NULL Then DateTimePicker1.DateTime:=ADOQueryPers['ad_ved_date'] else DateTimePicker1.DateTime:=InitialDT;
 
      checkBox1.Checked:=(ADOQueryPers['fit']=1);
+     checkbox2.OnClick:=nil;
      checkBox2.Checked:=not (ADOQueryPers['ad_id']=null);
-//     checkbox2.OnClick:=CheckBox2Click;
+     checkbox2.OnClick:=CheckBox2Click;
 
      if ADOQueryPers['sn']<> NULL Then Edit10.Text:=ADOQueryPers['sn'] else Edit10.Text:='';
      if ADOQueryPers['GivenName']<> NULL Then Edit11.Text:=ADOQueryPers['GivenName'] else Edit11.Text:='';
@@ -1650,7 +1668,7 @@ Begin
      if ADOQueryPers['Department']<> NULL Then Edit14.Text:=ADOQueryPers['Department'] else Edit14.Text:='';
      if ADOQueryPers['TelephoneNumber']<> NULL Then Edit15.Text:=ADOQueryPers['TelephoneNumber'] else Edit15.Text:='';
 
-//     if ADOQueryPers['ad_id']<>NULL Then ADUsersForm.sel_aduser_id:=ADOQueryPers0['ad_id'] else ADUsersForm.sel_aduser_id:=-1;
+     if ADOQueryPers['ad_id']<>NULL Then ADUsersForm.sel_aduser_id:=ADOQueryPers['ad_id'] else ADUsersForm.sel_aduser_id:=-1;
 
      if (ShowModal=mrOk) Then Begin
          ADOQueryPers.Edit;
@@ -1667,10 +1685,10 @@ Begin
          ADOQueryPers['ad_ved_n']:=Edit8.Text;
          if  DateTimePicker1.DateTime=InitialDT then ADOQueryPers['ad_ved_date']:=NULL else ADOQueryPers['ad_ved_date']:=DateTimePicker1.DateTime;
 
-//         if ADUsersForm.sel_aduser_id=-1 then
-//            ADOQueryPers.FieldByName('ad_id').AsVariant:=NULL
-//         else
-//            ADOQueryPers.FieldByName('ad_id').AsInteger:=ADUsersForm.sel_aduser_id;
+         if ADUsersForm.sel_aduser_id=-1 then
+            ADOQueryPers.FieldByName('ad_id').AsVariant:=NULL
+         else
+            ADOQueryPers.FieldByName('ad_id').AsInteger:=ADUsersForm.sel_aduser_id;
 
          ADOQueryPers.Post;
          ADOQueryPers.Requery;
@@ -1707,10 +1725,147 @@ Begin
   end;
 End;
 
+Function TDM.RegisterADUser : boolean;
+Var mr : boolean;
+Begin
+  With ADUsersForm do begin
+       sel_aduser_id:=-1;
+       sel_Login:='';
+       sel_sn:='';
+       sel_GivenName:='';
+       sel_initials:='';
+       sel_title:='';
+       sel_Department:='';
+       sel_tel:='';
+  end;
+  mr:=SelectADUser(ADOQueryPers['f']);
+  Result:=mr;
+End;
+
+Function TDM.UnRegisterADUser : Boolean;
+Var mr : boolean;
+Begin
+  mr:=(MessageDlg('Снять информацию о регистрации в Active Directory?',mtConfirmation,[mbYes, mbNo],0)=mrYes);
+
+  if mr then
+  With ADUSersForm do begin
+       sel_aduser_id:=-1;
+       sel_Login:='';
+       sel_sn:='';
+       sel_GivenName:='';
+       sel_initials:='';
+       sel_title:='';
+       sel_Department:='';
+       sel_tel:='';
+  end;
+
+  Result:=mr;
+End;
+
+Procedure TDM.ADRefresh;
+var ADOsp : TADOStoredProc;
+    bm : TBookmark;
+Begin
+//  if (ActiveUser.s_access and (1 shl acs_adrefresh)) = 0 then begin
+//    MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+//    exit;
+//  end;
+//  if MessageDlg('Обновить данные Active Directory?',mtConfirmation,[mbYes, mbNo],0)=mrYes
+//  then begin
+//    bm:=ADOQuery13.GetBookmark;
+//  try
+//    ADOsp:=TADOStoredProc.Create(nil);
+//    ADOsp.Connection:=ADOConnection1;
+//    ADOsp.ProcedureName:=sp_ADRefresh;
+//    ADOsp.Prepared:=True;
+//    ADOsp.ExecProc;
+//    ADOsp.Free;
+//    ADOQuery13.Requery;
+//    try ADOQuery13.GotoBookmark(bm); except end;
+//   finally
+//    ADOQuery13.FreeBookmark(bm);
+//   end;
+//  end;
+End;
+
+Procedure TDM.ShowADUsersWindow;
+Var sql : String;
+Begin
+ ADOQueryADUsers.SQL.Clear;
+ if ADUSersForm.CheckBox1.Checked
+ Then sql:=sql_getADUsers2 else sql:=sql_getADUsers;
+ ADOQueryADUsers.SQL.Add(sql);
+ ADOQueryADUsers.Open;
+ With ADUsersForm Do begin
+      isSelectForm:=False;
+      DBGrid1.DataSource:=DataSourceADUsers;
+      ShowModal;
+      DBGrid1.DataSource:=nil;
+ End;
+ ADOQueryADUsers.Close;
+End;
+
+Procedure TDM.ReloadADUsers;
+Var sql : String;
+Begin
+ if Not pDatabaseIsOpen Then Exit;
+ ADOQueryADUsers.Close;
+ ADOQueryADUsers.SQL.Clear;
+ if ADUSersForm.CheckBox1.Checked
+ Then sql:=sql_getADUsers2 else sql:=sql_getADUsers;
+ ADOQueryADUsers.SQL.Add(sql);
+ ADOQueryADUsers.Open;
+End;
+
+Function TDM.SelectADUser(f : string) : Boolean;
+var mr : Boolean;
+    sql: String;
+Begin
+ ADOQueryADUsers.SQL.Clear;
+ if ADUsersForm.CheckBox1.Checked
+ Then sql:=sql_getADUsers2 else sql:=sql_getADUsers;
+ ADOQueryADUsers.SQL.Add(sql);
+ ADOQueryADUsers.Open;
+ DM.ADOQueryADUsers.Locate('sn',f,[loCaseInsensitive, loPartialKey]);
+ With ADUsersForm Do begin
+      isSelectForm:=True;
+      DBGrid1.DataSource:=DataSourceADUsers;
+       mr:=(ShowModal=mrOk);
+       if mr Then begin
+          sel_aduser_id:=ADOQueryADUsers['aduser_id'];
+          sel_Login:=ADOQueryADUsers['Login'];
+          sel_sn:=ADOQueryADUsers['sn'];
+          sel_GivenName:=ADOQueryADUsers['GivenName'];
+          sel_initials:=ADOQueryADUsers['initials'];
+          sel_title:=ADOQueryADUsers['title'];
+          sel_Department:=ADOQueryADUsers['Department'];
+          sel_tel:=ADOQueryADUsers['telephoneNumber'];
+         end;
+      DBGrid1.DataSource:=nil;
+ End;
+ ADOQueryADUsers.Close;
+ Result:=mr;
+End;
+
+Procedure TDM.LocateADUsers(strSearch : String);
+Begin
+  ADOQueryADUsers.Locate('Login','%'+strSearch,[loCaseInsensitive, loPartialKey]);
+End;
+
+Procedure TDM.AddADUser;
+Begin
+//
+End;
+
+Procedure TDM.UpdateADUser;
+Begin
+//
+End;
+
 Procedure TDM.PanelSearch(SearchText : String; panel : Integer);
 Begin
   case Panel of
-      panUsers: ADOQueryPers.Locate('f',SearchText,[loCaseInsensitive, loPartialKey]);
+      panUsers: ADOQueryPers.Locate('f','%'+SearchText,[loCaseInsensitive, loPartialKey]);
   end;
 End;
 
