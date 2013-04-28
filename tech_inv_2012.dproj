@@ -183,6 +183,9 @@
 				<Form>AddPersonalForm</Form>
 				<FormType>dfm</FormType>
 			</DCCReference>
+			<DCCReference Include="RepMan\RePMngU.pas">
+				<Form>RepMNG</Form>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>

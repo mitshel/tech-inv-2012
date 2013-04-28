@@ -31,7 +31,8 @@ uses
   EditSuppl in 'EditSuppl.pas' {EditSupplForm},
   ADUsers in 'ADUsers.pas' {ADUsersForm},
   xlsrep in 'xlsrep.pas',
-  AddPersonal in 'AddPersonal.pas' {AddPersonalForm};
+  AddPersonal in 'AddPersonal.pas' {AddPersonalForm},
+  RePMngU in 'RepMan\RePMngU.pas' {RepMNG};
 
 {$R *.res}
 
@@ -61,5 +62,6 @@ begin
   Application.CreateForm(TEditSupplForm, EditSupplForm);
   Application.CreateForm(TADUsersForm, ADUsersForm);
   Application.CreateForm(TAddPersonalForm, AddPersonalForm);
+  Application.CreateForm(TRepMNG, RepMNG);
   Application.Run;
 end.

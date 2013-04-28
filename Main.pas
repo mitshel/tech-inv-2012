@@ -149,6 +149,7 @@ type
     procedure ButtonGroup1Items1Click(Sender: TObject);
     procedure ButtonGroup1Items2Click(Sender: TObject);
     procedure ButtonGroup1Items3Click(Sender: TObject);
+    procedure Action5Execute(Sender: TObject);
   private
     { Private declarations }
   public
@@ -164,7 +165,7 @@ var
   MainForm: TMainForm;
 
 implementation
-Uses Data, ADUsers;
+Uses Data, ADUsers, RepMngU;
 
 {$R *.dfm}
 
@@ -181,6 +182,13 @@ end;
 procedure TMainForm.Action3Execute(Sender: TObject);
 begin
    Export2Excel;
+end;
+
+procedure TMainForm.Action5Execute(Sender: TObject);
+begin
+case ActivePanel of
+   panUsers:  DOREPORT(1,ActivePanel,DM.ADOQueryPers,nil,nil,nil,nil,nil)
+end;
 end;
 
 procedure TMainForm.Action6Execute(Sender: TObject);
