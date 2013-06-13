@@ -1,0 +1,32 @@
+ALTER TABLE ti_prompl DROP CONSTRAINT FK_TI_PROMP_REFERENCE_TI_FILIA;
+ALTER TABLE ti_serv DROP CONSTRAINT FK_TI_SERV_REFERENCE_TI_FILIA;
+ALTER TABLE ti_suppliers DROP CONSTRAINT FK_TI_SUPPL_REFERENCE_TI_FILIA;
+ALTER TABLE ti_towns DROP CONSTRAINT FK_TI_TOWNS_REFERENCE_TI_FILIA;
+ALTER TABLE ti_objects DROP CONSTRAINT FK_TI_OBJEC_REFERENCE_TI_FILIA;
+
+GO
+DELETE FROM [dbo].[ti_filials];
+GO
+INSERT INTO [dbo].[ti_filials]
+	([fil_id], [fil_code], [fil_name], [active])
+VALUES
+	(1, '01', 'Администрация', 0);
+
+INSERT INTO [dbo].[ti_filials]
+	([fil_id], [fil_code], [fil_name], [active])
+VALUES
+	(2, '02', 'Арзамасское ЛПУМГ', 1);
+
+INSERT INTO [dbo].[ti_filials]
+	([fil_id], [fil_code], [fil_name], [active])
+VALUES
+	(22, '22', 'Центр по подготовке кадров', 0);
+
+GO
+ALTER TABLE [ti_prompl] ADD CONSTRAINT [FK_TI_PROMP_REFERENCE_TI_FILIA] FOREIGN KEY([fil_id]) REFERENCES [ti_filials]([fil_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE [ti_serv] ADD CONSTRAINT [FK_TI_SERV_REFERENCE_TI_FILIA] FOREIGN KEY([fil_id]) REFERENCES [ti_filials]([fil_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE [ti_suppliers] ADD CONSTRAINT [FK_TI_SUPPL_REFERENCE_TI_FILIA] FOREIGN KEY([fil_id]) REFERENCES [ti_filials]([fil_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE [ti_towns] ADD CONSTRAINT [FK_TI_TOWNS_REFERENCE_TI_FILIA] FOREIGN KEY([fil_id]) REFERENCES [ti_filials]([fil_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE [ti_objects] ADD CONSTRAINT [FK_TI_OBJEC_REFERENCE_TI_FILIA] FOREIGN KEY([fil_id]) REFERENCES [ti_filials]([fil_id]) ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+GO

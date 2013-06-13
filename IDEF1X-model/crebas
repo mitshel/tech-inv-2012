@@ -1,0 +1,764 @@
+/*==============================================================*/
+/* DBMS name:      Microsoft SQL Server 2008                    */
+/* Created on:     13.06.2013 10:37:54                          */
+/*==============================================================*/
+
+
+if exists (select 1
+          from sysobjects
+          where id = object_id('tgUI_ti_filials')
+          and type = 'TR')
+   drop trigger tgUI_ti_filials
+go
+
+if exists (select 1
+          from sysobjects
+          where id = object_id('tgi_ti_Objects')
+          and type = 'TR')
+   drop trigger tgi_ti_Objects
+go
+
+if exists (select 1
+          from sysobjects
+          where id = object_id('tgI_ti_prompl')
+          and type = 'TR')
+   drop trigger tgI_ti_prompl
+go
+
+if exists (select 1
+          from sysobjects
+          where id = object_id('tgI_ti_Serv')
+          and type = 'TR')
+   drop trigger tgI_ti_Serv
+go
+
+if exists (select 1
+          from sysobjects
+          where id = object_id('tgI_ti_suppliers')
+          and type = 'TR')
+   drop trigger tgI_ti_suppliers
+go
+
+if exists (select 1
+          from sysobjects
+          where id = object_id('tgI_ti_towns')
+          and type = 'TR')
+   drop trigger tgI_ti_towns
+go
+
+if exists (select 1
+          from sysobjects
+          where  id = object_id('ti_fnGetActiveFilial')
+          and type in ('IF', 'FN', 'TF'))
+   drop function ti_fnGetActiveFilial
+go
+
+if exists (select 1
+          from sysobjects
+          where  id = object_id('tisp_ImpADUsers')
+          and type in ('P','PC'))
+   drop procedure tisp_ImpADUsers
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_building') and o.name = 'FK_TI_BUILD_REFERENCE_TI_PROMP')
+alter table ti_building
+   drop constraint FK_TI_BUILD_REFERENCE_TI_PROMP
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_mark') and o.name = 'FK_TI_MARK_REFERENCE_TI_MARK')
+alter table ti_mark
+   drop constraint FK_TI_MARK_REFERENCE_TI_MARK
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_TYPES')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_TYPES
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_PLACE')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_PLACE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_PERSO')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_PERSO
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_VENDO')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_VENDO
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_SUPPL')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_SUPPL
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_MARK')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_MARK
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_objects') and o.name = 'FK_TI_OBJEC_REFERENCE_TI_FILIA')
+alter table ti_objects
+   drop constraint FK_TI_OBJEC_REFERENCE_TI_FILIA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_personal') and o.name = 'FK_TI_PERSO_REFERENCE_TI_SERV')
+alter table ti_personal
+   drop constraint FK_TI_PERSO_REFERENCE_TI_SERV
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_personal') and o.name = 'FK_TI_PERSO_REFERENCE_TI_ADUSE')
+alter table ti_personal
+   drop constraint FK_TI_PERSO_REFERENCE_TI_ADUSE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_personal') and o.name = 'FK_TI_PERSO_REFERENCE_TI_PLACE')
+alter table ti_personal
+   drop constraint FK_TI_PERSO_REFERENCE_TI_PLACE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_places') and o.name = 'FK_TI_PLACE_REFERENCE_TI_SERV')
+alter table ti_places
+   drop constraint FK_TI_PLACE_REFERENCE_TI_SERV
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_places') and o.name = 'FK_TI_PLACE_REFERENCE_TI_BUILD')
+alter table ti_places
+   drop constraint FK_TI_PLACE_REFERENCE_TI_BUILD
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_prompl') and o.name = 'FK_TI_PROMP_REFERENCE_TI_FILIA')
+alter table ti_prompl
+   drop constraint FK_TI_PROMP_REFERENCE_TI_FILIA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_prompl') and o.name = 'FK_TI_PROMP_REFERENCE_TI_TOWNS')
+alter table ti_prompl
+   drop constraint FK_TI_PROMP_REFERENCE_TI_TOWNS
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_serv') and o.name = 'FK_TI_SERV_REFERENCE_TI_FILIA')
+alter table ti_serv
+   drop constraint FK_TI_SERV_REFERENCE_TI_FILIA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_suppliers') and o.name = 'FK_TI_SUPPL_REFERENCE_TI_FILIA')
+alter table ti_suppliers
+   drop constraint FK_TI_SUPPL_REFERENCE_TI_FILIA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('ti_towns') and o.name = 'FK_TI_TOWNS_REFERENCE_TI_FILIA')
+alter table ti_towns
+   drop constraint FK_TI_TOWNS_REFERENCE_TI_FILIA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_vPersonal')
+            and   type = 'V')
+   drop view ti_vPersonal
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_ADUsers')
+            and   type = 'U')
+   drop table ti_ADUsers
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_Users')
+            and   type = 'U')
+   drop table ti_Users
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_building')
+            and   type = 'U')
+   drop table ti_building
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_filials')
+            and   type = 'U')
+   drop table ti_filials
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_mark')
+            and   type = 'U')
+   drop table ti_mark
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_objects')
+            and   type = 'U')
+   drop table ti_objects
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_personal')
+            and   type = 'U')
+   drop table ti_personal
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_places')
+            and   type = 'U')
+   drop table ti_places
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_prompl')
+            and   type = 'U')
+   drop table ti_prompl
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_serv')
+            and   type = 'U')
+   drop table ti_serv
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_suppliers')
+            and   type = 'U')
+   drop table ti_suppliers
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_towns')
+            and   type = 'U')
+   drop table ti_towns
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_types')
+            and   type = 'U')
+   drop table ti_types
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('ti_vendor')
+            and   type = 'U')
+   drop table ti_vendor
+go
+
+if exists(select 1 from systypes where name='Domain_1')
+   drop type Domain_1
+go
+
+/*==============================================================*/
+/* Domain: Domain_1                                             */
+/*==============================================================*/
+create type Domain_1
+   from char(10)
+go
+
+/*==============================================================*/
+/* Table: ti_ADUsers                                            */
+/*==============================================================*/
+create table ti_ADUsers (
+   TelephoneNumber      nvarchar(256)        null,
+   physicalDeliveryOfficeName nvarchar(256)        null,
+   Department           nvarchar(256)        null,
+   title                nvarchar(256)        null,
+   initials             nvarchar(256)        null,
+   sn                   nvarchar(256)        null,
+   GivenName            nvarchar(256)        null,
+   [Name]               nvarchar(256)        null,
+   Login                nvarchar(256)        null,
+   modifyTimeStamp      datetime             null,
+   createTimeStamp      datetime             null,
+   userAccountControl   int                  null,
+   objectGUID           varbinary(256)       null,
+   isBlocked            as nullif(([userAccountControl] & 2),0) null,
+   isDisable            as nullif(([userAccountControl] & 16),0) null,
+   GUIDSTR              AS (convert(uniqueidentifier,[ObjectGUID])) not null,
+   isDeleted            datetime             null,
+   aduser_id            int                  identity,
+   constraint PK_TI_ADUSERS primary key (aduser_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_Users                                              */
+/*==============================================================*/
+create table ti_Users (
+   user_id              int                  identity,
+   otv_id               int                  null,
+   uid                  int                  null,
+   uname                varchar(20)          null,
+   fio                  varchar(50)          null,
+   status               int                  not null default 0,
+   access               varchar(256)         null,
+   constraint PK_TI_USERS primary key (user_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_building                                           */
+/*==============================================================*/
+create table ti_building (
+   build_id             int                  identity,
+   prompl_id            int                  null,
+   build_name           varchar(30)          not null,
+   constraint PK_TI_BUILDING primary key (build_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_filials                                            */
+/*==============================================================*/
+create table ti_filials (
+   fil_id               int                  not null,
+   fil_code             VarChar(2)           not null,
+   fil_name             Varchar(30)          not null,
+   active               int                  not null default 0,
+   constraint PK_TI_FILIALS primary key (fil_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_mark                                               */
+/*==============================================================*/
+create table ti_mark (
+   mark_id              int                  identity,
+   enlarge_id           int                  null,
+   mark_name            varchar(128)         not null,
+   constraint PK_TI_MARK primary key (mark_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_objects                                            */
+/*==============================================================*/
+create table ti_objects (
+   type_id              int                  null,
+   obj_id               int                  identity,
+   place_id             int                  null,
+   pers_id              int                  null,
+   vendor_id            int                  null,
+   suppl_id             int                  null,
+   mark_id              int                  null,
+   fil_id               int                  null,
+   obj_name             varchar(100)         null,
+   invN                 varchar(15)          null,
+   sn                   varchar(20)          null,
+   pn                   varchar(20)          null,
+   d_prih               datetime             null,
+   d_gar                datetime             null,
+   nnakl                varchar(10)          null,
+   prim                 varchar(512)         null,
+   chkcfg               varchar(25)          null,
+   hostname             varchar(25)          null,
+   f_sit                int                  not null default 0,
+   f_nowork             int                  not null default 0,
+   f_ad                 int                  not null default 0,
+   f_spis               int                  not null default 0,
+   prich_spis           varchar(128)         null,
+   who_spis             varchar(32)          null,
+   date_spis            datetime             null,
+   invN_comment         varchar(64)          null,
+   f_sys                int                  not null default 0,
+   constraint PK_TI_OBJECTS primary key (obj_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_personal                                           */
+/*==============================================================*/
+create table ti_personal (
+   pers_id              int                  identity,
+   serv_id              int                  null,
+   aduser_id            int                  null,
+   place_id             int                  null,
+   tab                  varchar(5)           null,
+   f                    varchar(30)          null,
+   i                    varchar(30)          null,
+   o                    varchar(30)          null,
+   dol                  varchar(60)          null,
+   fit                  int                  null,
+   ad                   int                  null,
+   ad_ved_n             varchar(10)          null,
+   ad_ved_date          datetime             null,
+   constraint PK_TI_PERSONAL primary key (pers_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_places                                             */
+/*==============================================================*/
+create table ti_places (
+   place_id             int                  identity,
+   serv_id              int                  null,
+   build_id             int                  null,
+   kab_n                varchar(5)           null,
+   kab_name             varchar(30)          null,
+   constraint PK_TI_PLACES primary key (place_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_prompl                                             */
+/*==============================================================*/
+create table ti_prompl (
+   prompl_id            int                  identity,
+   fil_id               int                  null,
+   town_id              int                  null,
+   prompl_name          varchar(50)          not null,
+   constraint PK_TI_PROMPL primary key (prompl_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_serv                                               */
+/*==============================================================*/
+create table ti_serv (
+   serv_id              int                  identity,
+   fil_id               int                  null,
+   serv_name            Varchar(100)         not null,
+   serv_grp             Varchar(15)          null,
+   serv_cat             Varchar(15)          null,
+   constraint PK_TI_SERV primary key (serv_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_suppliers                                          */
+/*==============================================================*/
+create table ti_suppliers (
+   fil_id               int                  null,
+   suppl_id             int                  identity,
+   suppl_name           varchar(50)          not null,
+   suppl_short_name     varchar(20)          not null,
+   director_fio         varchar(50)          null,
+   director_tel         varchar(20)          null,
+   contact_fio          varchar(50)          null,
+   contact_tel          varchar(20)          null,
+   constraint PK_TI_SUPPLIERS primary key (suppl_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_towns                                              */
+/*==============================================================*/
+create table ti_towns (
+   town_id              int                  identity,
+   fil_id               int                  null,
+   town_name            varchar(25)          not null,
+   constraint PK_TI_TOWNS primary key (town_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_types                                              */
+/*==============================================================*/
+create table ti_types (
+   type_id              int                  identity,
+   type_name            varchar(100)         not null,
+   constraint PK_TI_TYPES primary key (type_id)
+)
+go
+
+/*==============================================================*/
+/* Table: ti_vendor                                             */
+/*==============================================================*/
+create table ti_vendor (
+   vendor_id            int                  identity,
+   vendor_name          varchar(30)          not null,
+   constraint PK_TI_VENDOR primary key (vendor_id)
+)
+go
+
+/*==============================================================*/
+/* View: ti_vPersonal                                           */
+/*==============================================================*/
+create view ti_vPersonal as
+select a.pers_id, a.serv_id, a.tab, a.f, a.i, a.o, a.dol, a.fit, a.ad_ved_n, a.ad_ved_date, 
+       a.aduser_id as ad_id, a.place_id, c.kab_n, c.kab_name, c.Build_id, d.Build_name, 
+       d.Prompl_id, e.Prompl_name, e.town_id, f.town_name, 
+       h.fil_id, h.fil_name, b.*, j.serv_name, j.serv_grp, j.serv_cat
+from ti_personal a
+left join ti_ADUsers b on a.aduser_id=b.aduser_id
+left join ti_Places c on a.place_id=c.place_id
+left join ti_Building d on c.Build_id=d.Build_id
+left join ti_Prompl e on d.prompl_id=e.prompl_id
+left join ti_Towns f on e.town_id=f.town_id
+left join ti_serv j on a.serv_id=j.serv_id
+left join ti_Filials h on j.fil_id=h.fil_id
+go
+
+grant ALL on ti_vPersonal to PUBLIC
+go
+
+alter table ti_building
+   add constraint FK_TI_BUILD_REFERENCE_TI_PROMP foreign key (prompl_id)
+      references ti_prompl (prompl_id)
+go
+
+alter table ti_mark
+   add constraint FK_TI_MARK_REFERENCE_TI_MARK foreign key (enlarge_id)
+      references ti_mark (mark_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_TYPES foreign key (type_id)
+      references ti_types (type_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_PLACE foreign key (place_id)
+      references ti_places (place_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_PERSO foreign key (pers_id)
+      references ti_personal (pers_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_VENDO foreign key (vendor_id)
+      references ti_vendor (vendor_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_SUPPL foreign key (suppl_id)
+      references ti_suppliers (suppl_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_MARK foreign key (mark_id)
+      references ti_mark (mark_id)
+go
+
+alter table ti_objects
+   add constraint FK_TI_OBJEC_REFERENCE_TI_FILIA foreign key (fil_id)
+      references ti_filials (fil_id)
+go
+
+alter table ti_personal
+   add constraint FK_TI_PERSO_REFERENCE_TI_SERV foreign key (serv_id)
+      references ti_serv (serv_id)
+go
+
+alter table ti_personal
+   add constraint FK_TI_PERSO_REFERENCE_TI_ADUSE foreign key (aduser_id)
+      references ti_ADUsers (aduser_id)
+go
+
+alter table ti_personal
+   add constraint FK_TI_PERSO_REFERENCE_TI_PLACE foreign key (place_id)
+      references ti_places (place_id)
+go
+
+alter table ti_places
+   add constraint FK_TI_PLACE_REFERENCE_TI_SERV foreign key (serv_id)
+      references ti_serv (serv_id)
+go
+
+alter table ti_places
+   add constraint FK_TI_PLACE_REFERENCE_TI_BUILD foreign key (build_id)
+      references ti_building (build_id)
+go
+
+alter table ti_prompl
+   add constraint FK_TI_PROMP_REFERENCE_TI_FILIA foreign key (fil_id)
+      references ti_filials (fil_id)
+go
+
+alter table ti_prompl
+   add constraint FK_TI_PROMP_REFERENCE_TI_TOWNS foreign key (town_id)
+      references ti_towns (town_id)
+go
+
+alter table ti_serv
+   add constraint FK_TI_SERV_REFERENCE_TI_FILIA foreign key (fil_id)
+      references ti_filials (fil_id)
+go
+
+alter table ti_suppliers
+   add constraint FK_TI_SUPPL_REFERENCE_TI_FILIA foreign key (fil_id)
+      references ti_filials (fil_id)
+go
+
+alter table ti_towns
+   add constraint FK_TI_TOWNS_REFERENCE_TI_FILIA foreign key (fil_id)
+      references ti_filials (fil_id)
+go
+
+
+create function ti_fnGetActiveFilial ()
+RETURNS int
+begin
+DECLARE @afilial integer
+select @afilial=fil_id from ti_filials where active=1
+RETURN @afilial
+end
+go
+
+
+CREATE procedure [dbo].[tisp_ImpADUsers] 
+with recompile AS
+declare @I int,@D int, @U int
+begin
+--SELECT * into #t FROM OPENQUERY( ADSI, 
+--    'SELECT objectGUID,userAccountControl,CreateTimeStamp,modifyTimeStamp,samaccountname,
+--     Name,GivenName,sn,initials, title,Department,physicalDeliveryOfficeName,TelephoneNumber
+--FROM ''LDAP://arzamas.ds.vtg.gazprom.ru'' 
+--     WHERE objectCategory = ''user''and objectClass = ''person''') 
+     
+     
+SELECT * into #t FROM OPENQUERY( ADSI_LPU, 
+    'SELECT objectGUID,userAccountControl,CreateTimeStamp,modifyTimeStamp,samaccountname,
+     Name,GivenName,sn,initials, title,Department,physicalDeliveryOfficeName,TelephoneNumber
+     FROM ''LDAP://DC-LPU-02-1/OU=Арзамасское ЛПУМГ,DC=lpu,DC=ds,DC=vtg,DC=gazprom,DC=ru'' 
+     WHERE objectCategory = ''user''and objectClass = ''person''') 
+     
+
+--Insert
+insert into dbo.ti_ADUsers (objectGUID,userAccountControl,CreateTimeStamp,modifyTimeStamp,Login,
+     Name,GivenName,sn,initials, title,Department,physicalDeliveryOfficeName,TelephoneNumber) 
+select objectGUID,userAccountControl,CreateTimeStamp,modifyTimeStamp,samaccountname,
+     Name,GivenName,sn,initials, title,Department,physicalDeliveryOfficeName,TelephoneNumber
+ from #t t1 where objectGUID not in (select objectGUID from dbo.ti_ADUsers)
+ set @I= @@RowCount
+--DELETE
+update dbo.ti_ADUsers set IsDeleted = getdate() where objectGUID not in (select objectGUID from #t) and IsDeleted is NULL
+set @D= @@RowCount
+--Update  
+update dbo.ti_ADUsers set userAccountControl=t.userAccountControl,CreateTimeStamp=t.CreateTimeStamp,modifyTimeStamp=t.modifyTimeStamp,
+       Login=t.samaccountname,
+       Name=t.Name,GivenName=t.GivenName,sn=t.sn,initials=t.initials, title=t.title,Department=t.Department,
+       physicalDeliveryOfficeName=t.physicalDeliveryOfficeName,
+       TelephoneNumber=t.TelephoneNumber
+from dbo.ti_ADUsers U left join #t t on U.ObjectGUID=t.ObjectGuid
+where U.ModifytimeStamp <> T.ModifytimeStamp  and t.ObjectGuid is NOT NULL
+set @U= @@RowCount
+--insert into dbo.ci_ADUsersBlackBox (CountIns,CountUpd,CountDel) values (@I,@U,@D) 
+--select * from #t
+drop table #t
+end
+go
+
+
+create trigger tgUI_ti_filials on ti_filials for insert, update as
+begin
+  if exists (select count(*) from ti_Filials where active=1
+             having count(*)>1)
+  BEGIN
+    RAISERROR('Невозможно использование двух филиалов по умолчанию.',11,-1)
+    rollback  transaction
+  END
+end
+go
+
+
+create trigger tgi_ti_Objects on ti_objects for insert as
+begin
+  DECLARE @fil_id int
+  select @fil_id=dbo.ti_fnGetActiveFilial()
+
+  update ti_Objects set fil_id=@fil_id from inserted i 
+  inner join ti_Objects t on t.obj_id=i.obj_id  
+end
+go
+
+
+create trigger tgI_ti_prompl on ti_prompl for insert as
+begin
+  DECLARE @fil_id int
+  select @fil_id=dbo.ti_fnGetActiveFilial()
+
+  update ti_prompl set fil_id=@fil_id from inserted i 
+  inner join ti_prompl t on t.prompl_id=i.prompl_id  
+end
+go
+
+
+create trigger tgI_ti_Serv on ti_serv for insert as
+begin
+  DECLARE @fil_id int
+  select @fil_id=dbo.ti_fnGetActiveFilial()
+
+  update ti_serv set fil_id=@fil_id from inserted i 
+  inner join ti_serv t on t.serv_id=i.serv_id  
+end
+go
+
+
+create trigger tgI_ti_suppliers on ti_suppliers for insert as
+begin
+  DECLARE @fil_id int
+  select @fil_id=dbo.ti_fnGetActiveFilial()
+
+  update ti_suppliers set fil_id=@fil_id from inserted i 
+  inner join ti_suppliers t on t.suppl_id=i.suppl_id  
+end
+go
+
+
+create trigger tgI_ti_towns on ti_towns for insert as
+begin
+  DECLARE @fil_id int
+  select @fil_id=dbo.ti_fnGetActiveFilial()
+
+  update ti_towns set fil_id=@fil_id from inserted i 
+  inner join ti_towns t on t.town_id=i.town_id  
+end
+go
+
