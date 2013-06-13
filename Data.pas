@@ -59,8 +59,12 @@ type
     ADOQueryPers: TADOQuery;
     DataSourceADUSers: TDataSource;
     ADOQueryADUsers: TADOQuery;
+    ADOQueryObjects: TADOQuery;
+    DataSourceObjects: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+    procedure ADOQueryObjectsFilterRecord(DataSet: TDataSet;
+      var Accept: Boolean);
   private
     { Private declarations }
   public
@@ -180,6 +184,9 @@ type
     Procedure AddADUser;
     Procedure UpdateADUser;
 
+    // Работа с панелью оргтехники
+    Procedure OpenPanelOrgtech;
+    Procedure ClosePanelOrgtech;
  end;
 
 var
@@ -1862,10 +1869,49 @@ Begin
 //
 End;
 
+Procedure TDM.OpenPanelOrgtech;
+Begin
+ ADOQueryObjects.SQL.Clear;
+ ADOQueryObjects.SQL.Add(sql_getObjects);
+ ADOQueryObjects.Open;
+ MainForm.DBGridOrgtech.DataSource:=DataSourceObjects;
+End;
+
+Procedure TDM.ClosePanelOrgtech;
+Begin
+ MainForm.DBGridOrgtech.DataSource:=nil;
+ ADOQueryObjects.Close;
+End;
+
+procedure TDM.ADOQueryObjectsFilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
+Var str,search : String;
+    adreg, adotkl, adnoreg : boolean;
+begin
+  Accept:=True;
+  search:=ANSIUPPERCASE(MainForm.SearchEdit.Text);
+  // Если включена кнопка фильтрации тогда выбираем значения совпадающие с SearchEdit.Text
+  if (MainForm.Action6.Checked and (search<>'')) then begin
+     Accept:=False;
+     if Assigned(DataSet.FieldByName('F')) then
+        Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('F').Value))<>0);
+     if Assigned(DataSet.FieldByName('Login')) then
+        Accept:= Accept or (POS(search, ANSIUPPERCASE(DataSet.FieldByName('Login').Value))<>0);
+  end;
+  // в любом случае применяем фильтр для Чекбоксов
+  adreg:=MainForm.CheckBox1.checked and ((DataSet.FieldByName('ad_id').Value<>NULL) and (DataSet.FieldByName('ad_id').Value<>-1));
+  adotkl:=((DataSet.FieldByName('isBlocked').Value<>NULL) or (DataSet.FieldByName('isDisable').Value<>NULL));
+  if adotkl then adreg:=False;
+  adotkl:=MainForm.CheckBox2.checked and adotkl;
+  adnoreg:=MainForm.CheckBox3.checked and ( (DataSet.FieldByName('ad_id').Value=NULL ) or (DataSet.FieldByName('ad_id').Value=-1) );
+  Accept:=Accept and (adreg or adotkl or adnoreg);
+end;
+
 Procedure TDM.PanelSearch(SearchText : String; panel : Integer);
 Begin
   case Panel of
       panUsers: ADOQueryPers.Locate('f','%'+SearchText,[loCaseInsensitive, loPartialKey]);
+      panOrgtech: ADOQueryObjects.Locate('f','%'+SearchText,[loCaseInsensitive, loPartialKey]);
   end;
 End;
 
@@ -1873,6 +1919,7 @@ Procedure TDM.PanelFilter(panel : Integer);
 Begin
   case Panel of
       panUsers: Begin ADOQueryPers.Filtered:=False; ADOQueryPers.Filtered:=true; End;
+      panOrgtech: Begin ADOQueryObjects.Filtered:=False; ADOQueryPers.Filtered:=true; End;
   end;
 End;
 

@@ -297,7 +297,7 @@ object MainForm: TMainForm
     TabOrder = 2
     object CategoryPanel9: TCategoryPanel
       Tag = 9
-      Top = 1598
+      Top = 1644
       Caption = #1054#1090#1095#1077#1090#1099
       CollapsedHotImageIndex = 8
       CollapsedImageIndex = 8
@@ -307,10 +307,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 8
       TabOrder = 0
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 1598
     end
     object CategoryPanel8: TCategoryPanel
       Tag = 8
-      Top = 1398
+      Top = 1444
       Caption = #1044#1086#1082#1091#1084#1077#1085#1090#1099
       CollapsedHotImageIndex = 7
       CollapsedImageIndex = 7
@@ -320,10 +321,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 7
       TabOrder = 1
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 1398
     end
     object CategoryPanel7: TCategoryPanel
       Tag = 7
-      Top = 1198
+      Top = 1244
       Caption = #1046#1091#1088#1085#1072#1083' '#1058#1054
       CollapsedHotImageIndex = 6
       CollapsedImageIndex = 6
@@ -333,10 +335,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 6
       TabOrder = 2
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 1198
     end
     object CategoryPanel6: TCategoryPanel
       Tag = 6
-      Top = 998
+      Top = 1044
       Caption = #1055#1088#1080#1085#1090#1077#1088#1099' '#1080' '#1082#1086#1087#1080#1088#1099
       CollapsedHotImageIndex = 5
       CollapsedImageIndex = 5
@@ -346,10 +349,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 5
       TabOrder = 3
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 998
     end
     object CategoryPanel5: TCategoryPanel
       Tag = 5
-      Top = 798
+      Top = 844
       Caption = #1050#1072#1073#1077#1083#1100#1085#1099#1077' '#1078#1091#1088#1085#1072#1083#1099
       CollapsedHotImageIndex = 4
       CollapsedImageIndex = 4
@@ -359,10 +363,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 4
       TabOrder = 4
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 798
     end
     object CategoryPanel4: TCategoryPanel
       Tag = 4
-      Top = 598
+      Top = 644
       Caption = #1057#1077#1090#1080
       CollapsedHotImageIndex = 3
       CollapsedImageIndex = 3
@@ -372,10 +377,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 3
       TabOrder = 5
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 598
     end
     object CategoryPanel3: TCategoryPanel
       Tag = 3
-      Top = 398
+      Top = 444
       Hint = '3'
       Caption = #1055#1088#1086#1075#1088#1072#1084#1084#1099
       CollapsedHotImageIndex = 2
@@ -386,10 +392,11 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 2
       TabOrder = 6
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 398
     end
     object CategoryPanel2: TCategoryPanel
       Tag = 2
-      Top = 200
+      Top = 246
       Height = 198
       Hint = '2'
       Caption = #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1080
@@ -407,6 +414,7 @@ object MainForm: TMainForm
       ParentFont = False
       TabOrder = 7
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 200
       object ButtonGroup1: TButtonGroup
         Left = 0
         Top = 0
@@ -531,6 +539,7 @@ object MainForm: TMainForm
     object CategoryPanel1: TCategoryPanel
       Tag = 1
       Top = 0
+      Height = 246
       Hint = '1'
       Caption = #1054#1088#1075#1090#1077#1093#1080#1082#1072
       CollapsedHotImageIndex = 0
@@ -542,6 +551,133 @@ object MainForm: TMainForm
       TabOrder = 8
       OnCollapse = CategoryPanel1Collapse
       OnExpand = CategoryPanel1Expand
+      object ButtonGroup2: TButtonGroup
+        Left = 0
+        Top = 0
+        Width = 177
+        Height = 137
+        Align = alTop
+        BevelInner = bvNone
+        BevelOuter = bvNone
+        BorderStyle = bsNone
+        ButtonOptions = [gboFullSize, gboShowCaptions]
+        Images = ImageList16
+        Items = <
+          item
+            Caption = #1055#1088#1080#1093#1086#1076' '#1086#1088#1075#1090#1077#1093#1085#1080#1082#1080'...'
+            ImageIndex = 5
+          end
+          item
+            Caption = #1055#1088#1080#1093#1086#1076' ('#1082#1086#1087#1080#1103')...'
+            ImageIndex = 5
+          end
+          item
+            Caption = #1048#1085#1074#1077#1085#1090#1072#1088#1080#1079#1072#1094#1080#1103'...'
+            ImageIndex = 17
+          end
+          item
+            Caption = #1057#1087#1080#1089#1072#1090#1100'...'
+            ImageIndex = 6
+          end
+          item
+            Caption = #1055#1077#1088#1077#1084#1077#1089#1090#1080#1090#1100' ('#1085#1072#1079#1085#1072#1095#1080#1090#1100')...'
+            ImageIndex = 4
+          end>
+        TabOrder = 0
+        ExplicitTop = 8
+      end
+      object CheckBox4: TCheckBox
+        Left = 5
+        Top = 127
+        Width = 161
+        Height = 17
+        Caption = #1057#1090#1072#1085#1076#1072#1088#1090#1085#1099#1081' '#1086#1073#1098#1077#1082#1090
+        Checked = True
+        Color = clWhite
+        Ctl3D = True
+        DoubleBuffered = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentColor = False
+        ParentCtl3D = False
+        ParentDoubleBuffered = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = False
+        State = cbChecked
+        TabOrder = 1
+        OnClick = CheckBox1Click
+      end
+      object CheckBox5: TCheckBox
+        Left = 5
+        Top = 143
+        Width = 161
+        Height = 17
+        Caption = #1053#1077' '#1085#1072' '#1073#1072#1083#1072#1085#1089#1077' '#1057#1083#1091#1078#1073#1099' '#1048#1058
+        Checked = True
+        Color = clBtnFace
+        Ctl3D = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentColor = False
+        ParentCtl3D = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = False
+        State = cbChecked
+        TabOrder = 2
+        OnClick = CheckBox1Click
+      end
+      object CheckBox6: TCheckBox
+        Left = 5
+        Top = 158
+        Width = 161
+        Height = 19
+        Caption = #1053#1077' '#1074' '#1088#1072#1073#1086#1090#1077
+        Checked = True
+        Color = clWhite
+        Ctl3D = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentColor = False
+        ParentCtl3D = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = False
+        State = cbChecked
+        TabOrder = 3
+        OnClick = CheckBox1Click
+      end
+      object CheckBox7: TCheckBox
+        Left = 5
+        Top = 174
+        Width = 161
+        Height = 19
+        Caption = #1054#1073#1098#1077#1082#1090' '#1089#1087#1080#1089#1072#1085
+        Color = clRed
+        Ctl3D = True
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clYellow
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentColor = False
+        ParentCtl3D = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = False
+        TabOrder = 4
+        OnClick = CheckBox1Click
+      end
     end
   end
   object Panel2: TPanel
@@ -801,7 +937,7 @@ object MainForm: TMainForm
     Left = 206
     Top = 146
     Width = 858
-    Height = 56
+    Height = 71
     TabOrder = 3
     Visible = False
     object StaticText1: TStaticText
@@ -822,26 +958,83 @@ object MainForm: TMainForm
       ParentFont = False
       TabOrder = 0
     end
-    object Panel10: TPanel
-      Left = 643
-      Top = 24
-      Width = 214
-      Height = 31
-      Align = alRight
-      TabOrder = 1
-    end
-    object DBGrid1: TDBGrid
+    object DBGridOrgtech: TDBGrid
       Left = 1
       Top = 24
-      Width = 642
-      Height = 31
+      Width = 856
+      Height = 46
       Align = alClient
-      TabOrder = 2
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgTitleClick, dgTitleHotTrack]
+      TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDrawColumnCell = DBGridOrgtechDrawColumnCell
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'type_name'
+          Title.Alignment = taCenter
+          Title.Caption = #1058#1080#1087
+          Width = 104
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'invN'
+          Title.Alignment = taCenter
+          Title.Caption = #1048#1085#1074#8470
+          Width = 91
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'hostname'
+          Title.Alignment = taCenter
+          Title.Caption = #1057#1077#1090#1077#1074#1086#1077' '#1080#1084#1103
+          Width = 93
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'fio'
+          Title.Alignment = taCenter
+          Title.Caption = #1054#1090#1074#1077#1090#1089#1090#1074#1077#1085#1085#1099#1081
+          Width = 170
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'otv_serv_name'
+          Title.Alignment = taCenter
+          Title.Caption = #1057#1083#1091#1078#1073#1072
+          Width = 120
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'obj_name'
+          Title.Alignment = taCenter
+          Title.Caption = #1054#1073#1098#1077#1082#1090
+          Width = 188
+          Visible = True
+        end
+        item
+          Expanded = False
+          Title.Alignment = taCenter
+          Title.Caption = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103
+          Width = 118
+          Visible = True
+        end
+        item
+          Expanded = False
+          Title.Alignment = taCenter
+          Title.Caption = 'IP'
+          Width = 110
+          Visible = True
+        end>
     end
   end
   object Panel7: TPanel
@@ -1169,7 +1362,7 @@ object MainForm: TMainForm
     Left = 896
     Top = 56
     Bitmap = {
-      494C010119006800F40110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010119006800F80110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000007000000001002000000000000070
       0000000000000000000000000000000000000000000000000000000000000000
       0000EEBFA370EEC1A47000000000000000000000000000000000000000000000
@@ -2191,7 +2384,7 @@ object MainForm: TMainForm
     Left = 792
     Top = 56
     Bitmap = {
-      494C010109005000800020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010109005000840020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000005C92FF005C92FF005C92FF3A81AAC5B2CDDE4D00000000000000000000
@@ -3788,7 +3981,7 @@ object MainForm: TMainForm
     Left = 744
     Top = 104
     Bitmap = {
-      494C0101050014007C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105001400800020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000FEFEFE01FDFD
       FD02FBFBFB04FAFAFA05F8F8F807F6F6F609F4F4F40BF3F3F30CF2F2F20DF2F2

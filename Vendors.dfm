@@ -29,7 +29,6 @@ object VendorsForm: TVendorsForm
     Images = MainForm.ImageList16
     ShowCaptions = True
     TabOrder = 0
-    ExplicitWidth = 634
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -121,6 +120,7 @@ object VendorsForm: TVendorsForm
         Height = 21
         TabOrder = 0
         OnChange = Edit1Change
+        OnKeyDown = DBGrid1KeyDown
       end
     end
   end

@@ -92,8 +92,7 @@ type
     StaticText9: TStaticText;
     ImageList32: TImageList;
     Action2: TAction;
-    Panel10: TPanel;
-    DBGrid1: TDBGrid;
+    DBGridOrgtech: TDBGrid;
     action_s1: TAction;
     action_s2: TAction;
     action_s3: TAction;
@@ -114,6 +113,11 @@ type
     DBGridPers: TDBGrid;
     SearchEdit: TEdit;
     Action6: TAction;
+    ButtonGroup2: TButtonGroup;
+    CheckBox4: TCheckBox;
+    CheckBox5: TCheckBox;
+    CheckBox6: TCheckBox;
+    CheckBox7: TCheckBox;
     Procedure SaveFormParametres(Form : TForm; Reg : TRegistry);
     Function RestoreFormParametres(Form : TForm; Reg : TRegistry;wh : boolean = true) : Boolean;
     Procedure SaveDBGridParam(gr : TDBGrid; reg : TRegistry);
@@ -150,6 +154,8 @@ type
     procedure ButtonGroup1Items2Click(Sender: TObject);
     procedure ButtonGroup1Items3Click(Sender: TObject);
     procedure Action5Execute(Sender: TObject);
+    procedure DBGridOrgtechDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
   private
     { Private declarations }
   public
@@ -292,6 +298,7 @@ procedure TMainForm.CategoryPanel1Collapse(Sender: TObject);
 begin
   case (sender as TCategoryPanel).Tag of
        panUsers: DM.ClosePanelPersonal;
+       panOrgtech: DM.ClosePanelOrgtech;
   end;
 end;
 
@@ -314,6 +321,7 @@ begin
 
   case ActivePanel of
        panUsers: DM.OpenPanelPersonal;
+       panOrgtech: DM.OpenPanelOrgtech;
   end;
   RestorePanelRibbon;
   SearchEditChange(Sender);
@@ -322,6 +330,42 @@ end;
 procedure TMainForm.CheckBox1Click(Sender: TObject);
 begin
     DM.PanelFilter(ActivePanel);
+end;
+
+procedure TMainForm.DBGridOrgtechDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+  if DBGridOrgtech.DataSource.DataSet.FieldByName('f_sit').Value=0 then begin
+     if not (gdSelected in State) then
+        DBGridOrgtech.Canvas.Brush.Color:=$00DDDDDD;
+  end;
+
+  if DBGridOrgtech.DataSource.DataSet.FieldByName('f_nowork').Value=1 then
+     DBGridOrgtech.Canvas.Font.Color:=clRed; // Не в работе
+
+  if DBGridOrgtech.DataSource.DataSet.FieldByName('f_spis').Value=1 then Begin
+     DBGridOrgtech.Canvas.Brush.Color:=clRed;
+     DBGridOrgtech.Canvas.Font.Color:=clYellow; // Списан
+  End;
+
+//  if DBGridOrgtech.DataSource.DataSet.FieldByName('TOinfo').Value>0 then Begin
+//     // В ремонте, есть незакрытые Акты ТО
+//     DBGridOrgtech.Canvas.Brush.Color:=clOlive;
+//  End;
+
+  if ((Not VarisNull(DBGridOrgtech.DataSource.DataSet.FieldByName('isBlocked').Value) and
+      DBGridOrgtech.DataSource.DataSet.FieldByName('isBlocked').Value<>0) or
+     (Not VarisNull(DBGridOrgtech.DataSource.DataSet.FieldByName('isDisable').Value) and
+      DBGridOrgtech.DataSource.DataSet.FieldByName('isDisable').Value<>0)) and
+     (Column.FieldName='fio')
+  then begin
+     if not (gdSelected in State) then
+            DBGridOrgtech.Canvas.Brush.Color:=clPurple;
+     DBGridOrgtech.Canvas.Font.Color:=clYellow;
+  end;
+
+  DBGridOrgtech.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+  DBGridOrgtech.Canvas.Font.Style:=[];
 end;
 
 procedure TMainForm.DBGridPersDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -351,6 +395,7 @@ begin
     RootKey:=HKEY_CURRENT_USER;
     if OpenKey(cRegKey,True) then begin
       SaveDBGridParam(MainForm.DBGridPers,reg);
+      SaveDBGridParam(MainForm.DBGridOrgtech,reg);
       SaveFormParametres(ADUsersForm,reg);
       SaveDBGridParam(ADUsersForm.DBGrid1,reg);
     end;
@@ -389,6 +434,7 @@ begin
     RootKey:=HKEY_CURRENT_USER;
     if OpenKey(cRegKey,True) then begin
       RestoreDBGridParam(MainForm.DBGridPers,reg);
+      RestoreDBGridParam(MainForm.DBGridOrgtech,reg);
       RestoreFormParametres(ADUsersForm,reg,True);
       RestoreDBGridParam(ADUsersForm.DBGrid1,reg);
     end;

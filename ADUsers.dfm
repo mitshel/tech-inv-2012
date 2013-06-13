@@ -19,16 +19,15 @@ object ADUsersForm: TADUsersForm
     Left = 0
     Top = 0
     Width = 904
-    Height = 38
+    Height = 36
     AutoSize = True
-    ButtonHeight = 38
-    ButtonWidth = 61
+    ButtonHeight = 36
+    ButtonWidth = 57
     Caption = 'ToolBar1'
     HotImages = MainForm.ImageList16
     Images = MainForm.ImageList16
     ShowCaptions = True
     TabOrder = 0
-    ExplicitWidth = 635
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -37,7 +36,7 @@ object ADUsersForm: TADUsersForm
       OnClick = ToolButton1Click
     end
     object ToolButton8: TToolButton
-      Left = 61
+      Left = 57
       Top = 0
       Width = 8
       Caption = 'ToolButton8'
@@ -45,21 +44,21 @@ object ADUsersForm: TADUsersForm
       Style = tbsSeparator
     end
     object ToolButton4: TToolButton
-      Left = 69
+      Left = 65
       Top = 0
       Caption = #1042#1099#1073#1088#1072#1090#1100
       ImageIndex = 18
       OnClick = ToolButton4Click
     end
     object ToolButton5: TToolButton
-      Left = 130
+      Left = 122
       Top = 0
       Caption = #1054#1090#1084#1077#1085#1072
       ImageIndex = 19
       OnClick = ToolButton5Click
     end
     object ToolButton7: TToolButton
-      Left = 191
+      Left = 179
       Top = 0
       Width = 8
       Caption = 'ToolButton7'
@@ -67,14 +66,14 @@ object ADUsersForm: TADUsersForm
       Style = tbsSeparator
     end
     object ToolButton6: TToolButton
-      Left = 199
+      Left = 187
       Top = 0
       Caption = #1042#1099#1093#1086#1076
       ImageIndex = 2
       OnClick = ToolButton6Click
     end
     object ToolButton9: TToolButton
-      Left = 260
+      Left = 244
       Top = 0
       Width = 8
       Caption = 'ToolButton9'
@@ -82,10 +81,10 @@ object ADUsersForm: TADUsersForm
       Style = tbsSeparator
     end
     object Panel1: TPanel
-      Left = 268
+      Left = 252
       Top = 0
       Width = 573
-      Height = 38
+      Height = 36
       Align = alClient
       Color = clMenuBar
       ParentBackground = False
@@ -104,6 +103,7 @@ object ADUsersForm: TADUsersForm
         Height = 21
         TabOrder = 0
         OnChange = Edit1Change
+        OnKeyDown = DBGrid1KeyDown
       end
       object CheckBox1: TCheckBox
         Left = 280
@@ -118,9 +118,9 @@ object ADUsersForm: TADUsersForm
   end
   object DBGrid1: TDBGrid
     Left = 0
-    Top = 38
+    Top = 36
     Width = 904
-    Height = 267
+    Height = 269
     Align = alClient
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
     ReadOnly = True
@@ -131,6 +131,7 @@ object ADUsersForm: TADUsersForm
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnDrawColumnCell = DBGrid1DrawColumnCell
+    OnKeyDown = DBGrid1KeyDown
     Columns = <
       item
         Expanded = False

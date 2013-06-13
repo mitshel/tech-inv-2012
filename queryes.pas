@@ -60,6 +60,8 @@ sql_delPersonal     = 'delete from ti_Personal where pers_id=:pers_id';
 sql_getADUSers      = 'select * from ti_ADUsers where isdeleted is null order by sn';
 sql_getADUSers2     = 'select * from ti_ADUSers a where not exists (select aduser_id from ti_personal b where a.aduser_id=b.aduser_id) and isdeleted is null';
 
+sql_getObjects      = 'select * from ti_vObjects';
+
 implementation
 
 end.

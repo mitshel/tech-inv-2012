@@ -31,6 +31,8 @@ type
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure Edit1Change(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
+    procedure DBGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -77,6 +79,18 @@ begin
 
   DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
   DBGrid1.Canvas.Font.Style:=[];
+end;
+
+procedure TADUsersForm.DBGrid1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if not IsSelectForm Then begin
+      if Key=27 then ToolButton6Click(Sender);      //Exit
+  end else begin
+      if Key=13 Then ModalResult:=mrOK; //Ok
+      if Key=27 then ModalResult:=mrCancel; //Cancel
+  end;
+
 end;
 
 procedure TADUsersForm.Edit1Change(Sender: TObject);

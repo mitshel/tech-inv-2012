@@ -100,7 +100,6 @@ object SuppliersForm: TSuppliersForm
     Images = MainForm.ImageList16
     ShowCaptions = True
     TabOrder = 1
-    ExplicitWidth = 653
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -192,6 +191,7 @@ object SuppliersForm: TSuppliersForm
         Height = 21
         TabOrder = 0
         OnChange = Edit1Change
+        OnKeyDown = DBGrid1KeyDown
       end
     end
   end
