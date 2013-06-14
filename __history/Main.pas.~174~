@@ -193,8 +193,7 @@ end;
 procedure TMainForm.Action5Execute(Sender: TObject);
 begin
 case ActivePanel of
-   panUsers:  DOREPORT(1,ActivePanel,DM.ADOQueryPers,nil,nil,nil,nil,nil);
-   panOrgtech:  DOREPORT(1,ActivePanel,DM.ADOQueryObjects,nil,nil,nil,nil,nil);
+   panUsers:  DOREPORT(1,ActivePanel,DM.ADOQueryPers,nil,nil,nil,nil,nil)
 end;
 end;
 
@@ -317,13 +316,13 @@ begin
       if i<>ActivePanel then catpanel.Collapse;
   end;
   (FindComponent('Panel'+IntToStr(DeactivatePanel)) AS TPanel).Visible:=false;
+  (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Align:=alClient;
+  (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Visible:=True;
+
   case ActivePanel of
        panUsers: DM.OpenPanelPersonal;
        panOrgtech: DM.OpenPanelOrgtech;
   end;
-  (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Align:=alClient;
-  (FindComponent('Panel'+IntToStr(ActivePanel)) AS TPanel).Visible:=True;
-
   RestorePanelRibbon;
   DM.PanelFilter(ActivePanel);
   SearchEditChange(Sender);

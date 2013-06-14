@@ -1912,15 +1912,9 @@ end;
 
 Procedure TDM.PanelSearch(SearchText : String; panel : Integer);
 Begin
-  // Ошибка исключений понадобилась ввиду того, что Locate может попытаться позиционировать
-  // курсор на строку, которая скрыта при помощи методоа onFiterRecord. При этом возникает Run-Time Ошибка
-  // "Душим" ошибку при помощи try..except
-  try
   case Panel of
       panOrgtech: ADOQueryObjects.Locate('sstr','%'+SearchText,[loCaseInsensitive, loPartialKey]);
       panUsers: ADOQueryPers.Locate('f','%'+SearchText,[loCaseInsensitive, loPartialKey]);
-  end;
-  Except
   end;
 End;
 

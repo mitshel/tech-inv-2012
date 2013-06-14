@@ -1559,9 +1559,9 @@ begin
   // Если включена кнопка фильтрации тогда выбираем значения совпадающие с SearchEdit.Text
   if (MainForm.Action6.Checked and (search<>'')) then begin
      Accept:=False;
-     if Assigned(DataSet.FieldByName('F')) and (DataSet.FieldByName('F').Value<>NULL) then
+     if Assigned(DataSet.FieldByName('F')) then
         Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('F').Value))<>0);
-     if Assigned(DataSet.FieldByName('Login')) and (DataSet.FieldByName('Login').Value<>NULL) then
+     if Assigned(DataSet.FieldByName('Login')) then
         Accept:= Accept or (POS(search, ANSIUPPERCASE(DataSet.FieldByName('Login').Value))<>0);
   end;
   // в любом случае применяем фильтр для Чекбоксов
@@ -1886,49 +1886,44 @@ End;
 procedure TDM.ADOQueryObjectsFilterRecord(DataSet: TDataSet;
   var Accept: Boolean);
 Var str,search : String;
-    obj_std, obj_nowork, obj_nosit, obj_spis : boolean;
+    obj_std, obj_nowork, obj_sit, obj_spis : boolean;
 begin
   Accept:=True;
   search:=ANSIUPPERCASE(MainForm.SearchEdit.Text);
   // Если включена кнопка фильтрации тогда выбираем значения совпадающие с SearchEdit.Text
   if (MainForm.Action6.Checked and (search<>'')) then begin
      Accept:=False;
-     if Assigned(DataSet.FieldByName('sstr')) and (DataSet.FieldByName('sstr').Value<>NULL) then
-        Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('sstr').Value))<>0);
+     if Assigned(DataSet.FieldByName('searchstr')) then
+        Accept:= Accept or (Pos(search, ANSIUPPERCASE(DataSet.FieldByName('searchstr').Value))<>0);
   end;
   // в любом случае применяем фильтр для Чекбоксов
+  obj_sit:=((DataSet.FieldByName('f_sit').Value<>NULL) and (DataSet.FieldByName('f_sit').Value<>0));
+  obj_nowork:=((DataSet.FieldByName('f_nowork').Value<>NULL) and (DataSet.FieldByName('f_nowork').Value<>0));
   obj_spis:=((DataSet.FieldByName('f_spis').Value<>NULL) and (DataSet.FieldByName('f_spis').Value<>0));
-  obj_nosit:=not obj_spis and ((DataSet.FieldByName('f_sit').Value=NULL) or (DataSet.FieldByName('f_sit').Value=0));
-  obj_nowork:=not obj_spis and ((DataSet.FieldByName('f_nowork').Value<>NULL) and (DataSet.FieldByName('f_nowork').Value<>0));
-  obj_std:=not obj_spis and not obj_nosit and not obj_nowork;
+  obj_std:=not (obj_sit or obj_nowork or obj_spis);
 
-  obj_std:=obj_std and  MainForm.CheckBox4.checked;
-  obj_nowork:=obj_nowork and  MainForm.CheckBox6.checked;
-  obj_nosit:=obj_nosit and  MainForm.CheckBox5.checked;
   obj_spis:=obj_spis and  MainForm.CheckBox7.checked;
 
-  Accept:=Accept and (obj_std or obj_nosit or obj_nowork or obj_spis);
+  obj_std:=obj_std and  MainForm.CheckBox4.checked;
+  obj_nowork:=obj_nowork and  MainForm.CheckBox6.checked and (not obj_spis);
+  obj_sit:=obj_sit and  MainForm.CheckBox5.checked and (not obj_spis);
+
+  Accept:=Accept and (obj_std or obj_sit or obj_nowork or obj_spis);
 end;
 
 Procedure TDM.PanelSearch(SearchText : String; panel : Integer);
 Begin
-  // Ошибка исключений понадобилась ввиду того, что Locate может попытаться позиционировать
-  // курсор на строку, которая скрыта при помощи методоа onFiterRecord. При этом возникает Run-Time Ошибка
-  // "Душим" ошибку при помощи try..except
-  try
   case Panel of
-      panOrgtech: ADOQueryObjects.Locate('sstr','%'+SearchText,[loCaseInsensitive, loPartialKey]);
       panUsers: ADOQueryPers.Locate('f','%'+SearchText,[loCaseInsensitive, loPartialKey]);
-  end;
-  Except
+      panOrgtech: ADOQueryObjects.Locate('searchstr','%'+SearchText,[loCaseInsensitive, loPartialKey]);
   end;
 End;
 
 Procedure TDM.PanelFilter(panel : Integer);
 Begin
   case Panel of
-      panOrgtech: Begin ADOQueryObjects.Filtered:=False; ADOQueryObjects.Filtered:=true; End;
       panUsers: Begin ADOQueryPers.Filtered:=False; ADOQueryPers.Filtered:=true; End;
+      panOrgtech: Begin ADOQueryObjects.Filtered:=False; ADOQueryObjects.Filtered:=true; End;
   end;
 End;
 

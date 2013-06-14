@@ -704,7 +704,7 @@ object MainForm: TMainForm
       Width = 858
       Height = 60
       Align = alClient
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ReadOnly = True
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
@@ -955,7 +955,7 @@ object MainForm: TMainForm
       Width = 856
       Height = 46
       Align = alClient
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgTitleClick, dgTitleHotTrack]
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -1014,7 +1014,6 @@ object MainForm: TMainForm
         end
         item
           Expanded = False
-          FieldName = 'info'
           Title.Alignment = taCenter
           Title.Caption = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103
           Width = 118
@@ -1022,7 +1021,6 @@ object MainForm: TMainForm
         end
         item
           Expanded = False
-          FieldName = 'IP_ADDR'
           Title.Alignment = taCenter
           Title.Caption = 'IP'
           Width = 110
