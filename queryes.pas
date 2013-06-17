@@ -64,6 +64,10 @@ sql_getObjects      = 'select *, ''-'' as info, ''-'' as IP_ADDR, obj_name+'' ''
                       'from ti_vObjects '+
                       'where fil_id=dbo.ti_fnGetActiveFilial()';
 
+sp_AddPrihod        = 'sp_AddPrihod';
+sp_EditPrihod       = 'sp_EditPrihod';
+sp_SpisObject       = 'sp_SpisObject';
+
 implementation
 
 end.

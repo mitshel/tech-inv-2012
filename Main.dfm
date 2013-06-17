@@ -114,7 +114,7 @@ object MainForm: TMainForm
         Caption = #1040#1076#1084#1080#1085#1080#1089#1090#1088#1080#1088#1086#1074#1072#1085#1080#1077
         Page = RibbonPage5
       end>
-    TabIndex = 1
+    TabIndex = 3
     DesignSize = (
       1098
       143)
@@ -134,6 +134,67 @@ object MainForm: TMainForm
         ActionManager = ActionManager1
         Caption = #1056#1072#1073#1086#1090#1072' '#1089' '#1041#1044
         GroupIndex = 0
+      end
+    end
+    object RibbonPage2: TRibbonPage
+      Left = 0
+      Top = 50
+      Width = 1097
+      Height = 93
+      Caption = #1043#1083#1072#1074#1085#1072#1103
+      Index = 1
+      object RibbonGroup2: TRibbonGroup
+        Left = 4
+        Top = 3
+        Width = 116
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1054#1087#1077#1088#1072#1094#1080#1080#1080' '#1089' '#1076#1072#1085#1085#1099#1084#1080
+        GroupIndex = 0
+      end
+      object RibbonGroup3: TRibbonGroup
+        Left = 285
+        Top = 3
+        Width = 100
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1059#1087#1088#1072#1074#1083#1077#1085#1080#1077
+        GroupIndex = 2
+      end
+      object RibbonGroup4: TRibbonGroup
+        Left = 387
+        Top = 3
+        Width = 100
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1046#1091#1088#1085#1072#1083#1099
+        GroupIndex = 3
+      end
+      object RibbonGroup5: TRibbonGroup
+        Left = 489
+        Top = 3
+        Width = 100
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1055#1088#1080#1085#1090#1077#1088#1099
+        GroupIndex = 4
+      end
+      object RibbonGroup14: TRibbonGroup
+        Left = 122
+        Top = 3
+        Width = 161
+        Height = 86
+        ActionManager = ActionManager1
+        Caption = #1055#1086#1080#1089#1082' '#1076#1072#1085#1085#1099#1093
+        GroupIndex = 1
+        object SearchEdit: TEdit
+          Left = 46
+          Top = 2
+          Width = 108
+          Height = 21
+          TabOrder = 0
+          OnChange = SearchEditChange
+        end
       end
     end
     object RibbonPage3: TRibbonPage
@@ -198,67 +259,6 @@ object MainForm: TMainForm
         GroupIndex = 2
       end
     end
-    object RibbonPage2: TRibbonPage
-      Left = 0
-      Top = 50
-      Width = 1097
-      Height = 93
-      Caption = #1043#1083#1072#1074#1085#1072#1103
-      Index = 1
-      object RibbonGroup2: TRibbonGroup
-        Left = 4
-        Top = 3
-        Width = 116
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1054#1087#1077#1088#1072#1094#1080#1080#1080' '#1089' '#1076#1072#1085#1085#1099#1084#1080
-        GroupIndex = 0
-      end
-      object RibbonGroup3: TRibbonGroup
-        Left = 285
-        Top = 3
-        Width = 100
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1059#1087#1088#1072#1074#1083#1077#1085#1080#1077
-        GroupIndex = 2
-      end
-      object RibbonGroup4: TRibbonGroup
-        Left = 387
-        Top = 3
-        Width = 100
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1046#1091#1088#1085#1072#1083#1099
-        GroupIndex = 3
-      end
-      object RibbonGroup5: TRibbonGroup
-        Left = 489
-        Top = 3
-        Width = 100
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1055#1088#1080#1085#1090#1077#1088#1099
-        GroupIndex = 4
-      end
-      object RibbonGroup14: TRibbonGroup
-        Left = 122
-        Top = 3
-        Width = 161
-        Height = 86
-        ActionManager = ActionManager1
-        Caption = #1055#1086#1080#1089#1082' '#1076#1072#1085#1085#1099#1093
-        GroupIndex = 1
-        object SearchEdit: TEdit
-          Left = 46
-          Top = 2
-          Width = 108
-          Height = 21
-          TabOrder = 0
-          OnChange = SearchEditChange
-        end
-      end
-    end
   end
   object StatusBar1: TStatusBar
     Left = 0
@@ -307,6 +307,8 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 8
       TabOrder = 0
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 328
+      ExplicitWidth = 196
     end
     object CategoryPanel8: TCategoryPanel
       Tag = 8
@@ -320,6 +322,8 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 7
       TabOrder = 1
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 287
+      ExplicitWidth = 196
     end
     object CategoryPanel7: TCategoryPanel
       Tag = 7
@@ -333,6 +337,7 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 6
       TabOrder = 2
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 246
     end
     object CategoryPanel6: TCategoryPanel
       Tag = 6
@@ -346,6 +351,7 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 5
       TabOrder = 3
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 205
     end
     object CategoryPanel5: TCategoryPanel
       Tag = 5
@@ -359,6 +365,7 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 4
       TabOrder = 4
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 164
     end
     object CategoryPanel4: TCategoryPanel
       Tag = 4
@@ -372,6 +379,7 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 3
       TabOrder = 5
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 123
     end
     object CategoryPanel3: TCategoryPanel
       Tag = 3
@@ -386,6 +394,7 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 2
       TabOrder = 6
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 82
     end
     object CategoryPanel2: TCategoryPanel
       Tag = 2
@@ -407,6 +416,7 @@ object MainForm: TMainForm
       ParentFont = False
       TabOrder = 7
       OnExpand = CategoryPanel1Expand
+      ExplicitTop = 41
       object ButtonGroup1: TButtonGroup
         Left = 0
         Top = 0
@@ -558,22 +568,27 @@ object MainForm: TMainForm
           item
             Caption = #1055#1088#1080#1093#1086#1076' '#1086#1088#1075#1090#1077#1093#1085#1080#1082#1080'...'
             ImageIndex = 5
+            OnClick = ButtonGroup2Items0Click
           end
           item
             Caption = #1055#1088#1080#1093#1086#1076' ('#1082#1086#1087#1080#1103')...'
             ImageIndex = 5
+            OnClick = ButtonGroup2Items1Click
           end
           item
             Caption = #1048#1079#1084#1077#1085#1080#1090#1100'...'
             ImageIndex = 17
+            OnClick = ButtonGroup2Items2Click
           end
           item
             Caption = #1057#1087#1080#1089#1072#1090#1100'...'
             ImageIndex = 6
+            OnClick = ButtonGroup2Items3Click
           end
           item
             Caption = #1055#1077#1088#1077#1084#1077#1089#1090#1080#1090#1100' ('#1085#1072#1079#1085#1072#1095#1080#1090#1100')...'
             ImageIndex = 4
+            OnClick = ButtonGroup2Items4Click
           end>
         TabOrder = 0
       end
@@ -1355,7 +1370,7 @@ object MainForm: TMainForm
     Left = 896
     Top = 56
     Bitmap = {
-      494C010119006800FC0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010119006800000210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000007000000001002000000000000070
       0000000000000000000000000000000000000000000000000000000000000000
       0000EEBFA370EEC1A47000000000000000000000000000000000000000000000
@@ -2377,7 +2392,7 @@ object MainForm: TMainForm
     Left = 792
     Top = 56
     Bitmap = {
-      494C010109005000880020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101090050008C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000005C92FF005C92FF005C92FF3A81AAC5B2CDDE4D00000000000000000000
@@ -3974,7 +3989,7 @@ object MainForm: TMainForm
     Left = 744
     Top = 104
     Bitmap = {
-      494C010105001400840020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105001400880020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000FEFEFE01FDFD
       FD02FBFBFB04FAFAFA05F8F8F807F6F6F609F4F4F40BF3F3F30CF2F2F20DF2F2

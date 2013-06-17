@@ -187,6 +187,11 @@ type
     // Работа с панелью оргтехники
     Procedure OpenPanelOrgtech;
     Procedure ClosePanelOrgtech;
+    Procedure PrihodOrgAdd(iscopy : boolean);
+    Procedure PrihodOrgEdit;
+    Procedure SpisOrg;
+    Procedure MoveOrgDialog;
+
  end;
 
 var
@@ -198,7 +203,7 @@ implementation
 
 uses Main, Filials, Users, SysUsers, towns, Edit1Field, prompl, EditPrompl, EditBuild,
   Building, Serv, EditServ, Places, EditPlace, UTypes, Mark, EditMark, Vendors, Suppliers,
-  EditSuppl, AddPersonal, ADUsers;
+  EditSuppl, AddPersonal, ADUsers, PrihodOrg, spis, MoveObject;
 
 {$R *.dfm}
 
@@ -1932,5 +1937,158 @@ Begin
   end;
 End;
 
+Procedure TDM.PrihodOrgAdd(iscopy : boolean);
+var ADOsp : TADOStoredProc;
+    obj_id : Integer;
+    i      : Integer;
+Begin
+  if not AccessIsGranted(acs_prihod_add) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  With PrihodOrgForm do begin
+     if not isCopy then begin
+       type_id:=-1;
+       vendor_id:=-1;
+       suppl_id:=-1;
+       mark_id:=-1;
+       DateTimePicker1.Date:=InitialDT;
+       DateTimePicker2.Date:=InitialDT;
+       Edit1.Text:='';
+       Edit2.Text:='';
+       Edit3.Text:='';
+       Edit4.Text:='';
+       Edit5.Text:='';
+       Edit6.Text:='';
+       Edit7.Text:='';
+       Edit8.Text:='';
+       Edit9.Text:='';
+       Edit10.Text:='';
+       Edit11.Text:='';
+       Edit12.Text:='';
+       Memo1.Clear;
+       CheckBox1.Checked:=false;
+       CheckBox2.Checked:=false;
+       CheckBox3.Checked:=false;
+       Caption:='Приход оргтехники';
+     end else Caption:='Приход оргтехники (Копия)';
+
+     if ShowModal=mrOk Then begin
+        ADOsp:=TADOStoredProc.Create(nil);
+        ADOsp.Connection:=ADOConnection1;
+        ADOsp.ProcedureName:=sp_AddPrihod;
+        For i:=0 to 17 do ADOsp.Parameters.Add;
+        ADOsp.Parameters[0].Value:=type_id;
+        ADOsp.Parameters[1].Value:=vendor_id;
+        ADOsp.Parameters[2].Value:=suppl_id;
+        ADOsp.Parameters[3].Value:=Edit2.text;                  // obj_name
+        ADOsp.Parameters[4].Value:=mark_id;
+        ADOsp.Parameters[5].Value:=Edit5.text;                  // invN
+        ADOsp.Parameters[6].Value:=Edit8.text;                  // invN_comment
+        ADOsp.Parameters[7].Value:=Edit6.text;                  // SN
+        ADOsp.Parameters[8].Value:=Edit7.text;                  // PN
+        ADOsp.Parameters[9].Value:=Edit9.text;                  // nnakl
+        ADOsp.Parameters[10].Value:=DateTimePicker1.DateTime;   // d_prih
+        ADOsp.Parameters[11].Value:=DateTimePicker2.DateTime;   // d_gar
+        ADOsp.Parameters[12].Value:=Memo1.Text;                 // prim
+        ADOsp.Parameters[13].Value:=Edit11.Text;                // hostname
+        if checkbox1.checked then ADOsp.Parameters[14].Value:=0 else ADOsp.Parameters[14].Value:=1;
+        if checkbox2.checked then ADOsp.Parameters[15].Value:=1 else ADOsp.Parameters[15].Value:=0;
+        if checkbox3.checked then ADOsp.Parameters[16].Value:=1 else ADOsp.Parameters[16].Value:=0;
+        ADOsp.Parameters[17].DataType:=ftInteger;
+        ADOsp.Parameters[17].Direction:=pdOutput;
+        ADOsp.Prepared:=True;
+        ADOsp.ExecProc;
+        obj_id:=ADOsp.Parameters[17].value;
+        ADOsp.Free;
+        ADOQueryObjects.Requery;
+        try ADOQueryObjects.Locate('obj_id',obj_id,[]); except; end;
+     end;
+  end;
+End;
+
+Procedure TDM.PrihodOrgEdit;
+var ADOsp : TADOStoredProc;    obj_id : Integer;    i      : Integer;Begin  if not AccessIsGranted(acs_prihod_edit) then begin     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+  With PrihodOrgForm do begin     if ADOQueryObjects['type_id']<>NULL then type_id:=ADOQueryObjects['type_id'] else type_id:=-1;     if ADOQueryObjects['vendor_id']<>NULL then vendor_id:=ADOQueryObjects['vendor_id'] else vendor_id:=-1;     if ADOQueryObjects['suppl_id']<>NULL then suppl_id:=ADOQueryObjects['suppl_id'] else suppl_id:=-1;     if ADOQueryObjects['mark_id']<>NULL then mark_id:=ADOQueryObjects['mark_id'] else mark_id:=-1;     if ADOQueryObjects['d_prih']<>NULL then DateTimePicker1.Date:=ADOQueryObjects['d_prih'] else DateTimePicker1.Date:=InitialDT;     if ADOQueryObjects['d_gar']<>NULL then DateTimePicker2.Date:=ADOQueryObjects['d_gar'] else DateTimePicker2.Date:=InitialDT;     if ADOQueryObjects['type_name']<>NULL then Edit1.Text:=ADOQueryObjects['type_name'] else Edit1.Text:='';     if ADOQueryObjects['obj_name']<>NULL then Edit2.Text:=ADOQueryObjects['obj_name'] else Edit2.Text:='';     if ADOQueryObjects['vendor_name']<>NULL then Edit3.Text:=ADOQueryObjects['vendor_name'] else Edit3.Text:='';     if ADOQueryObjects['mark_name']<>NULL then Edit4.Text:=ADOQueryObjects['mark_name'] else Edit4.Text:='';     if ADOQueryObjects['InvN']<>NULL then Edit5.Text:=ADOQueryObjects['InvN'] else Edit5.Text:='';     if ADOQueryObjects['sn']<>NULL then Edit6.Text:=ADOQueryObjects['sn'] else Edit6.Text:='';     if ADOQueryObjects['pn']<>NULL then Edit7.Text:=ADOQueryObjects['pn'] else Edit7.Text:='';     if ADOQueryObjects['InvN_comment']<>NULL then Edit8.Text:=ADOQueryObjects['InvN_comment'] else Edit8.Text:='';     if ADOQueryObjects['nnakl']<>NULL then Edit9.Text:=ADOQueryObjects['nnakl'] else Edit9.Text:='';     if ADOQueryObjects['suppl_name']<>NULL then Edit10.Text:=ADOQueryObjects['suppl_name'] else Edit10.Text:='';     if ADOQueryObjects['hostname']<>NULL then Edit11.Text:=ADOQueryObjects['hostname'] else Edit11.Text:='';     if ADOQueryObjects['prim']<>NULL then Memo1.Text:=ADOQueryObjects['prim'] else Memo1.Clear;     if ADOQueryObjects['f_sit']=0 then checkBox1.Checked:=true else CheckBox1.Checked:=false;     if ADOQueryObjects['f_nowork']=1 then checkBox2.Checked:=True else CheckBox2.Checked:=false;     if ADOQueryObjects['f_ad']=1 then checkBox3.Checked:=True else CheckBox3.Checked:=false;     obj_id:=ADOQueryObjects['obj_id'];     Caption:='Изменение информации об объекте';     if ShowModal=mrOk Then begin        ADOsp:=TADOStoredProc.Create(nil);
+        ADOsp.Connection:=ADOConnection1;
+        ADOsp.ProcedureName:=sp_EditPrihod;
+        For i:=0 to 17 do ADOsp.Parameters.Add;
+        ADOsp.Parameters[0].Value:=type_id;
+        ADOsp.Parameters[1].Value:=vendor_id;
+        ADOsp.Parameters[2].Value:=suppl_id;
+        ADOsp.Parameters[3].Value:=Edit2.text;                  // obj_name
+        ADOsp.Parameters[4].Value:=mark_id;
+        ADOsp.Parameters[5].Value:=Edit5.text;                  // invN
+        ADOsp.Parameters[6].Value:=Edit8.text;                  // invN_comment
+        ADOsp.Parameters[7].Value:=Edit6.text;                  // SN
+        ADOsp.Parameters[8].Value:=Edit7.text;                  // PN
+        ADOsp.Parameters[9].Value:=Edit9.text;                  // nnakl
+        ADOsp.Parameters[10].Value:=DateTimePicker1.DateTime;   // d_prih
+        ADOsp.Parameters[11].Value:=DateTimePicker2.DateTime;   // d_gar
+        ADOsp.Parameters[12].Value:=Memo1.Text;                 // prim
+        ADOsp.Parameters[13].Value:=Edit11.Text;                // hostname
+        if checkbox1.checked then ADOsp.Parameters[14].Value:=0 else ADOsp.Parameters[14].Value:=1;
+        if checkbox2.checked then ADOsp.Parameters[15].Value:=1 else ADOsp.Parameters[15].Value:=0;
+        if checkbox3.checked then ADOsp.Parameters[16].Value:=1 else ADOsp.Parameters[16].Value:=0;
+        ADOsp.Parameters[17].value:=obj_id;
+        ADOsp.Prepared:=True;
+        ADOsp.ExecProc;
+        ADOsp.Free;
+        ADOQueryObjects.Requery;
+        try ADOQueryObjects.Locate('obj_id',obj_id,[]); except; end;
+     end;
+  end;End;Procedure TDM.SpisOrg;var ADOsp : TADOStoredProc;
+    obj_id : Integer;
+    i,pocount      : Integer;
+Begin
+  if not AccessIsGranted(acs_spis_object) then begin
+     MessageDlg(msg_noRights,mtInformation,[mbOk],0);
+     exit;
+  end;
+
+  if ADOQueryObjects['f_spis']=1 then begin
+     MessageDlg('Выбранный объект уже списан',mtInformation,[mbOk],0);
+     Exit;
+  end;
+
+  obj_id:=ADOQueryObjects['obj_id'];
+
+//  pocount:=GetPOcount(obj_id);
+//  if pocount=-1 then begin
+//    MessageDlg('Ошибка определения количества установленного ПО на СВТ!',mtError,[mbOk],0);
+//    exit;
+//  end;
+//  if pocount>0 then begin
+//    MessageDlg('Перед списанием необходимо удалить ПО с СВТ ('+inttostr(pocount)+' наименований)!',mtInformation,[mbOk],0);
+//    exit;
+//  end;
+
+  With SpisForm do begin
+     Edit1.Text:='';
+     obj_id:=ADOQueryObjects['obj_id'];
+     Caption:='Списание оргтехники';
+     if ShowModal=mrOk Then begin
+        ADOsp:=TADOStoredProc.Create(nil);
+        ADOsp.Connection:=ADOConnection1;
+        ADOsp.ProcedureName:=sp_SpisObject;
+        For i:=0 to 1 do ADOsp.Parameters.Add;
+        ADOsp.Parameters[0].Value:=obj_id;
+        ADOsp.Parameters[1].Value:=Edit1.Text;
+        ADOsp.ExecProc;
+        ADOsp.Free;
+        ADOQueryObjects.Requery;
+        try ADOQueryObjects.Locate('obj_id',obj_id,[]); except; end;
+     end;
+  end;
+End;
+
+Procedure TDM.MoveOrgDialog;
+Begin
+  MoveObjectForm.ShowModal;
+End;
+
 end.
 

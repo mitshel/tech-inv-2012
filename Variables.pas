@@ -41,7 +41,7 @@ const
      acs_prihod_add= 14;
      acs_obj_move  = 15;
      acs_personal_change= 16;
-     acs_invent    = 17;
+     acs_prihod_edit = 17;
      acs_invent_parts  = 18;
      acs_invent_po     = 19;
      acs_invent_attr   = 20;

@@ -156,6 +156,11 @@ type
     procedure Action5Execute(Sender: TObject);
     procedure DBGridOrgtechDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure ButtonGroup2Items0Click(Sender: TObject);
+    procedure ButtonGroup2Items1Click(Sender: TObject);
+    procedure ButtonGroup2Items2Click(Sender: TObject);
+    procedure ButtonGroup2Items3Click(Sender: TObject);
+    procedure ButtonGroup2Items4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -295,6 +300,31 @@ begin
   DM.ShowADUsersWindow;
 end;
 
+procedure TMainForm.ButtonGroup2Items0Click(Sender: TObject);
+begin
+  DM.PrihodOrgAdd(False);
+end;
+
+procedure TMainForm.ButtonGroup2Items1Click(Sender: TObject);
+begin
+  DM.PrihodOrgAdd(True);
+end;
+
+procedure TMainForm.ButtonGroup2Items2Click(Sender: TObject);
+begin
+  DM.PrihodOrgEdit;
+end;
+
+procedure TMainForm.ButtonGroup2Items3Click(Sender: TObject);
+begin
+  DM.SpisOrg;
+end;
+
+procedure TMainForm.ButtonGroup2Items4Click(Sender: TObject);
+begin
+  DM.MoveOrgDialog;
+end;
+
 procedure TMainForm.CategoryPanel1Collapse(Sender: TObject);
 begin
   case (sender as TCategoryPanel).Tag of
@@ -396,6 +426,8 @@ begin
   Try
     RootKey:=HKEY_CURRENT_USER;
     if OpenKey(cRegKey,True) then begin
+      WriteInteger('ActivePanel',ActivePanel);
+
       SaveDBGridParam(MainForm.DBGridPers,reg);
       SaveDBGridParam(MainForm.DBGridOrgtech,reg);
       SaveFormParametres(ADUsersForm,reg);
@@ -411,14 +443,11 @@ end;
 procedure TMainForm.FormShow(Sender: TObject);
 Var reg : TRegistry;
 begin
+  CategoryPanelGroup1.CollapseAll;
   GetCurrentResolution;
   action_admin_showhints.Checked:=MainForm.ShowHint;
   SetWndPos(MainForm);
   DM.OpenDatabase;
-  UpdateStatus;
-  ActivePanel:=panUsers;
-  CategoryPanelGroup1.CollapseAll;
-  (FindComponent('CategoryPanel'+IntToStr(ActivePanel)) AS TCategoryPanel).Expand;
 
   With RibbonStatus[panOrgtech] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
   With RibbonStatus[panUsers] do begin SearchText:=''; Filtered:=False; SearchEnabled:=True; FilterEnabled:=True; ActiveTab:=1; end;
@@ -435,6 +464,8 @@ begin
   Try
     RootKey:=HKEY_CURRENT_USER;
     if OpenKey(cRegKey,True) then begin
+       if ValueExists('ActivePanel') Then ActivePanel:=ReadInteger('ActivePanel') Else ActivePanel:=panOrgtech;
+
       RestoreDBGridParam(MainForm.DBGridPers,reg);
       RestoreDBGridParam(MainForm.DBGridOrgtech,reg);
       RestoreFormParametres(ADUsersForm,reg,True);
@@ -443,7 +474,8 @@ begin
   Finally
     Free;
   End;
-
+  UpdateStatus;
+  (FindComponent('CategoryPanel'+IntToStr(ActivePanel)) AS TCategoryPanel).Expand;
   RestorePanelRibbon;
 end;
 
@@ -453,7 +485,7 @@ Begin
   StatusBar1.Panels[1].Text:='Res:'+ScreenResolution;
   StatusBar1.Panels[2].Text:=intToStr(DM.pFilialInfo.fil_id)+':'+DM.pFilialInfo.fil_code+':'+DM.pFilialInfo.fil_name;
 
-  //  MainForm.StatusBar1.Panels[0].Text:=ActiveUser.name+'/'+ActiveUser.fio+'/'+roles[ActiveUser.mainRole];
+//  MainForm.StatusBar1.Panels[0].Text:=ActiveUser.name+'/'+ActiveUser.fio+'/'+roles[ActiveUser.mainRole];
 //  if pDatabaseIsOpen then
 //  StatusBar1.Panels[1].Text:='Записей:'+intToStr(DM.ADOQuery4.RecordCount);
 //

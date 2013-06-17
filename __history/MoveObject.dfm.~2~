@@ -1,0 +1,94 @@
+object MoveObjectForm: TMoveObjectForm
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = #1055#1077#1088#1077#1084#1077#1097#1077#1085#1080#1077' ('#1053#1072#1079#1085#1072#1095#1077#1085#1080#1077')'
+  ClientHeight = 315
+  ClientWidth = 737
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 721
+    Height = 65
+    Caption = #1054#1073#1098#1077#1082#1090
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 11
+      Top = 16
+      Width = 22
+      Height = 13
+      Caption = #1058#1080#1087':'
+    end
+    object Label2: TLabel
+      Left = 191
+      Top = 16
+      Width = 98
+      Height = 13
+      Caption = #1053#1072#1079#1074#1072#1085#1080#1077' '#1086#1073#1098#1077#1082#1090#1072':'
+    end
+    object Label3: TLabel
+      Left = 391
+      Top = 16
+      Width = 43
+      Height = 13
+      Caption = #1052#1086#1076#1077#1083#1100':'
+    end
+    object Label4: TLabel
+      Left = 591
+      Top = 10
+      Width = 40
+      Height = 13
+      Caption = #1048#1085#1074'.'#8470':'
+    end
+    object DBEdit1: TDBEdit
+      Left = 11
+      Top = 29
+      Width = 174
+      Height = 21
+      TabStop = False
+      Color = clBtnFace
+      ReadOnly = True
+      TabOrder = 0
+    end
+    object DBEdit2: TDBEdit
+      Left = 191
+      Top = 29
+      Width = 194
+      Height = 21
+      TabStop = False
+      Color = clBtnFace
+      ReadOnly = True
+      TabOrder = 1
+    end
+    object DBEdit3: TDBEdit
+      Left = 391
+      Top = 29
+      Width = 194
+      Height = 21
+      TabStop = False
+      Color = clBtnFace
+      ReadOnly = True
+      TabOrder = 2
+    end
+    object DBEdit4: TDBEdit
+      Left = 591
+      Top = 29
+      Width = 122
+      Height = 21
+      TabStop = False
+      Color = clBtnFace
+      ReadOnly = True
+      TabOrder = 3
+    end
+  end
+end

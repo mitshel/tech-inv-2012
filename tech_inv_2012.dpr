@@ -32,7 +32,10 @@ uses
   ADUsers in 'ADUsers.pas' {ADUsersForm},
   xlsrep in 'xlsrep.pas',
   AddPersonal in 'AddPersonal.pas' {AddPersonalForm},
-  RePMngU in 'RepMan\RePMngU.pas' {RepMNG};
+  RePMngU in 'RepMan\RePMngU.pas' {RepMNG},
+  PrihodOrg in 'PrihodOrg.pas' {PrihodOrgForm},
+  Spis in 'Spis.pas' {SpisForm},
+  MoveObject in 'MoveObject.pas' {MoveObjectForm};
 
 {$R *.res}
 
@@ -63,5 +66,8 @@ begin
   Application.CreateForm(TADUsersForm, ADUsersForm);
   Application.CreateForm(TAddPersonalForm, AddPersonalForm);
   Application.CreateForm(TRepMNG, RepMNG);
+  Application.CreateForm(TPrihodOrgForm, PrihodOrgForm);
+  Application.CreateForm(TSpisForm, SpisForm);
+  Application.CreateForm(TMoveObjectForm, MoveObjectForm);
   Application.Run;
 end.

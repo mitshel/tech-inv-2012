@@ -186,6 +186,18 @@
 			<DCCReference Include="RepMan\RePMngU.pas">
 				<Form>RepMNG</Form>
 			</DCCReference>
+			<DCCReference Include="PrihodOrg.pas">
+				<Form>PrihodOrgForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="Spis.pas">
+				<Form>SpisForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
+			<DCCReference Include="MoveObject.pas">
+				<Form>MoveObjectForm</Form>
+				<FormType>dfm</FormType>
+			</DCCReference>
 			<None Include="ModelSupport_tech_inv_2012\default.txaPackage"/>
 			<None Include="ModelSupport_tech_inv_2012\default.txvpck"/>
 			<None Include="ModelSupport_tech_inv_2012\Project1\default.txvpck"/>
