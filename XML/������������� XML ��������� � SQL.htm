@@ -1,0 +1,1937 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Использование XML совместно с SQL</title><meta name="description" content="В статье рассматриваются базовые механизмы и возможности использования XML в MS SQL Server и ADO."><meta name="keywords" content="XML,SQL,FOR XML, FOR XML RAW, FOR XML EXPLICIT,OPENXML"><meta name="robots" content="index,follow"><link rel="stylesheet" href="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/article.css" type="text/css"><script src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/watch.js" async="" type="text/javascript"></script><script type="text/javascript" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/jquery.js"></script><script type="text/javascript" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/rsdn.js"></script><script type="text/javascript" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/Forum.js" charset="utf-8"></script></head><body marginheight="20" marginwidth="20"><table celpadding="2" style="font-family:verdana;font-weight:bold;padding: 0px 5px; BORDER: #9daabd 1px 	solid; 	COLOR: #646464; BACKGROUND-COLOR: #e6e6e6;" border="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap"><font style="font-weight:normal" size="1"><script src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/shMenu.js" type="text/javascript" charset="utf-8"></script>&lt;&lt;<a href="http://www.rsdn.ru/?article/db/xmlsql.xml" target="_top">Показать&nbsp;меню</a>&nbsp;</font></td><td align="right" nowrap="nowrap" width="100%"><font size="2">&nbsp;<a href="http://www.rsdn.ru/article/db/xmlsql.xml?print" target="_blank" title="Версия для печати"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/printer2.gif" height="14" align="absmiddle" border="0" width="16"></a>&nbsp;&nbsp;<a href="http://www.rsdn.ru/forum/db/320639" target="_self" title="Перейти к обсуждению статьи"><font color="#646464" size="1"> Сообщений </font><font color="black">1</font></a>&nbsp;&nbsp;<a href="http://www.rsdn.ru/forum/db/320639" target="_self" title="Перейти к обсуждению статьи"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/showfr.gif" height="14px" align="absmiddle" border="0" width="18px"></a>&nbsp;<a href="http://www.rsdn.ru/Forum/RateList.aspx?mid=320639"><font color="#646464"><font size="1"> Оценка </font><font color="black">301</font></font></a>&nbsp;&nbsp; <a target="_blank" rel="nofollow" href="http://www.rsdn.ru/Users/Private/AddFav.aspx?mid=320639" onclick="return AddFav(this.href);" title="Добавить в избранное"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/fav.gif" height="14px" align="absmiddle" border="0"></a>&nbsp;&nbsp;<a href="http://www.rsdn.ru/Forum/Private/Subscr.aspx?tid=320639" onclick="return SubMsg(this.href)" title="Подписка на сообщения" rel="nofollow"><img class="i" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/sub.gif" height="14px" align="absmiddle" border="0" width="18px"></a>&nbsp;&nbsp;&nbsp;<font size="1">Оценить </font><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=-3" onclick="return RateMsg(this.href);" title="+1"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n11.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=1" onclick="return RateMsg(this.href);" title="Интересно"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n1.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=2" onclick="return RateMsg(this.href);" title="Спасибо"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n2.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=3" onclick="return RateMsg(this.href);" title="Супер"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n3.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=-1" onclick="return RateMsg(this.href);" title="Удалить оценку"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/nx.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=-4" onclick="return RateMsg(this.href);" title="Согласен"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/np.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=0" onclick="return RateMsg(this.href);" title="Не согласен"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/nm.gif" eight="14px" align="absmiddle" border="0" width="18px"></a>&nbsp;
+					</font></td></tr></tbody></table><script type="text/javascript" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/orphus.js"></script><a title="Система Orphus" href="http://orphus.ru/" id="orphus"><img alt="Система Orphus" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/orphus.gif" height="25" border="0" width="100"></a><h1>Использование XML совместно с SQL</h1><h2 style="text-align: center">XML и современные базы данных</h2><h5><span class="title">Автор: </span><span class="value"><a target="_blank" href="http://www.rsdn.ru/Users/Profile.aspx?uid=3658">Алексей Ширшов</a><br>The RSDN Group</span><br><span class="title">Источник: </span><span class="value"><a target="_blank" href="http://www.rsdn.ru/mag/main.htm">RSDN Magazine #1-2003</a></span></h5><h6><span class="title">Опубликовано: </span><span class="value">06.07.2003</span><br><span class="title">Исправлено: </span><span class="value">13.03.2005</span><br><span class="title">Версия текста: </span><span class="value">1.0</span></h6><table width="98%"><tbody><tr><td class="contents" valign="top"><a href="#EAB"><b>Введение</b></a><br><a href="#EPB"><b>Поддержка XML в Microsoft SQL Server 2000</b></a><br><div style="margin-left:2em"><a href="#EUB">FOR XML</a><br><a href="#ENJAC">FOR XML EXPLICIT</a><br><a href="#ERNAE">OPENXML</a><br></div><a href="#E41AE"><b>IIS и XML функции SQL Server</b></a><br><div style="margin-left:2em"><a href="#E32AE">URL-запросы</a><br><a href="#E4DAG">Шаблоны</a><br><a href="#EMIAG">Запросы XPath</a><br><a href="#EA6AG">Замечания по разделу</a><br></div><a href="#EBABG"><b>ADO и XML</b></a><br><div style="margin-left:2em"><a href="#EKABG">Возможности ADO 2.5</a><br><a href="#EJMBG">Возможности ADO 2.6</a><br><a href="#EE4BG">XML-документ на стороне клиента</a><br></div><a href="#EYCAI"><b>Апдейтаграммы и XML Bulk Load</b></a><br><div style="margin-left:2em"><a href="#E4CAI">Апдейтаграммы</a><br><a href="#ERRAI">XML Bulk Load</a><br></div><a href="#EN3AI"><b>Заключение</b></a><br><a href="#ET3AI"><b>Литература</b></a><br></td><td class="contents" align="center" valign="top"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/mag0103.jpg"></td></tr></tbody></table><script language="javascript">
+			function ToggleCode(id)
+			{
+				el=document.getElementById(id);
+				img=document.getElementById("img"+id);
+				if(el.style.display=="none")
+				{
+					img.src="/images/ls2.gif";
+					el.style.display="";
+				}
+				else
+				{
+					img.src="/images/ls1.gif";
+					el.style.display="none";
+				}
+				return false;
+			}
+		</script><h2>Введение<a name="EAB"></a></h2>
+<p>Этот материал посвящен тем нововведениям, которые появились в SQL и 
+технологиях доступа к базам данных благодаря XML. Статья описывает 
+базовые механизмы и возможности использования XML в MS SQL Server и ADO.
+ Статья не претендует на фундаментальные исследования в этой области, 
+так как XML и SQL Server вещи по природе своей необъятные. Кроме того, 
+уровень поддержки XML в SQL Server постоянно увеличивается, и за всеми 
+изменениями чрезвычайно трудно уследить. Например, после выхода SQLXML 
+3.0, стало возможным использовать SQL Server в качестве сервера 
+Web-служб. К сожалению, эта тема в статье не освещается, но в будущем, 
+возможно, найдется время и для нее.</p>
+<p>Своим появлением статья обязана тому беспорядку, который был в голове у автора по данному вопросу.</p>
+<p>Во второй и третьей частях статьи используются возможности SQLXML 3.0, который можно скачать по адресу <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=4023deea-f179-45de-b41d-84e4ff655a3b&amp;DisplayLang=en" class="link-ext" target="_blank">http://www.microsoft.com/downloads/details.aspx?FamilyID=4023deea-f179-45de-b41d-84e4ff655a3b&amp;DisplayLang=en</a>.</p>
+<h2>Поддержка XML в Microsoft SQL Server 2000<a name="EPB"></a></h2>
+<p>Microsoft SQL Server 2000 содержит встроенные средства для работы с 
+XML. Результирующую выборку можно представлять в формате XML с помощью 
+ключевых слов for xml оператора select, а также сделать запрос из 
+документа XML с помощью оператора OPENXML.</p>
+<h3>FOR XML<a name="EUB"></a></h3>
+<p>Этот оператор предназначен для представления результирующего набора строк в виде XML-документа. Рассмотрим его синтаксис:</p>
+<div id="EZB"><table class="code" width="98%"><tbody><tr><td><pre>[ <span class="KEYWORD">FOR</span> { <span class="KEYWORD">BROWSE</span> | XML { RAW | AUTO | EXPLICIT } 
+            [ , XMLDATA ] 
+            [ , ELEMENTS ]
+            [ , BINARY BASE64 ]
+        }
+]
+</pre></td></tr></tbody></table></div>
+<p>Назначение ключевого слова BROWSE не относится к теме нашей статьи.</p>
+<ul style="LIST-STYLE:square"><li>FOR XML RAW – Каждая строка 
+представляется в виде элемента &lt;row/&gt;. Название поля формирует 
+название атрибута, а значение поля – значение атрибута.</li>
+<li>FOR XML AUTO – Документ XML форматируется точно так же, как и при 
+XML RAW, только название элемента, представляющего строку, заменяется на
+ название таблицы.</li>
+<li>FOR XML EXPLICIT – Самый сложный и гибкий вариант для создания 
+XML-документов. В этом режиме можно формировать документы практически 
+любой формы, однако для этого сам запрос должен быть написан по 
+определенным правилам. Более подробно они рассматриваются ниже.</li>
+<li>XMLDATA – Иногда бывает полезно получить не только сами данные, но и
+ их схему. Схема данных также записывается в формате XML. Она определяет
+ типы элементов и атрибутов, накладывает ограничения на их значения, и 
+вообще представляет метаинформацию, позволяющую проверить документ на 
+действительность (validity). Существует несколько разновидностей 
+(форматов) схем данных. SQL Server использует XDR-схемы (XML Data 
+Reduced). Подробную документацию по XDR можно найти в [1]. Ключевое 
+слово XMLDATA может быть использовано для всех трех режимов формирования
+ XML-документа (raw, auto и explicit).</li>
+<li>ELEMENTS – Ключевое слово, использующееся только совместно с FOR XML
+ AUTO. При его указании поля формируются как элементы: название поля 
+соответствует названию элемента, а значение поля – значению элемента.</li>
+<li>BINARY BASE64 – Определяет, как будут выведены двоичные данные (binary data).</li>
+</ul>
+<table class="warning" width="98%"><tbody><tr><td><strong>ПРЕДУПРЕЖДЕНИЕ</strong><br><p>SQL Server не позволяет использовать предикат GROUP BY совместно с FOR XML AUTO.</p>
+</td></tr></tbody></table>
+<h4>Примеры</h4>
+<p>Для простоты и удобства будем использовать стандартную базу данных 
+PUBS из поставки SQL Server 2000. Надо сказать, что Query Analyzer – не 
+лучшее средство для просмотра XML-документов, т.к. результат он помещает
+ в одну ячейку, как текстовое поле (или в одну строку, обрезая текст, 
+при выводе результата в виде текста). Поэтому, если вы хотите 
+испробовать все примеры сами, обратитесь к разделу IIS и XML-функции SQL
+ Server.</p>
+<p>Начнем с рассмотрения FOR XML RAW:</p>
+<div id="E2C"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> au_fname, au_lname, address 
+  <span class="KEYWORD">from</span> authors 
+  <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span> 
+  <span class="KEYWORD">for</span> xml raw
+</pre></td></tr></tbody></table></div>
+<p>Этот запрос возвращает имена всех авторов, начинающиеся с буквы M. Вот результаты в формате XML:</p>
+<div id="EMD"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">row</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Marjorie"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Green"</span> <span class="KEYWORD">address</span>=<span class="STRING">"309 63rd St. #411"</span> /&gt; 
+&lt;<span class="ACCENT">row</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Michael"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"O'Leary"</span> <span class="KEYWORD">address</span>=<span class="STRING">"22 Cleveland Av. #14"</span> /&gt; 
+&lt;<span class="ACCENT">row</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Meander"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Smith"</span> <span class="KEYWORD">address</span>=<span class="STRING">"10 Mississippi Dr."</span> /&gt; 
+&lt;<span class="ACCENT">row</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Morningstar"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Greene"</span> <span class="KEYWORD">address</span>=<span class="STRING">"22 Graybar House Rd."</span> /&gt;
+&lt;<span class="ACCENT">row</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Michel"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"DeFrance"</span> <span class="KEYWORD">address</span>=<span class="STRING">"3 Balding Pl."</span> /&gt;
+</pre></td></tr></tbody></table></div>
+<p>Теперь заменим xml raw на xml auto:</p>
+<div id="EXF"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Marjorie"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Green"</span> <span class="KEYWORD">address</span>=<span class="STRING">"309 63rd St. #411"</span> /&gt; 
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Michael"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"O'Leary"</span> <span class="KEYWORD">address</span>=<span class="STRING">"22 Cleveland Av. #14"</span> /&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Meander"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Smith"</span> <span class="KEYWORD">address</span>=<span class="STRING">"10 Mississippi Dr."</span> /&gt; 
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Morningstar"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Greene"</span> <span class="KEYWORD">address</span>=<span class="STRING">"22 Graybar House Rd."</span> /&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">au_fname</span>=<span class="STRING">"Michel"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"DeFrance"</span> <span class="KEYWORD">address</span>=<span class="STRING">"3 Balding Pl."</span> /&gt;
+</pre></td></tr></tbody></table></div>
+<p>Как видите, изменения невелики. Вместо названия элемента «row» 
+подставляется имя таблицы. Теперь добавим к этому запросу ключевое слово
+ ELEMENTS.</p>
+<div id="EDAAC"><table class="code" width="98%"><tbody><tr><td><pre>select au_fname, au_lname, address 
+  from authors 
+  where au_fname like 'M%' 
+  <span class="KEYWORD">for</span> xml <span class="KEYWORD">auto</span>, elements
+</pre></td></tr></tbody></table></div>
+<p>Вот результаты:</p>
+<div id="EMAAC"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">authors</span>&gt;
+  &lt;<span class="ACCENT">au_fname</span>&gt;Marjorie&lt;/<span class="ACCENT">au_fname</span>&gt; 
+  &lt;<span class="ACCENT">au_lname</span>&gt;Green&lt;/<span class="ACCENT">au_lname</span>&gt; 
+  &lt;<span class="ACCENT">address</span>&gt;309 63rd St. #411&lt;/<span class="ACCENT">address</span>&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span>&gt;
+  &lt;<span class="ACCENT">au_fname</span>&gt;Michael&lt;/<span class="ACCENT">au_fname</span>&gt; 
+  &lt;<span class="ACCENT">au_lname</span>&gt;O'Leary&lt;/<span class="ACCENT">au_lname</span>&gt; 
+  &lt;<span class="ACCENT">address</span>&gt;22 Cleveland Av. #14&lt;/<span class="ACCENT">address</span>&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span>&gt;
+  &lt;<span class="ACCENT">au_fname</span>&gt;Meander&lt;/<span class="ACCENT">au_fname</span>&gt; 
+  &lt;<span class="ACCENT">au_lname</span>&gt;Smith&lt;/<span class="ACCENT">au_lname</span>&gt; 
+  &lt;<span class="ACCENT">address</span>&gt;10 Mississippi Dr.&lt;/<span class="ACCENT">address</span>&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span>&gt;
+  &lt;<span class="ACCENT">au_fname</span>&gt;Morningstar&lt;/<span class="ACCENT">au_fname</span>&gt; 
+  &lt;<span class="ACCENT">au_lname</span>&gt;Greene&lt;/<span class="ACCENT">au_lname</span>&gt; 
+  &lt;<span class="ACCENT">address</span>&gt;22 Graybar House Rd.&lt;/<span class="ACCENT">address</span>&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span>&gt;
+  &lt;<span class="ACCENT">au_fname</span>&gt;Michel&lt;/<span class="ACCENT">au_fname</span>&gt; 
+  &lt;<span class="ACCENT">au_lname</span>&gt;DeFrance&lt;/<span class="ACCENT">au_lname</span>&gt; 
+  &lt;<span class="ACCENT">address</span>&gt;3 Balding Pl.&lt;/<span class="ACCENT">address</span>&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Документ получился более громоздким: все поля представлены элементами.</p>
+<p>С помощью ключевого слова XMLDATA можно получить документ со схемой данных.</p>
+<div id="EDDAC"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> au_fname, au_lname, address 
+  <span class="KEYWORD">from</span> authors 
+  <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span> 
+  <span class="KEYWORD">for</span> xml auto, xmldata
+</pre></td></tr></tbody></table></div>
+<p>Этот запрос вернет такой документ:</p>
+<div id="EUDAC"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">Schema</span> <span class="KEYWORD">name</span>=<span class="STRING">"Schema1"</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-data"</span> 
+  <span class="KEYWORD">xmlns</span>:<span class="KEYWORD">dt</span>=<span class="STRING">"urn:schemas-microsoft-com:datatypes"</span>&gt;
+  &lt;<span class="ACCENT">ElementType</span> <span class="KEYWORD">name</span>=<span class="STRING">"authors"</span> <span class="KEYWORD">content</span>=<span class="STRING">"empty"</span> <span class="KEYWORD">model</span>=<span class="STRING">"closed"</span>&gt;
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"au_fname"</span> <span class="ACCENT">dt</span>:<span class="KEYWORD">type</span>=<span class="STRING">"string"</span> /&gt; 
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"au_lname"</span> <span class="ACCENT">dt</span>:<span class="KEYWORD">type</span>=<span class="STRING">"string"</span> /&gt; 
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"address"</span> <span class="ACCENT">dt</span>:<span class="KEYWORD">type</span>=<span class="STRING">"string"</span> /&gt; 
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"au_fname"</span> /&gt; 
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"au_lname"</span> /&gt; 
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"address"</span> /&gt; 
+  &lt;/<span class="ACCENT">ElementType</span>&gt;
+&lt;/<span class="ACCENT">Schema</span>&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"x-schema:#Schema1"</span> 
+  <span class="KEYWORD">au_fname</span>=<span class="STRING">"Marjorie"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Green"</span> <span class="KEYWORD">address</span>=<span class="STRING">"309 63rd St. #411"</span> /&gt; 
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"x-schema:#Schema1"</span> 
+  <span class="KEYWORD">au_fname</span>=<span class="STRING">"Michael"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"O'Leary"</span> <span class="KEYWORD">address</span>=<span class="STRING">"22 Cleveland Av. #14"</span> /&gt; 
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"x-schema:#Schema1"</span> 
+  <span class="KEYWORD">au_fname</span>=<span class="STRING">"Meander"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Smith"</span> <span class="KEYWORD">address</span>=<span class="STRING">"10 Mississippi Dr."</span> /&gt; 
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"x-schema:#Schema1"</span> 
+  <span class="KEYWORD">au_fname</span>=<span class="STRING">"Morningstar"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"Greene"</span> <span class="KEYWORD">address</span>=<span class="STRING">"22 Graybar House Rd."</span> /&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"x-schema:#Schema1"</span> 
+  <span class="KEYWORD">au_fname</span>=<span class="STRING">"Michel"</span> <span class="KEYWORD">au_lname</span>=<span class="STRING">"DeFrance"</span> <span class="KEYWORD">address</span>=<span class="STRING">"3 Balding Pl."</span> /&gt;
+</pre></td></tr></tbody></table></div>
+<p>Как видите, теперь документу предшествует ХDR-схема, позволяющая проверить правильность его содержимого.</p>
+
+
+<h3>FOR XML EXPLICIT<a name="ENJAC"></a></h3>
+<p>В данном режиме можно формировать практически любые документы; 
+структура результирующего XML-документа определяется непосредственно в 
+самом запросе. Запрос может принимать очень сложный вид, ниже будут 
+рассмотрены правила, по которым он составляется.</p>
+<p>Первое поле всегда называется tag и представляет собой числовой 
+идентификатор таблицы. Вы можете указывать для него любые числовые 
+значения. В результирующем документе он не появляется, и нужен только, 
+чтобы определить связи между таблицами для формирования иерархического 
+документа. Второе поле называется parent и тоже может представлять любой
+ числовой идентификатор. Он определяет родительскую таблицу для данной 
+таблицы и в результирующем документе также не присутствует. Если 
+родитель отсутствует, указывается 0 или NULL. Для иерархических выборок 
+нужно использовать несколько запросов, объединенных с помощью оператора 
+UNION ALL.</p>
+<p>После двух обязательных полей tag и parent следуют поля, которые 
+требуется выбрать из таблицы. Для них должен быть задан псевдоним, 
+определяющий тип XML-узла, его название и другую информацию. Вот 
+синтаксис этого псевдонима:</p>
+<div id="EWJAC"><table class="code" width="98%"><tbody><tr><td><pre>ElementName!TagNumber!AttributeName!Directive
+</pre></td></tr></tbody></table></div>
+<p>Рассмотрим назначение каждой из частей этого псевдонима:</p>
+<ul style="LIST-STYLE:square"><li>ElementName – имя элемента, в котором будет находится элемент данного поля. Обычно здесь указывается имя таблицы.</li>
+<li>TagNumber – идентификатор таблицы, в которой находится данное поле. 
+Одному и тому же ElementName всегда должен соответствовать один 
+TagNumber. Он также не отображается ни в каком виде в результирующем 
+документе, однако нужен для определения иерархических связей между 
+таблицами.</li>
+<li>AttributeName – имя атрибута (или элемента), представляющего данное поле.</li>
+<li>Directive – по существу, представляет собой тип узла. Может принимать следующие значения:</li>
+</ul>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>element</th><td>поле представляется в виде элемента</td></tr>
+<tr><th>xml</th><td>То же самое, что element, но не выполняет трансформации текста. Например, символ меньше (&lt;) не превращается в ссылку &amp;lt;</td></tr>
+<tr><th>cdata</th><td>значение поля обрамляется соответствующим образом. Имя атрибута указывать совместно с этим ключевым словом нельзя.</td></tr>
+<tr><th>hide</th><td>позволяет скрыть поле</td></tr>
+<tr><th>id,idref,idrefs</th><td>позволяют делать ссылки на другие элементы. Эти атрибуты имеют значение, только если создается схема данных.</td></tr>
+</tbody></table>
+<p>Рассмотрим небольшой пример. В самом начале мы рассматривали запрос с использованием FOR XML RAW:</p>
+<div id="E3KAC"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> au_fname,au_lname,address <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span> <span class="KEYWORD">for</span> xml raw
+</pre></td></tr></tbody></table></div>
+<p>Перепишем его с использованием FOR XML EXPLICIT:</p>
+<div id="ENLAC"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> 1 <span class="KEYWORD">as</span> tag,
+    0 <span class="KEYWORD">as</span> parent,
+    au_fname <span class="KEYWORD">as</span> <span class="STRING">'authors!1!fname'</span>,
+    au_lname <span class="KEYWORD">as</span> <span class="STRING">'authors!1!lname'</span>,
+    address <span class="KEYWORD">as</span> <span class="STRING">'authors!1!address'</span>
+  <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span>
+  <span class="KEYWORD">for</span> xml explicit
+</pre></td></tr></tbody></table></div>
+<p>Результат будет точно таким же. Немного исправим запрос для демонстрации возможностей директивы FOR XML EXPLICIT.</p>
+<div id="EOMAC"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> 1 <span class="KEYWORD">as</span> tag,
+    0 <span class="KEYWORD">as</span> parent,
+    au_fname <span class="KEYWORD">as</span> <span class="STRING">'authors!1!fname'</span>,
+    au_lname <span class="KEYWORD">as</span> <span class="STRING">'authors!1!lname!element'</span>,
+    address <span class="KEYWORD">as</span> <span class="STRING">'authors!1!!cdata'</span>
+  <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span>
+  <span class="KEYWORD">for</span> xml explicit
+</pre></td></tr></tbody></table></div>
+<p>Вот результат:</p>
+<div id="EPNAC"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">lname</span>=<span class="STRING">"Green"</span>&gt;
+  &lt;<span class="ACCENT">fname</span>&gt;Marjorie&lt;/<span class="ACCENT">fname</span>&gt; 
+  &lt;![CDATA[ 309 63rd St. #411 ]]&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">lname</span>=<span class="STRING">"O'Leary"</span>&gt;
+  &lt;<span class="ACCENT">fname</span>&gt;Michael&lt;/<span class="ACCENT">fname</span>&gt; 
+  &lt;![CDATA[ 22 Cleveland Av. #14 ]]&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">lname</span>=<span class="STRING">"Smith"</span>&gt;
+  &lt;<span class="ACCENT">fname</span>&gt;Meander&lt;/<span class="ACCENT">fname</span>&gt; 
+  &lt;![CDATA[ 10 Mississippi Dr. ]]&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">lname</span>=<span class="STRING">"Greene"</span>&gt;
+  &lt;<span class="ACCENT">fname</span>&gt;Morningstar&lt;/<span class="ACCENT">fname</span>&gt; 
+  &lt;![CDATA[ 22 Graybar House Rd. ]]&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+&lt;<span class="ACCENT">authors</span> <span class="KEYWORD">lname</span>=<span class="STRING">"DeFrance"</span>&gt;
+  &lt;<span class="ACCENT">fname</span>&gt;Michel&lt;/<span class="ACCENT">fname</span>&gt; 
+  &lt;![CDATA[ 3 Balding Pl. ]]&gt; 
+&lt;/<span class="ACCENT">authors</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Неплохо для одного запроса! Поскольку для поля au_lname указан 
+атрибут element, оно представлено в виде элемента. Адрес находится в 
+секции CDATA.</p>
+<p>Теперь рассмотрим, как формировать иерархические документы. Возьмем такой запрос:</p>
+<div id="ESPAC"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> pub_name,city,fname,lname 
+  <span class="KEYWORD">from</span> publishers <span class="KEYWORD">as</span> p
+    <span class="KEYWORD">join</span> employee <span class="KEYWORD">as</span> e <span class="KEYWORD">on</span> p.pub_id = e.pub_id
+  <span class="KEYWORD">where</span> pub_name <span class="KEYWORD">like</span> <span class="STRING">'Binnet%'</span> <span class="KEYWORD">or</span> pub_name <span class="KEYWORD">like</span> <span class="STRING">'New Moon%'</span>
+  <span class="KEYWORD">order</span> <span class="KEYWORD">by</span> pub_name,city,fname,lname
+</pre></td></tr></tbody></table></div>
+<p>Он возвращает имена всех служащих издательств Binnet &amp; Hardley и 
+New Moon Books. Результат запроса (20 записей) я приводить не буду, 
+отмечу только, что он содержит большое количество повторяющихся названий
+ издательств, т.к. результат представлен в реляционной форме. Мы же 
+хотим получить следующее:</p>
+<div id="EUAAE"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">pubs</span> <span class="KEYWORD">PubName</span>=<span class="STRING">"Binnet &amp; Hardley"</span> <span class="KEYWORD">City</span>=<span class="STRING">"Washington"</span>&gt;
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Anabela"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Domingues"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Daniel"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Tonini"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Elizabeth"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Lincoln"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Helen"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Bennett"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Lesley"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Brown"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Martine"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Rance"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Paolo"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Accorti"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Paul"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Henriot"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Peter"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Franken"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Victoria"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Ashworth"</span> /&gt; 
+&lt;/<span class="ACCENT">pubs</span>&gt;
+&lt;<span class="ACCENT">pubs</span> <span class="KEYWORD">PubName</span>=<span class="STRING">"New Moon Books"</span> <span class="KEYWORD">City</span>=<span class="STRING">"Boston"</span>&gt;
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Gary"</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Thomas"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Howard"</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Snyder"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Karin"</span> <span class="KEYWORD">First_Name</span>=<span class="STRING">"Josephs"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Laurence"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Lebihan"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Martin"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Sommer"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Mary"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Saveley"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Matti"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Karttunen"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Palle"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Ibsen"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Roland"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"Mendel"</span> /&gt; 
+  &lt;<span class="ACCENT">employee</span> <span class="KEYWORD">First_Name</span> =<span class="STRING">"Timothy"</span> <span class="KEYWORD">Last_Name</span>=<span class="STRING">"O'Rourke"</span> /&gt; 
+&lt;/<span class="ACCENT">pubs</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>И как, спросите вы? Примерно так:</p>
+<div id="EZHAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">select</span> 1 <span class="KEYWORD">as</span> tag, <span class="COMMENT">-- первый подзапрос</span>
+    0 <span class="KEYWORD">as</span> parent,
+    pub_name <span class="KEYWORD">as</span> <span class="STRING">'pubs!1!PubName'</span>,
+    city <span class="KEYWORD">as</span> <span class="STRING">'pubs!1!City'</span>,
+    <span class="KEYWORD">NULL</span> <span class="KEYWORD">as</span> <span class="STRING">'employee!2!First_Name'</span>,
+    <span class="KEYWORD">NULL</span> <span class="KEYWORD">as</span> <span class="STRING">'employee!2!Last_Name'</span>
+  <span class="KEYWORD">from</span> publishers <span class="KEYWORD">as</span> pubs
+  <span class="KEYWORD">where</span> pub_name <span class="KEYWORD">like</span> <span class="STRING">'Binnet%'</span> <span class="KEYWORD">or</span> pub_name <span class="KEYWORD">like</span> <span class="STRING">'New Moon%'</span>
+<span class="KEYWORD">union</span> <span class="KEYWORD">all</span> <span class="KEYWORD">select</span> 2 <span class="KEYWORD">as</span> tag, <span class="COMMENT">-- второй подзапрос</span>
+    1 <span class="KEYWORD">as</span> parent,
+    pubs.pub_name,
+    pubs.city,
+    fname,
+    lname
+  <span class="KEYWORD">from</span> employee <span class="KEYWORD">as</span> e, publishers <span class="KEYWORD">as</span> pubs
+  <span class="KEYWORD">where</span> (pub_name <span class="KEYWORD">like</span> <span class="STRING">'Binnet%'</span> <span class="KEYWORD">or</span> pub_name <span class="KEYWORD">like</span> <span class="STRING">'New Moon%'</span>)
+     <span class="KEYWORD">and</span> pubs.pub_id = e.pub_id
+  <span class="KEYWORD">order</span> <span class="KEYWORD">by</span> <span class="STRING">'pubs!1!PubName'</span>, <span class="STRING">'pubs!1!City'</span>,
+  <span class="STRING">'employee!2!First_Name'</span>, <span class="STRING">'employee!2!Last_Name'</span>
+  <span class="KEYWORD">for</span> xml explicit
+</pre></td></tr></tbody></table></div>
+<p>Давайте рассмотрим все по порядку. Сначала выполняется первый подзапрос. Его результат приведен в таблице 1.</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>tag</th><th>parent</th><th>pubs!1!PubName</th><th>pubs!1!City</th><th>employee!2!First_Name</th><th>employee!2!Last_Name</th></tr>
+<tr><td>1</td><td>0</td><td>New Moon Books</td><td>Boston</td><td>NULL</td><td>NULL</td></tr>
+<tr><td>1</td><td>0</td><td>Binnet &amp; Hardley</td><td>Washington</td><td>NULL</td><td>NULL</td></tr>
+</tbody></table><font style="font-size:x-small;margin-left:1em" face="verdana"><i>Таблица 1.</i></font>
+<p>Затем второй (Таблица 2).</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>tag</th><th>parent</th><th>pub_name</th><th>city</th><th>fname</th><th>lname</th></tr>
+<tr><td>2</td><td>1</td><td>Binnet &amp; Hardley</td><td>Washington</td><td>Paolo</td><td>Accorti</td></tr>
+<tr><td>2</td><td>1</td><td>Binnet &amp; Hardley</td><td>Washington</td><td>Victoria</td><td>Ashworth</td></tr>
+<tr><td>2</td><td>1</td><td>Binnet &amp; Hardley</td><td>Washington</td><td>Helen</td><td>Bennett</td></tr>
+<tr><td>2</td><td>1</td><td>Binnet &amp; Hardley</td><td>Washington</td><td>Lesley</td><td>Brown</td></tr>
+<tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+</tbody></table><font style="font-size:x-small;margin-left:1em" face="verdana"><i>Таблица 2.</i></font>
+<p>Затем происходит сортировка, и на основе полей tag и parent SQL Server формирует иерархический XML документ.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>Для
+ отладки подобных запросов лучше не указывать оператор FOR XML EXPLICIT.
+ Тогда данные будут представлены в обычной реляционной форме.</p>
+</td></tr></tbody></table>
+<p>На этом мы, пожалуй, закончим рассмотрение оператора FOR XML EXPLICIT
+ – приведение примеров использования всех атрибутов заняло бы слишком 
+много места.</p>
+
+<h3>OPENXML<a name="ERNAE"></a></h3>
+<p>Функция OPENXML является аналогом OPENROWSET, OPENDATASOURCE и 
+OPENQUERY, которые позволяют выполнять запросы из удаленных источников. 
+Вот ее синтаксис:</p>
+<div id="EWNAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">OPENXML</span>(idoc int [<span class="KEYWORD">in</span>],rowpattern nvarchar[<span class="KEYWORD">in</span>],[flags byte[<span class="KEYWORD">in</span>]]) 
+[<span class="KEYWORD">WITH</span> (SchemaDeclaration | TableName)]
+</pre></td></tr></tbody></table></div>
+<p>Аргументы:</p>
+<ul style="LIST-STYLE:square"><li>idoc – хендл XML-документа, полученный при помощи хранимой процедуры sp_xml_preparedocument;</li>
+<li>rowpattern – локализуемая группа XPath или, проще говоря, XPath-выражение;</li>
+<li>flags – набор флагов, указывающих на то, как должны быть сопоставлены данные документа XML и реляционного набора строк;</li>
+<li>ShemaDeclaration – определение полей реляционного набора строк в формате:</li>
+</ul>
+<div id="EPOAE"><table class="code" width="98%"><tbody><tr><td><pre>ColName ColType [ColPattern | MetaProperty]
+</pre></td></tr></tbody></table></div>
+<p>Где</p>
+<ul style="LIST-STYLE:square"><li>ColName – имя поля.</li>
+<li>ColType – тип поля. Допускаются все типы SQL Server.</li>
+<li>ColPattern - локализуемая группа XPath для поля.</li>
+<li>MetaProperty – метасвойство. Его мы рассматривать не будем.</li>
+</ul>
+<p>XML-документ подготавливается с помощью хранимой процедуры 
+sp_xml_preparedocument. Процедура использует анализатор MSXML для 
+проверки документа на правильность и возвращает хендл документа. После 
+завершения работы с OPENXML хендл нужно закрыть с помощью процедуры 
+sp_xml_removedocument.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>sp_xml_preparedocument
+ подготавливает XML-документ, представляя его в виде объектной модели 
+DOM (Document Object Model). Если вы работаете с большими документами, 
+это может вызвать некоторые проблемы.</p>
+</td></tr></tbody></table>
+<p>Как видно из синтаксиса, вы можете не указывать флаги и определения 
+полей для реляционного набора строк. В этом случае SQL Server создаст 
+внутреннее представление XML-документа в так называемом "edge 
+table"-формате. Он практически не читаем, однако при большом желании его
+ можно использовать. Описание этого формата выходит за рамки данной 
+статьи, но в качестве доказательства того, что с ним можно работать, 
+приведу пример. Пусть у нас имеется такой XML-документ:</p>
+<div id="EFPAE"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">rsdn</span>&gt;
+  &lt;<span class="ACCENT">forums</span> <span class="KEYWORD">date</span>=<span class="STRING">"09.01.03"</span>&gt;
+    &lt;<span class="ACCENT">forum</span> <span class="KEYWORD">name</span>=<span class="STRING">"WinAPI"</span> <span class="KEYWORD">totalposts</span>=<span class="STRING">"16688"</span> 
+           <span class="KEYWORD">description</span>=<span class="STRING">"Системное программирование"</span>&gt;
+      &lt;<span class="ACCENT">moderators</span>/&gt;
+      &lt;<span class="ACCENT">top-poster</span>&gt;Alex Fedotov&lt;/<span class="ACCENT">top-poster</span>&gt;
+    &lt;/<span class="ACCENT">forum</span>&gt;
+    &lt;<span class="ACCENT">forum</span> <span class="KEYWORD">name</span>=<span class="STRING">"COM"</span> <span class="KEYWORD">totalposts</span>=<span class="STRING">"10116"</span> 
+           <span class="KEYWORD">description</span>=<span class="STRING">"Компонентные технологии"</span>&gt;
+      &lt;<span class="ACCENT">moderators</span>/&gt;
+      &lt;<span class="ACCENT">top-poster</span>&gt;Vi2&lt;/<span class="ACCENT">top-poster</span>&gt;
+    &lt;/<span class="ACCENT">forum</span>&gt;
+    &lt;<span class="ACCENT">forum</span> <span class="KEYWORD">name</span>=<span class="STRING">"Delphi"</span> <span class="KEYWORD">totalposts</span>=<span class="STRING">"5001"</span> 
+           <span class="KEYWORD">description</span>=<span class="STRING">"Delphi и Builder"</span>&gt;
+      &lt;<span class="ACCENT">moderators</span>&gt;
+        &lt;<span class="ACCENT">moderator</span> <span class="KEYWORD">name</span>=<span class="STRING">"Sinclair"</span>/&gt;
+        &lt;<span class="ACCENT">moderator</span> <span class="KEYWORD">name</span>=<span class="STRING">"Hacker_Delphi"</span>/&gt;
+      &lt;/<span class="ACCENT">moderators</span>&gt;
+      &lt;<span class="ACCENT">top-poster</span>&gt;Sinclair&lt;/<span class="ACCENT">top-poster</span>&gt;
+    &lt;/<span class="ACCENT">forum</span>&gt;
+    &lt;<span class="ACCENT">forum</span> <span class="KEYWORD">name</span>=<span class="STRING">"DB"</span> <span class="KEYWORD">totalposts</span>=<span class="STRING">"6606"</span> <span class="KEYWORD">description</span>=<span class="STRING">"Базы данных"</span>&gt;
+      &lt;<span class="ACCENT">moderators</span>&gt;
+        &lt;<span class="ACCENT">moderator</span> <span class="KEYWORD">name</span>=<span class="STRING">"_MarlboroMan_"</span>/&gt;
+      &lt;/<span class="ACCENT">moderators</span>&gt;
+      &lt;<span class="ACCENT">top-poster</span>&gt;Merle&lt;/<span class="ACCENT">top-poster</span>&gt;
+    &lt;/<span class="ACCENT">forum</span>&gt;
+  &lt;/<span class="ACCENT">forums</span>&gt;
+&lt;/<span class="ACCENT">rsdn</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Вот запрос, возвращающий общее количество сообщений для каждого форума:</p>
+<div id="EOTAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">exec</span> sp_xml_preparedocument @hdoc out, @_xmlbody
+
+<span class="KEYWORD">select</span> [text] <span class="KEYWORD">as</span> totalposts 
+  <span class="KEYWORD">from</span> <span class="KEYWORD">openxml</span>(@hdoc,<span class="STRING">'/rsdn/forums/forum'</span>) <span class="KEYWORD">as</span> f
+    <span class="KEYWORD">join</span> (<span class="KEYWORD">select</span> [id],localname \
+            <span class="KEYWORD">from</span> <span class="KEYWORD">openxml</span>(@hdoc,<span class="STRING">'/rsdn/forums/forum'</span>)
+            <span class="KEYWORD">where</span> localname = <span class="STRING">'totalposts'</span>) <span class="KEYWORD">as</span> d <span class="KEYWORD">on</span> d.[id] = f.parentid
+
+<span class="KEYWORD">exec</span> sp_xml_removedocument @hdoc
+</pre></td></tr></tbody></table></div>
+<p>Результатом его будет следующая таблица:</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>totalposts</th></tr>
+<tr><td>16688</td></tr>
+<tr><td>10116</td></tr>
+<tr><td>5001</td></tr>
+<tr><td>6606</td></tr>
+</tbody></table>
+<p>Не советую использовать подобный метод в рабочих проектах, и не 
+только потому, что он неэффективен (как видно из примера, XML-документ 
+сканируется дважды). Рассмотрим пример, выдающий тот же самый результат с
+ использованием XPath.</p>
+<div id="EIVAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">exec</span> sp_xml_preparedocument @hdoc out, @_xmlbody
+
+<span class="KEYWORD">select</span> * 
+  <span class="KEYWORD">from</span> <span class="KEYWORD">openxml</span>(@hdoc,<span class="STRING">'/rsdn/forums/forum'</span>)
+    <span class="KEYWORD">with</span>(totalposts varchar(100) <span class="STRING">'attribute::totalposts'</span>)
+
+<span class="KEYWORD">exec</span> sp_xml_removedocument @hdoc
+</pre></td></tr></tbody></table></div>
+<p>Здесь, чтобы ограничить реляционный набор строк, я воспользовался XPath-выражением.</p>
+<p>Выражение attribute::totalposts означает, что для поля totalposts 
+будет использоваться значение одноименного атрибута. Гораздо чаще в 
+XPath-выражениях используется сокращенная запись:</p>
+<ul style="LIST-STYLE:square"><li>«attribute::» можно заменить символом @;</li>
+<li>«self::node()» можно заменить на точку (.);</li>
+<li>«parent::node()» можно заменить на две точки (..).</li>
+</ul>
+<p>Другие сокращения можно найти в спецификации XPath.</p>
+<p>Давайте рассмотрим более сложный пример: выберем название форума, 
+модератора и дату создания статистики для всех форумов, у которых больше
+ 6000 сообщений.</p>
+<div id="ELWAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">exec</span> sp_xml_preparedocument @hdoc out, @_xmlbody
+
+<span class="KEYWORD">select</span>
+  forum <span class="KEYWORD">as</span> <span class="STRING">'Форум'</span>,
+  <span class="KEYWORD">case</span> <span class="KEYWORD">when</span> moders <span class="KEYWORD">is</span> <span class="KEYWORD">null</span> 
+    <span class="KEYWORD">then</span> <span class="STRING">'нет'</span>
+    <span class="KEYWORD">else</span> moders 
+    <span class="KEYWORD">end</span> <span class="KEYWORD">as</span> <span class="STRING">'Модератор'</span>,
+  [date] <span class="KEYWORD">as</span> <span class="STRING">'Дата создания'</span>
+  <span class="KEYWORD">from</span> <span class="KEYWORD">openxml</span>(@hdoc,<span class="STRING">'/rsdn/forums/forum[attribute::totalposts &gt; "6000"]'</span>) <span class="KEYWORD">with</span>
+  (
+    moders varchar(50) <span class="STRING">'moderators/moderator/attribute::name'</span>,
+    forum varchar(50) <span class="STRING">'attribute::name'</span>,
+    [date] varchar(50) <span class="STRING">'parent::node()/attribute::date'</span>
+  )
+
+<span class="KEYWORD">exec</span> sp_xml_removedocument @hdoc
+</pre></td></tr></tbody></table></div>
+<p>Часть запроса, использующую XPath, можно переписать в сокращенной форме :</p>
+<div id="EAYAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">openxml</span>(@hdoc,<span class="STRING">'/rsdn/forums/forum[@totalposts &gt; "6000"]'</span>) <span class="KEYWORD">with</span>
+(
+  moders varchar(50) <span class="STRING">'moderators/moderator/@name'</span>,
+  forum varchar(50) <span class="STRING">'@name'</span>,
+  [date] varchar(50) <span class="STRING">'../@date'</span>
+)
+</pre></td></tr></tbody></table></div>
+<p>Везде далее я буду пользоваться сокращенной записью.</p>
+<p>Чтобы разобраться с флагами OPENXML, рассмотрим слегка модифицированный пример из MSDN:</p>
+<div id="ETYAE"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">DECLARE</span> @idoc int
+<span class="KEYWORD">DECLARE</span> @doc varchar(1000)
+
+<span class="KEYWORD">SET</span> @doc =<span class="STRING">'
+&lt;root&gt;
+  &lt;Customer cid= "C1" city="Issaquah"&gt;
+    &lt;name&gt;Janine&lt;/name&gt;
+    &lt;Order oid="O1" date="1/20/1996" amount="3.5" /&gt;
+    &lt;Order oid="O2" date="4/30/1997" amount="13.4"&gt;
+      Customer was very satisfied
+    &lt;/Order&gt;
+  &lt;/Customer&gt;
+  &lt;Customer cid="C2" city="Oelde" &gt;
+    &lt;name&gt;Ursula&lt;/name&gt;
+    &lt;Order oid="O4" date="1/20/1996" amount="10000"&gt;Happy Customer.&lt;/Order&gt;
+    &lt;Order oid="O3" date="7/14/1999" amount="100" 
+                    note="Wrap it blue white red"&gt;
+      Sad Customer.
+      &lt;Urgency&gt;Important&lt;/Urgency&gt;
+    &lt;/Order&gt;
+  &lt;/Customer&gt;
+&lt;/root&gt;'</span>
+
+<span class="COMMENT">-- Создание внутреннего представления XML-документа.</span>
+<span class="KEYWORD">EXEC</span> sp_xml_preparedocument @idoc OUTPUT, @doc
+
+<span class="KEYWORD">SELECT</span> *
+  <span class="KEYWORD">FROM</span> <span class="KEYWORD">OPENXML</span> (@idoc, <span class="STRING">'/root/Customer'</span>, 2) <span class="KEYWORD">WITH</span>
+  (
+    cid char(5) <span class="STRING">'@cid'</span>, 
+    [name] varchar(20),
+    oid char(5) <span class="STRING">'Order/@oid'</span>, 
+    amount float <span class="STRING">'Order/@amount'</span>, 
+    comment varchar(100) <span class="STRING">'Order/text()'</span>
+  )
+
+<span class="COMMENT">-- Очистка</span>
+<span class="KEYWORD">EXEC</span> sp_xml_removedocument @idoc
+</pre></td></tr></tbody></table></div>
+<p>Результат будет следующим:</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>cid</th><th>name</th><th>oid</th><th>amount</th><th>comment</th></tr>
+<tr><td>C1</td><td>Janine</td><td>O1</td><td>3.5</td><td>Customer was very satisfied</td></tr>
+<tr><td>C2</td><td>Ursula</td><td>O4</td><td>10000.0</td><td>Happy Customer.</td></tr>
+</tbody></table>
+<p>Отметим некоторые особенности:</p>
+<ul style="LIST-STYLE:square"><li>В качестве режима отображения 
+XML-данных на поля реляционной таблицы использовалось значение 2 
+(element-centric mapping). Это означает, что по умолчанию имена колонок 
+получаемой реляционной таблицы будут соответствовать именам вложенных 
+XML-элементов. Кроме этого, возможно использование значений 0, 1 и 8. 0 
+используется по умолчанию и означает использование attribute-centric 
+mapping. 1, как ни странно, означает то же самое. Флаги 1 и 2 можно 
+комбинировать по "или", т.е. если подставить 3, сначала будет 
+произведена попытка найти атрибут с именем, соответствующим имени 
+колонки, а затем (если атрибут не найден) будет произведен поиск 
+элемента с соответствующим именем (иначе будет возвращен NULL). 
+Благодаря тому, что в качестве флага было указано значение 2, для поля 
+cid пришлось явно указать XPath-запрос, указывающий, что на эту колонку 
+отображается атрибут cid. Для поля name не потребовалось 
+непосредственного указания XPath-выражения. Если бы в качестве флага 
+использовалось значение 1 (использование отображения атрибутов), то 
+картина изменилась бы на противоположную: т.е. для cid не нужно бы было 
+ничего указывать, а для name пришлось бы написать шаблон (т.е. просто 
+выражение ‘name’).</li>
+<li>Особенность применения XPath-выражений при отображении данных 
+состоит в том, что возможна выборка данных, расположенных практически в 
+любой части XML-документа (относительно текущей ветки). Так, можно 
+обратиться к подветкам текущей ветки, родительским веткам, и даже 
+получить данные на основе выполнения некоторого условия. Если бы вместо 
+«comment varchar(100) 'Order/text()'» было написано «comment 
+varchar(100) 'Order'», то колонка comment первой строки содержала бы 
+пустую строку. Она бралась бы из первого заказа (O1). Но так как текста в
+ этом элементе нет, функция text() возвратит для него false, что 
+приведет к поиску текста в следующем по порядку элементе Order (заказе 
+O2). Таким образом, в сформированной записи будет находиться информация 
+из первого заказа и комментарий из второго. Прикладного смысла это 
+действие не имеет, но замечательно демонстрирует гибкость техники 
+отображения.</li>
+</ul>
+<p>На этом мы с вами закончим рассмотрение конструкции OPENXML. Более 
+подробную информацию можно получить в MSDN. Спецификацию XPath можно 
+найти в [2].</p>
+
+<h2>IIS и XML функции SQL Server<a name="E41AE"></a></h2>
+<p>Чтобы выполнять запросы к SQL Server через HTTP, необходимо настроить
+ соответствующим образом интернет-сервер. Делается это с помощью мастера
+ "Configure SQL XML Support in IIS". Я не буду описывать полностью его 
+работу, при необходимости можете обратиться к [3]. Кроме этого, 
+настроить виртуальный каталог можно программно с помощью объекта 
+VDirMgr. Он находится в файле sqlvdr3.dll. Для использования класса из 
+VB нужно добавить ссылку на библиотеку типов Microsoft SQL Virtual 
+Directory Control 1.0 Type Library. </p>
+<p>Мастер "Configure SQL XML Support in IIS" создает виртуальный 
+каталог, для обработки запросов к которому назначается специальное 
+isapi-расширение: sqlisapi.dll. Эта библиотека, используя провайдер SQL 
+OLEDB, связывается с SQL Server для отправки запросов и получения 
+результатов. Результирующие выборки, представленные уже в формате XML, 
+передаются обратно вызывающей стороне по HTTP. С помощью мастера вы 
+можете указать:</p>
+<ul style="LIST-STYLE:square"><li>Учетную запись SQL Server или Windows, под которой будут выполняться все запросы;</li>
+<li>Компьютер, на котором расположен SQL Server и базу данных;</li>
+<li>Подкаталоги данного виртуального каталога для хранения различных 
+типов файлов (шаблонов, схем). Подкаталоги могут быть трех 
+предопределенных типов: schema, template и dbobject. В подкаталоге 
+schema хранятся XDR или XSD схемы данных, которые можно непосредственно 
+исполнять в URL-запросе. В подкаталоге с типом template хранятся 
+шаблоны, исполнение которых разрешено через URL-запросы. dbobject – 
+псевдокаталог, его мы рассматривать не будем.</li>
+</ul>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>В SQLXML 3.0 появился еще один тип подкаталогов – soap. Его рассмотрение также выходит за рамки данной статьи.</p>
+</td></tr></tbody></table>
+<p>Отдельно остановимся на настройках каталога. Вы можете:</p>
+<ul style="LIST-STYLE:square"><li>Позволить или запретить указывать 
+SQL-инструкции непосредственно в URL. Отмечу, что в качестве инструкций 
+можно использовать не только запросы, но и любые другие операторы. 
+Советую устанавливать эту опцию только для отладки, а в нормальном 
+режиме работы выключать.</li>
+<li>Позволить или запретить исполнение запросов, хранящихся в специальных шаблонах. Подробнее о шаблонах будет сказано далее.</li>
+<li>Позволить или запретить использование запросов XPath;</li>
+<li>Позволить или запретить использовать метод POST.</li>
+</ul>
+<h3>URL-запросы<a name="E32AE"></a></h3>
+<p>Рассмотрим синтаксис URL-запроса к SQL Server:</p>
+<div id="EB3AE"><table class="code" width="98%"><tbody><tr><td><pre>http://iisserver/vroot?sql=sqlinstruction[&amp;param=value[&amp;param=value]...n]
+</pre></td></tr></tbody></table></div>
+<p>Здесь:</p>
+<ul style="LIST-STYLE:square"><li>iisserver – имя интернет-сервера;</li>
+<li>vroot – имя виртуального каталога;</li>
+<li>sqlinstruction – любая SQL-инструкция;</li>
+<li>param – имя параметра. Это не параметр SQL-инструкции или хранимой 
+процедуры, это параметр шаблона или один из следующих предопределенных 
+параметров: contenttype, outputencoding, root и xsl;</li>
+<li>value – значение параметра.</li>
+</ul>
+<p>Итак, предположим, вы сконфигурировали виртуальный каталог для 
+использования базы данных PUBS и назвали его server_pubs. Положим, ваш 
+компьютер называется server. Попробуем написать первый URL-запрос:</p>
+<div id="ET3AE"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/?sql=<span class="KEYWORD">select</span> au_fname, au_lname, address <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span> <span class="KEYWORD">for</span> xml raw
+</pre></td></tr></tbody></table></div>
+<p>Но не все так просто. Ответ будет таким:</p>
+<div id="EE4AE"><table class="code" width="98%"><tbody><tr><td><pre>XML document must have a top level element.
+</pre></td></tr></tbody></table></div>
+<p>Первый блин, как всегда, комом! Дело в том, что XML-документ, 
+формируемый SQL Server’ом, не имеет главного корневого элемента, без 
+которого документ не может считаться правильно оформленным. Для указания
+ корневого элемента нужно добавить параметр root.</p>
+<div id="EI4AE"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/?sql=<span class="KEYWORD">select</span> au_fname,au_lname,address <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span> <span class="KEYWORD">for</span> xml raw&amp;root=my_root
+</pre></td></tr></tbody></table></div>
+<p>В ответ будет выдано:</p>
+<div id="EZ4AE"><table class="code" width="98%"><tbody><tr><td><pre>Incorrect syntax near 'M'.
+</pre></td></tr></tbody></table></div>
+<p>Что ж, опытные пользователи, наверное, сразу бы приметили знак 
+процента в запросе. Он является зарезервированным символом в имени URL, 
+его код равен 25. Учитывая это, перепишем запрос так:</p>
+<div id="E44AE"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/?sql=<span class="KEYWORD">select</span> au_fname,au_lname,address <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%25'</span> <span class="KEYWORD">for</span> xml raw&amp;root=my_root
+</pre></td></tr></tbody></table></div>
+<p>Ура! Получилось. Результат будет примерно таким же, как в самом первом примере этой статьи.</p>
+<p>На случай, если вам нужно получить результаты в виде обычного HTML, 
+можно создать шаблон преобразования на языке XSL и указать еще один 
+параметр в URL – xsl. В качестве значения параметра нужно указать путь 
+относительно выбранной вами виртуальной директории.</p>
+<p>Составим шаблон трансформации:</p>
+<div id="ES5AE"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">stylesheet</span> <span class="KEYWORD">xmlns</span>:<span class="KEYWORD">xsl</span>=<span class="STRING">"http://www.w3.org/1999/XSL/Transform"</span> 
+                <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span>&gt;
+  <span class="ACCENT">
+</span>  &lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">template</span> <span class="KEYWORD">match</span> = <span class="STRING">"*"</span>&gt;
+    &lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">apply</span>-<span class="ACCENT">templates</span> /&gt;
+  &lt;/<span class="ACCENT">xsl</span>:<span class="ACCENT">template</span>&gt;
+
+  &lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">template</span> <span class="KEYWORD">match</span> = <span class="STRING">"row"</span>&gt;
+  &lt;<span class="ACCENT">li</span>&gt;  
+    &lt;<span class="ACCENT">table</span>&gt;&lt;<span class="ACCENT">tr</span>&gt;
+      &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">value</span>-<span class="ACCENT">of</span> <span class="KEYWORD">select</span> = <span class="STRING">"attribute::au_fname"</span> /&gt;&lt;/<span class="ACCENT">td</span>&gt;
+      &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">value</span>-<span class="ACCENT">of</span> <span class="KEYWORD">select</span> = <span class="STRING">"attribute::au_lname"</span> /&gt;.&lt;/<span class="ACCENT">td</span>&gt;
+      &lt;<span class="ACCENT">td</span>&gt;Address: &lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">value</span>-<span class="ACCENT">of</span> <span class="KEYWORD">select</span> = <span class="STRING">"attribute::address"</span> /&gt;&lt;/<span class="ACCENT">td</span>&gt;
+    &lt;/<span class="ACCENT">tr</span>&gt;&lt;/<span class="ACCENT">table</span>&gt;
+  &lt;/<span class="ACCENT">li</span>&gt;
+  &lt;/<span class="ACCENT">xsl</span>:<span class="ACCENT">template</span>&gt;
+
+  &lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">template</span> <span class="KEYWORD">match</span> = <span class="STRING">"/"</span>&gt;
+    &lt;<span class="ACCENT">html</span>&gt;
+    &lt;<span class="ACCENT">body</span>&gt;
+      &lt;<span class="ACCENT">ul</span>&gt;
+    &lt;<span class="ACCENT">xsl</span>:<span class="ACCENT">apply</span>-<span class="ACCENT">templates</span> <span class="KEYWORD">select</span> = <span class="STRING">"my_root"</span> /&gt;
+      &lt;/<span class="ACCENT">ul</span>&gt;
+    &lt;/<span class="ACCENT">body</span>&gt;
+    &lt;/<span class="ACCENT">html</span>&gt;
+  &lt;/<span class="ACCENT">xsl</span>:<span class="ACCENT">template</span>&gt;
+
+&lt;/<span class="ACCENT">xsl</span>:<span class="ACCENT">stylesheet</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Более подробную информацию о XSL можно найти в [4].</p>
+<p>В ответ на следующий URL-запрос вы получите преобразованный XML-документ.</p>
+<div id="ELDAG"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/?sql=<span class="KEYWORD">select</span> au_fname,au_lname,address <span class="KEYWORD">from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%25'</span> <span class="KEYWORD">for</span> xml raw&amp;root = my_root&amp;xsl = xsl_for_query.xsl
+</pre></td></tr></tbody></table></div>
+<p>На самом деле работа с URL-запросами интересна только первые 
+несколько минут. Действительно, очень неудобно возиться со строкой 
+адреса и бесконечными символами процента в ней, к тому же URL-запросы не
+ очень хороши в смысле безопасности. Альтернативой им являются шаблоны.</p>
+
+<h3>Шаблоны<a name="E4DAG"></a></h3>
+<p>Шаблоны в контексте этой статьи являются обычными XML-документами, 
+составленными по определенным правилам. Основным их содержанием является
+ SQL-запрос или вызов хранимой процедуры. Шаблоны также используются для
+ запросов XPath, однако их я коснусь чуть позже. Параметры шаблона 
+задаются в URL-строке. Если они там не указаны, берутся значения по 
+умолчанию из соответствующих тегов &lt;param&gt;.</p>
+<p>Шаблоны хранятся на сервере, поэтому в смысле безопасности их 
+использование намного предпочтительнее, чем URL-запросов. Чтобы 
+ISAPI-расширение, которое их обрабатывает, поняло, что вы вызываете 
+шаблон, его нужно поместить в свой виртуальный каталог. Обычно он 
+называется template. Настроить его можно в упоминавшемся ранее мастере 
+"Configure SQL XML Support in IIS" на закладке Virtual Names. </p>
+<p>Структура шаблона выглядит так:</p>
+<div id="EGEAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">your_root</span> <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span> 
+           <span class="KEYWORD">sql:xsl</span>=<span class="STRING">"xsl file name"</span>&gt;
+  &lt;<span class="ACCENT">xql:header</span>&gt;
+    &lt;<span class="ACCENT">xql:param</span> <span class="KEYWORD">name</span>=<span class="STRING">"your_param_name"</span>&gt; param_value &lt;/<span class="ACCENT">sql:param</span>&gt;
+    <span class="ACCENT">&lt;xql:param</span> <span class="KEYWORD">name</span>=<span class="STRING">"your_param_name"</span>&gt; param_value &lt;/<span class="ACCENT">sql:param</span>&gt;...n
+  &lt;/<span class="ACCENT">xql:header</span>&gt;
+  &lt;<span class="ACCENT">sql:query</span>&gt;
+    любое SQL-выражение
+  &lt;/<span class="ACCENT">sql:query</span>&gt;
+&lt;/<span class="ACCENT">your_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Для форматирования результатов исполнения шаблона может быть 
+использована XSL-трансформация. Для этого необходимо задать атрибут xsl,
+ значение которого есть относительный или полный путь до файла, 
+содержащего шаблон трансформации. Атрибут xsl необязателен, как и раздел
+ header. </p>
+<p>Вот как будет выглядеть шаблон, основанный на изрядно уже поднадоевшем вам запросе.</p>
+<div id="EXFAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">my_root</span> <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span> 
+         <span class="KEYWORD">sql:xsl</span>=<span class="STRING">"xsl_for_query.xsl"</span>&gt;
+  &lt;<span class="ACCENT">sql:query</span>&gt;
+    <span class="KEYWORD">select</span> au_fname,au_lname,address 
+<span class="KEYWORD">      from</span> authors <span class="KEYWORD">where</span> au_fname <span class="KEYWORD">like</span> <span class="STRING">'M%'</span> <span class="KEYWORD">for</span> <span class="KEYWORD">xml</span> <span class="KEYWORD">raw</span>
+  &lt;/<span class="ACCENT">sql:query</span>&gt;
+&lt;/<span class="ACCENT">my_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>В нем используется та же схема преобразования, что и в предыдущем 
+примере. Теперь попробуйте его вызвать (предположим, вы его сохранили 
+под именем first_template.xml):</p>
+<div id="ECHAG"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/template/first_template.xml
+</pre></td></tr></tbody></table></div>
+<p>Результат получается довольно странным: IE представляет HTML-документ
+ (получаемый при трансформации) в формате XML. Делает он это на вполне 
+законных основаниях, и чтобы результат выдавался все-таки в формате 
+HTML, нужно явно указать тип выходного потока. Это легко сделать с 
+помощью параметра contenttype.</p>
+<div id="EGHAG"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/template/first_template.xml?contenttype=text/html
+</pre></td></tr></tbody></table></div>
+<p>Достоинства шаблонов очевидны:</p>
+<ul style="LIST-STYLE:square"><li>Так как шаблон находится на сервере, вы полностью контролируете его содержимое;</li>
+<li>Шаблоны намного проще в использовании;</li>
+<li>Тело шаблона и используемая схема преобразования скрыты от пользователя;</li>
+<li>Шаблоны можно динамически изменять или создавать, что придает интернет-серверу дополнительную гибкость;</li>
+<li>С помощью шаблонов можно выполнять запросы XPath, но об этом уже в следующем разделе.</li>
+</ul>
+<p>В шаблонах можно использовать следующие атрибуты (рассмотрены наиболее используемые):</p>
+<ul style="LIST-STYLE:square"><li>client-side-xml – Булева переменная, 
+принимающая значение 0 или 1. Если указывается 1, то при выборке 
+используется форматирование XML-документа на клиенте. Т.е. SQL Server 
+выполняет обычный запрос, передает рекордсет клиенту, и уже там 
+производится формирование документа. Более подробно клиентские курсоры 
+будут рассмотрены в разделе ADO и XML.</li>
+</ul>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>В
+ данном случае клиентом является компьютер, откуда поступает запрос к 
+SQL Server-y, то есть машина, где расположен SQLXMLOLEDB-провайдер. В 
+случае использования ADO – это машина клиента. В случае использования 
+шаблонов – сервер IIS.</p>
+</td></tr></tbody></table>
+<ul style="LIST-STYLE:square"><li>nullvalue – позволяет задавать строку, которая в URL-запросе и запросе XPath будет означать NULL.</li>
+<li>is-xml – атрибут параметра, принимающий значение 0 и 1, используется
+ в разделе header. По умолчанию он равен 1. Это означает, что значение 
+параметра интерпретируется как фрагмент xml, поэтому, например, &amp;lt;
+ <i>не заменяется</i>. Если задано значение 0, параметр интерпретируется как обычный текст.</li>
+</ul>
+<p>Назначение других атрибутов можно найти в MSDN.</p>
+
+<h3>Запросы XPath<a name="EMIAG"></a></h3>
+<p>XPath не рассчитан на работу с реляционными данными. Чтобы 
+использовать XPath-запросы для выборки реляционных данных, необходимо 
+создать схему данных XDR или XSD. XDR была разработана несколько лет 
+назад при активном участии Microsoft, т.к. в то время необходимость в 
+схемах данных была, а, по существу, самих схем не было. С появлением XSD
+ популярность и актуальность применения XDR начали падать.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>Спецификацию XSD можно найти в [5].</p>
+</td></tr></tbody></table>
+<p>Схема данных выполняет две важные функции: задает структуру будущего 
+XML-документа и определяет, какие поля и таблицы должны использоваться 
+при выполнении запроса XPath. Такие схемы называются аннотированными 
+схемами запросов, а атрибуты, связывающие объекты базы данных с 
+XML-узлами – аннотациями. До выхода в свет SQLXML 2.0 можно было 
+использовать только аннотированные схемы на основе SDR [6]. Однако 
+сейчас лучше использовать аннотированные схемы на основе спецификации 
+XSD [7]. Некоторую информацию по преобразованию схем из XDR в более 
+новый формат XSD можно найти в [8].</p>
+<p>Вот синтаксис шаблонов с использованием запросов XPath:</p>
+<div id="EZIAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">your_root</span> <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span>&gt;
+  &lt;<span class="ACCENT">sql:header</span>&gt;
+    &lt;<span class="ACCENT">xql:param</span> <span class="KEYWORD">name</span>=<span class="STRING">"your_param_name"</span>&gt; param_value &lt;/<span class="ACCENT">sql:param</span>&gt;
+    &lt;<span class="ACCENT">xql:param</span> <span class="KEYWORD">name</span>=<span class="STRING">"your_param_name"</span>&gt; param_value &lt;/<span class="ACCENT">sql:param</span>&gt;...n
+  &lt;/<span class="ACCENT">sql:header</span>&gt;
+  &lt;<span class="ACCENT">sql:xpath-query</span> <span class="KEYWORD">mapping-schema</span>=<span class="STRING">"your_schema.xml"</span>&gt;
+    XPath query
+  &lt;/<span class="ACCENT">sql:xpath-query</span>&gt;
+&lt;/<span class="ACCENT">your_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>В этом примере аннотированная схема должна находится в файле 
+your_schema.xml. Как видно из синтаксиса, возможно создание 
+параметризированных запросов XPath. Параметр в запросе обозначается 
+начальным символом $.</p>
+<p>Рассмотрим пример аннотированной схемы XDR, который будет 
+использоваться для запросов XPath. В результирующем документе будут 
+присутствовать имена, фамилии и адреса всех авторов:</p>
+<div id="EEKAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">Schema</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-data"</span>
+  <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span>
+  <span class="KEYWORD">xmlns:dt</span>=<span class="STRING">"urn:schemas-microsoft-com:datatypes"</span>&gt;
+
+  &lt;<span class="ACCENT">ElementType</span> <span class="KEYWORD">name</span>=<span class="STRING">"address"</span> /&gt;
+  &lt;<span class="ACCENT">ElementType</span> <span class="KEYWORD">name</span>=<span class="STRING">"Authors"</span> <span class="KEYWORD">sql:relation</span>=<span class="STRING">"Authors"</span>&gt;
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"au_fname"</span> <span class="KEYWORD">dt:type</span>=<span class="STRING">"string"</span> /&gt; 
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"au_lname"</span> <span class="KEYWORD">dt:type</span>=<span class="STRING">"string"</span> /&gt; 
+
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"au_fname"</span>/&gt;
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"au_lname"</span> /&gt;
+    &lt;<span class="ACCENT">element</span> <span class="KEYWORD">type</span>=<span class="STRING">"address"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"address"</span>/&gt;
+  &lt;/<span class="ACCENT">ElementType</span>&gt;
+&lt;/<span class="ACCENT">Schema</span>&gt; 
+</pre></td></tr></tbody></table></div>
+<p>Здесь используется аннотация relation для того, чтобы указать, с 
+какой таблицей будет связан элемент Authors. Дочерние элементы наследуют
+ связь с таблицей, указанной для родительского ElementType. Связывание 
+полей таблицы или представления (view) можно выполнять явно, с 
+использованием аннотации field. В данном примере для элементов 
+AttributeType этого делать не нужно, т.к. отображения на соответствующие
+ поля выполняются автоматически. Однако для дочерних элементов 
+ElementType, которые по умолчанию связываются с таблицами, такая 
+аннотация может быть необходима. Наиболее часто используемые аннотации 
+приведены далее.</p>
+<p>Теперь можно перейти к самому шаблону. Предположим, аннотированную схему вы сохранили под именем MySchema.xml.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>IIS
+ различает тип XML-документа только на основе каталога, где он 
+находится. Даже если мы не настроили специальным образом IIS на 
+исполнение схем, их лучше хранить в одном месте. Я рекомендую хранить 
+схемы и шаблоны в разных виртуальных каталогах. Например, template для 
+шаблонов, schema – для схем.</p>
+</td></tr></tbody></table>
+<p>Вот так выглядит шаблон, выбирающий имена, фамилии и адреса всех авторов:</p>
+<div id="EDNAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">my_root</span> <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span>&gt;
+    &lt;<span class="ACCENT">sql:xpath-query</span> <span class="KEYWORD">mapping-schema</span>=<span class="STRING">"../Schema/MySchema.xml"</span>&gt;
+        /Authors
+    &lt;/<span class="ACCENT">sql:xpath-query</span>&gt;
+&lt;/<span class="ACCENT">my_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Так как схемы XDR постепенно вытесняются схемами XSD, перепишем пример с использованием XSD.</p>
+<table class="warning" width="98%"><tbody><tr><td><strong>ПРЕДУПРЕЖДЕНИЕ</strong><br><p>Я
+ полтора дня потерял, когда первый раз пытался выполнить запрос XPath на
+ XSD-схеме. ISAPI-расширение упорно выдавало ошибку «XPath: unable to 
+find /authors in the schema». В конце концов, после непродолжительных 
+консультаций с одним из участников форума сайта <a href="http://www.sql.ru/">www.sql.ru</a>,
+ проблема была решена. Суть ее в следующем: при создании виртуального 
+каталога я использовал оснастку mmc SQL IIS Admin.MSC, которая входит в 
+стандартный комплект MS SQL Server’а и ничего не знает о новых 
+возможностях SQLXML 3.0. Новая оснастка лежит в %Program Files%\SQLXML 
+3.0 и называется sqlisad3.msc. Ее можно запустить из меню 
+Start-&gt;Programs-&gt;SQLXML 3.0-&gt;Configure IIS Support. Всегда 
+пользуйтесь только ею.</p>
+</td></tr></tbody></table>
+<p>Вот список основных отличий XDR от XSD[9], к которому я очень часто обращаюсь:</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>XDR</th><th>XSD</th></tr>
+<tr><td>Schema</td><td>schema</td></tr>
+<tr><td>ElementType</td><td>element</td></tr>
+<tr><td>AttributeType</td><td>attribute</td></tr>
+<tr><td>attribute</td><td>none</td></tr>
+</tbody></table>
+<p>С учетом этого схема будет выглядеть так:</p>
+<div id="E1OAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+            <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>&gt;
+  &lt;<span class="ACCENT">xsd:element </span><span class="KEYWORD">name</span>=<span class="STRING">"authors"</span> <span class="KEYWORD">sql:relation</span>=<span class="STRING">"authors"</span>&gt;
+    &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"au_fname"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_fname"</span> /&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"au_lname"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_lname"</span> /&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"address"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"address"</span> /&gt;
+    &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+  &lt;/<span class="ACCENT">xsd:element</span>&gt;
+&lt;/<span class="ACCENT">xsd:schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Здесь явно указаны аннотации, позволяющие связать XML-элементы с 
+таблицей authors и соответствующими полями. В данном случае все они не 
+обязательны, т. к. SQLXML может вывести связи из названий узлов. Вот 
+пример, где аннотации действительно необходимы. Для разнообразия адрес и
+ фамилия вынесены в отдельные элементы:</p>
+<div id="EYQAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+  <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>&gt;
+  &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"Авторы"</span> <span class="KEYWORD">sql:relation</span>=<span class="STRING">"authors"</span>&gt;
+    &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+      &lt;<span class="ACCENT">xsd:sequence</span>&gt;
+        &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"Фамилия"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_lname"</span>/&gt; 
+        &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"Адрес"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"address"</span> /&gt; 
+      &lt;/<span class="ACCENT">xsd:sequence</span>&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Имя"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_fname"</span>/&gt; 
+    &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+  &lt;/<span class="ACCENT">xsd:element</span>&gt;
+&lt;/<span class="ACCENT">xsd:schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Если схема находится в виртуальном каталоге, тип которого schema, вы 
+можете выполнять XPath-запросы, непосредственно указывая их в URL. 
+Результирующий документ может не иметь корневого элемента, поэтому не 
+забывайте указывать параметр root.</p>
+<div id="EFTAG"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/<span class="KEYWORD">schema</span>/xsd_map_schema.xml/Авторы?root=root
+</pre></td></tr></tbody></table></div>
+<p>Вот другие аннотации, часто используемые в схемах:</p>
+<ul style="LIST-STYLE:square"><li>relationship – элемент, обозначающий 
+связь с соответствующими друг другу первичными и внешними ключами. 
+Используется для построения иерархических XML-документов.</li>
+<li>is-constant – указывает, что соответствующий элемент не связывается с таблицей или колонкой базы данных.</li>
+<li>map-field – булева переменная, принимающая значение 0 или 1. 
+Значение 0 указывает, что соответствующий элемент не будет 
+присутствовать в результирующем документе. С выходом SQLXML 3.0 
+аннотация была переименована в mapped.</li>
+<li>limit-field и limit-value – предназначены для указания поля и его 
+значения, по которым будет фильтроваться запрос к базе данных. Результат
+ использования этих аннотаций аналогичен ограничению результирующего 
+набора строк с помощью оператора WHERE.</li>
+<li>use-cdata – указывает, что соответствующий XML-узел будет 
+представлен в секции CDATA результирующего документа. Узел должен быть 
+связан с полем таблицы или представления и не может применяться 
+совместно с url-encode или ID, IDREF, IDREFS, NMTOKEN и NMTOKENS.</li>
+<li>hide – булева переменная, принимающая значение 0 или 1. Указывает на
+ то, что соответствующий XML-узел будет скрыт (значение 0) в 
+результирующем XML-документе, однако может быть использован в запросе 
+XPath. Не путайте её с аннотацией mapped. Различие в том, что при помощи
+ mapped XML-узел совсем исключается из документа, так что не может быть 
+использован в запросе XPath.</li>
+</ul>
+<p>Рассмотрим пример, демонстрирующий работу некоторых из перечисленных 
+аннотаций. В разделе FOR XML EXPLICIT был составлен иерархический список
+ издательств и служащих, которые в них работают. Попробуем получить 
+такой же XML-документ с помощью аннотированной схемы:</p>
+<div id="E3TAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+            <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>&gt;
+  &lt;<span class="ACCENT">xsd:annotation</span>&gt;
+    &lt;<span class="ACCENT">xsd:appinfo</span>&gt;
+      &lt;<span class="ACCENT">sql:relationship</span> <span class="KEYWORD">name</span>=<span class="STRING">"PubsEmployees"</span>
+        <span class="KEYWORD">parent</span>=<span class="STRING">"publishers"</span> <span class="KEYWORD">parent-key</span>=<span class="STRING">"pub_id"</span>
+        <span class="KEYWORD">child</span>=<span class="STRING">"employee"</span> <span class="KEYWORD">child-key</span>=<span class="STRING">"pub_id"</span> /&gt;
+    &lt;/<span class="ACCENT">xsd:appinfo</span>&gt;
+  &lt;/<span class="ACCENT">xsd:annotation</span>&gt;
+  &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"pubs"</span> <span class="KEYWORD">sql:relation</span>=<span class="STRING">"publishers"</span>&gt;
+    &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+      &lt;<span class="ACCENT">xsd:sequence</span>&gt;
+        &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"employee"</span>
+          <span class="KEYWORD">sql:relation</span>=<span class="STRING">"employee"</span>
+          <span class="KEYWORD">sql:relationship</span>=<span class="STRING">"PubsEmployees"</span> &gt;
+          &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+            &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"First_Name"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"fname"</span> 
+                           <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> /&gt;
+            &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Last_Name"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"lname"</span> 
+                           <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> /&gt;
+            &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"minit"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"minit"</span> 
+                           <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> <span class="KEYWORD">sql:hide</span>=<span class="STRING">"1"</span> /&gt;
+          &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+        &lt;/<span class="ACCENT">xsd:element</span>&gt;
+      &lt;/<span class="ACCENT">xsd:sequence</span>&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"PubName"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"pub_name"</span> <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span>/&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"City"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"city"</span> <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> 
+        <span class="KEYWORD">sql:limit-field</span>=<span class="STRING">"pub_name"</span> <span class="KEYWORD">sql:limit-value</span>=<span class="STRING">"Binnet &amp;amp; Hardley"</span> /&gt;
+    &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+  &lt;/<span class="ACCENT">xsd:element</span>&gt;
+&lt;/<span class="ACCENT">xsd:schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Здесь использован атрибут hide для удаления XML-узла из 
+результирующего документа, но сохранить возможность его использования в 
+XPath-запросах. Атрибуты limit-field и limit-value ограничивают 
+количество издательств одним – «Binnet &amp; Hardley». Раздел 
+xsd:annotation вынесен, однако его можно было использовать и внутри узла
+ &lt;xsd:element name="employee"…&gt;. В таком случае имя элемента 
+relationship можно было не указывать.</p>
+<p>Примерно так можно использовать эту схему:</p>
+<div id="ENZAG"><table class="code" width="98%"><tbody><tr><td><pre>http://server/server_pubs/<span class="KEYWORD">schema</span>/schema1.xml/pubs/employee[@minit=""]?root=root
+</pre></td></tr></tbody></table></div>
+<p>Схемы можно непосредственно указывать в шаблоне. Например:</p>
+<div id="EUZAG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">my_root</span> <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span>&gt;
+  &lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+    <span class="KEYWORD">xmlns:ms</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>
+    <span class="KEYWORD">id</span>=<span class="STRING">"InLineSchema1"</span> <span class="KEYWORD">sql:is-mapping-schema</span>=<span class="STRING">"1"</span>&gt;
+    &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"Авторы"</span> <span class="KEYWORD">ms:relation</span>=<span class="STRING">"authors"</span>&gt;
+      &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+        &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Имя"</span> <span class="KEYWORD">ms:field</span>=<span class="STRING">"au_fname"</span>/&gt; 
+        &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Фамилия"</span> <span class="KEYWORD">ms:field</span>=<span class="STRING">"au_lname"</span>/&gt; 
+        &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Адрес"</span> <span class="KEYWORD">ms:field</span>=<span class="STRING">"address"</span>/&gt; 
+      &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+    &lt;/<span class="ACCENT">xsd:element</span>&gt;
+  &lt;/<span class="ACCENT">xsd:schema</span>&gt;
+  &lt;<span class="ACCENT">sql:xpath-query</span> <span class="KEYWORD">mapping-schema</span>=<span class="STRING">"#InLineSchema1"</span>&gt;
+    /Авторы
+  &lt;/<span class="ACCENT">sql:xpath-query</span>&gt;
+&lt;/<span class="ACCENT">my_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Для того чтобы запрос XPath использовал схему, а также для сокрытия 
+ее в результирующем документе XML, указан атрибут is-mapping-schema. Он 
+может принимать значения 0 или 1. Кроме этого, необходимо явно сослаться
+ на используемую схему, так как их в шаблоне может быть несколько. Это 
+делается путем добавления атрибута id в схему и атрибута mapping-schema –
+ в раздел самого запроса.</p>
+<p>Создание аннотированных схем не совсем тривиальная задача, требующая к
+ тому же знания большого количества тонкостей. К счастью, в Microsoft 
+разработали специальный инструмент для автоматической генерации схем – 
+XML View Mapper. Его можно бесплатно скачать по адресу <u><a href="http://msdn.microsoft.com/downloads/default.asp?url=/downloads/sample.asp?url=/msdn-files/027/001/443/msdncompositedoc.xml" class="link-ext" target="_blank">http://msdn.microsoft.com/downloads/default.asp?url=/downloads/sample.asp?url=/msdn-files/027/001/443/msdncompositedoc.xml </a></u>.
+ У него хороший графический интерфейс и достаточно неплохая 
+документация; думаю, вы с ним разберетесь быстро. Единственный его 
+недостаток – отсутствие возможности сохранять схемы в формате XSD. 
+Надеюсь, в будущем эта возможность появится.</p>
+<p>К сожалению, SQL Server 2000 лишь частично поддерживает спецификацию 
+XPath и возможности использования XPath-запросов к базе данных. Ниже 
+приведена сводка поддерживаемых и не поддерживаемых возможностей.</p>
+<p>Поддерживаемая функциональность XPath:</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>Тип</th><th>Значения</th></tr>
+<tr><td>Оси (axis)</td><td>attribute, child, parent, and self</td></tr>
+<tr><td>Операторы сравнения</td><td>=, !=, &lt;, &lt;=, &gt;, &gt;=</td></tr>
+<tr><td>Арифметические операторы</td><td>+, -, *, div</td></tr>
+<tr><td>Функции явного преобразования</td><td>number(), string(), Boolean()</td></tr>
+<tr><td>Булевы операторы</td><td>And, or</td></tr>
+<tr><td>Булевы функции</td><td>true(), false(), not()</td></tr>
+</tbody></table>
+<p>Не поддерживаемая функциональность:</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>Тип</th><th>Значения</th></tr>
+<tr><td>Оси</td><td>ancestor, ancestor-or-self, descendant, 
+descendant-or-self (//), following, following-sibling, namespace, 
+preceding, preceding-sibling</td></tr>
+<tr><td>Арифметические операторы</td><td>Mod</td></tr>
+<tr><td>Строковые функции</td><td>string(), concat(), starts-with(), 
+contains(), substring-before(), substring-after(), substring(), 
+string-length(), normalize(), translate()</td></tr>
+<tr><td>Булевы функции</td><td>lang()</td></tr>
+<tr><td>Числовые функции</td><td>sum(), floor(), ceiling(), round()</td></tr>
+<tr><td>Оператор объединения</td><td>|</td></tr>
+</tbody></table>
+
+<h3>Замечания по разделу<a name="EA6AG"></a></h3>
+<p>Вы можете использовать неограниченное количество простых запросов 
+(query) и запросов XPath (XPath-query) в одном шаблоне, а также 
+использовать их вперемешку.</p>
+<p>В качестве простых запросов (query) могут выступать любые 
+SQL-инструкции. Шаблоны могут быть использованы для изменения данных, 
+хотя это и не лучшее решение. Другие методы изменения данных 
+рассматриваются в разделе Апдейтаграммы и XML Bulk Load.</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>Пространство имен</th><th>Назначение</th></tr>
+<tr><td>urn:schemas-microsoft-com:xml-sql</td><td>Шаблоны и Аннотации XDR</td></tr>
+<tr><td>urn:schemas-microsoft-com:xml-data</td><td>Схемы XDR</td></tr>
+<tr><td><a href="http://www.w3.org/2001/XMLSchema">http://www.w3.org/2001/XMLSchema</a></td><td>Схемы XSD</td></tr>
+<tr><td>urn:schemas-microsoft-com:mapping-schema</td><td>Аннотации XSD</td></tr>
+</tbody></table>
+
+<h2>ADO и XML<a name="EBABG"></a></h2>
+<p>Исторически самой первой и самой известной возможностью работы с 
+XML-документами в ADO было сохранение объекта Recordset в формате XML. 
+До этого вы могли сохранять Recordset’ы только в бинарном формате 
+adPersistADTG. Он использовался для передачи наборов строк посредством 
+RDS (Remote Data Services). Работу с обоими форматами поддерживает OLE 
+DB Persistence Provider. Кроме сохранения, можно также загружать 
+(восстанавливать) объект Recordset из файлов. Сохранение и последующая 
+загрузка рекордсета из файла в формате XML дали возможность 
+использования XML-документов в качестве баз данных.</p>
+<p>OLE DB Persistence Provider жестко задает формат результирующего 
+XML-документа: для описания структуры и типов узлов всегда используется 
+XDR, данные всегда помещаются в секцию data, а строки представляются 
+элементом row. Названия и значения полей – соответствующие названия и 
+значения атрибутов элемента row. Нет никакой возможности изменить этот 
+формат, если он по каким-либо причинам вас не устраивает. Можно, 
+конечно, написать шаблон трансформации на XSLT, но это уже 
+дополнительные сложности.</p>
+<p>С выходом ADO 2.5 появилась возможность сохранять рекордсет в 
+IStream. Трудно переоценить все достоинства этого нововведения: 
+рекордсет теперь можно было сохранять в объект DOMDocument, 
+трансформировать XML-документ с помощью метода transformNode, добавлять 
+свои элементы и атрибуты, и многое другое. Кроме этого, вы могли 
+сохранять рекордсет в поток Response объектной модели ASP, причем как в 
+формате adPersistADTG, так и в формате adPersistXML. В новой ADO 2.5 
+появился собственный объект Stream (естественно, поддерживающий 
+интерфейс IStream). С его помощью вы могли сохранять и загружать данные 
+из файла на диске в бинарном формате (LoadFromFile и SaveToFile), 
+загружать и сохранять данные в виде текста (ReadText и WriteText) и 
+выполнять другие не реляционные операции. Но довольно истории, давайте 
+перейдем к примерам.</p>
+<h3>Возможности ADO 2.5<a name="EKABG"></a></h3>
+<h4>Сохранение и загрузка из файла в формате XML</h4>
+<p>Не мудрствуя лукаво, возьму запрос из самого первого примера этой статьи. Вот полный исходный текст vbs-скрипта:</p>
+<div id="ESABG"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">Const</span> adopenStatic = 3
+<span class="KEYWORD">Const</span> adLockReadOnly = 1
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adPersistXML = 1
+<span class="KEYWORD">Dim</span> rs
+<span class="KEYWORD">Set</span> rs = CreateObject(<span class="STRING">"ADODB.Recordset"</span>)
+rs.Open <span class="STRING">"select au_fname,au_lname,address from authors where au_fname like 'M%'"</span>, _
+    <span class="STRING">"Provider=sqloledb;Data Source=server;Initial Catalog=pubs;"</span> &amp; _
+    <span class="STRING">"User Id=user;Password=password;"</span>, adopenStatic, adLockReadOnly, adCmdText
+rs.Save <span class="STRING">"c:\myrs.xml"</span>, adPersistXML
+</pre></td></tr></tbody></table></div>
+<p>Следующий пример демонстрирует загрузку XML-документа в объект Recordset:</p>
+<div id="ENBBG"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">Const</span> adopenStatic = 3
+<span class="KEYWORD">Const</span> adLockReadOnly = 1
+<span class="KEYWORD">Const</span> adCmdFile = 256
+<span class="KEYWORD">Dim</span> rs
+<span class="KEYWORD">Set</span> rs = CreateObject(<span class="STRING">"ADODB.Recordset"</span>)
+rs.Open <span class="STRING">"c:\myrs.xml"</span>, <span class="STRING">"Provider=MSPersist;"</span>, adopenStatic, adLockReadOnly, adCmdFile
+</pre></td></tr></tbody></table></div>
+
+<h4>Трансформация с помощью DOMDocument</h4>
+<p>В этом примере создается ASP-страница, при обращении к которой из 
+базы будет выбран Recordset и сохранен в объект DOMDocument. Далее к 
+документу будет применен шаблон трансформации, и результирующий HTML 
+будет передан клиенту. Результат будет точно таким же, как в примере с 
+трансформацией в разделе «URL-запросы». Код ASP:</p>
+<div id="EGCBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;%
+
+<span class="COMMENT">' Define some constant for ADO.</span>
+<span class="KEYWORD">Const</span> adopenStatic = 3
+<span class="KEYWORD">Const</span> adLockReadOnly = 1
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adPersistXML = 1
+
+<span class="COMMENT">' Creating objects</span>
+<span class="KEYWORD">Dim</span> rs,dom,stylesheet
+<span class="KEYWORD">Set</span> dom = Server.CreateObject(<span class="STRING">"MSXML2.DOMDocument"</span>)
+<span class="KEYWORD">Set</span> stylesheet = Server.CreateObject(<span class="STRING">"MSXML2.DOMDocument"</span>)
+<span class="KEYWORD">Set</span> rs = Server.CreateObject(<span class="STRING">"ADODB.Recordset"</span>)
+
+<span class="COMMENT">' Open recordset</span>
+rs.Open <span class="STRING">"select au_fname,au_lname,address from authors where au_fname like 'M%'"</span>, _
+    <span class="STRING">"Provider=sqloledb;Data Source=server;Initial Catalog=pubs;"</span> &amp; _
+    <span class="STRING">"User Id=user;Password=password;"</span>, adopenStatic, adLockReadOnly, adCmdText
+
+<span class="COMMENT">' Save recordset to DOMDocument</span>
+rs.Save dom,adPersistXML
+
+<span class="COMMENT">' Loading stylesheet</span>
+stylesheet.async = <span class="KEYWORD">false</span>
+stylesheet.load <span class="STRING">"C:\Inetpub\wwwroot\server_pubs\format_for_ado.xsl"</span>
+
+<span class="COMMENT">' Perform transformation</span>
+Response.Write dom.transformNode(stylesheet)
+
+<span class="COMMENT">' Cleanup</span>
+<span class="KEYWORD">Set</span> dom = <span class="KEYWORD">nothing</span>
+<span class="KEYWORD">Set</span> stylesheet = <span class="KEYWORD">nothing</span>
+<span class="KEYWORD">Set</span> rs = <span class="KEYWORD">nothing</span>
+%&gt;
+</pre></td></tr></tbody></table></div>
+<p>Шаблон трансформации практически не изменился:</p>
+<div id="EFEBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">xsl:stylesheet</span> <span class="KEYWORD">xmlns:xsl</span>=<span class="STRING">"http://www.w3.org/TR/WD-xsl"</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span>&gt;
+  
+  &lt;<span class="ACCENT">xsl:template</span> <span class="KEYWORD">match</span> = <span class="STRING">"*"</span>&gt;
+    &lt;<span class="ACCENT">xsl:apply-templates</span> /&gt;
+  &lt;/<span class="ACCENT">xsl:template</span>&gt;
+
+  &lt;<span class="ACCENT">xsl:template</span> <span class="KEYWORD">match</span> = <span class="STRING">"z:row"</span>&gt;
+  &lt;<span class="ACCENT">li</span>&gt;  
+    &lt;<span class="ACCENT">table</span>&gt;&lt;<span class="ACCENT">tr</span>&gt;
+      &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">xsl:value-of</span> <span class="KEYWORD">select</span> = <span class="STRING">"@au_fname"</span> /&gt;&lt;/<span class="ACCENT">td</span>&gt;
+      &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">xsl:value-of</span> <span class="KEYWORD">select</span> = <span class="STRING">"@au_lname"</span> /&gt;.&lt;/<span class="ACCENT">td</span>&gt;
+      &lt;<span class="ACCENT">td</span>&gt;Address: &lt;<span class="ACCENT">xsl:value-of select</span> = <span class="STRING">"@address"</span> /&gt;&lt;/<span class="ACCENT">td</span>&gt;
+    &lt;/<span class="ACCENT">tr</span>&gt;&lt;/<span class="ACCENT">table</span>&gt;
+  &lt;/<span class="ACCENT">li</span>&gt;
+  &lt;/<span class="ACCENT">xsl:template</span>&gt;
+
+  &lt;<span class="ACCENT">xsl:template</span> <span class="KEYWORD">match</span> = <span class="STRING">"/"</span>&gt;
+    &lt;<span class="ACCENT">html</span>&gt;
+    &lt;<span class="ACCENT">body</span>&gt;
+      &lt;<span class="ACCENT">ul</span>&gt;
+    &lt;<span class="ACCENT">xsl:apply-templates</span> <span class="KEYWORD">select</span> = <span class="STRING">"xml/rs:data"</span> /&gt;
+      &lt;/<span class="ACCENT">ul</span>&gt;
+    &lt;/<span class="ACCENT">body</span>&gt;
+    &lt;/<span class="ACCENT">html</span>&gt;
+  &lt;/<span class="ACCENT">xsl:template</span>&gt;
+
+&lt;/<span class="ACCENT">xsl:stylesheet</span>&gt;
+</pre></td></tr></tbody></table></div>
+
+<h4>Выдача Recordset’а в формате XML непосредственно в поток Response</h4>
+<p>Рассмотрим совсем легкий пример выдачи рекордсета в объект Response модели ASP.</p>
+<div id="EUHBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;%
+
+<span class="COMMENT">' Should specify this</span>
+Response.ContentType = <span class="STRING">"text/xml"</span>
+
+<span class="COMMENT">' Define some constant for ADO.</span>
+<span class="KEYWORD">Const</span> adopenStatic = 3
+<span class="KEYWORD">Const</span> adLockReadOnly = 1
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adPersistXML = 1
+
+<span class="KEYWORD">Dim</span> rs
+<span class="KEYWORD">Set</span> rs = Server.CreateObject(<span class="STRING">"ADODB.Recordset"</span>)
+
+<span class="COMMENT">' Open recordset</span>
+rs.Open <span class="STRING">"select au_fname,au_lname,address from authors where au_fname like 'M%'"</span>, _
+    <span class="STRING">"Provider=sqloledb;Data Source=server;Initial Catalog=pubs;"</span> &amp; _
+        <span class="STRING">"User Id=user;Password=password;"</span>, adopenStatic, adLockReadOnly, adCmdText
+
+<span class="COMMENT">' Save recordset to Response stream</span>
+rs.Save Response,adPersistXML
+
+<span class="KEYWORD">Set</span> rs = <span class="KEYWORD">nothing</span>
+%&gt;
+</pre></td></tr></tbody></table></div>
+<p>Этот чрезвычайно простой пример демонстрирует богатые возможности 
+манипулирования результирующим набором строк на клиенте. Рассмотрим 
+использование объекта RDS.DataControl.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>Возможно, эффективнее для RDS использовать формат adPersistADTG, однако XML для этого также прекрасно подходит.</p>
+</td></tr></tbody></table>
+<p>Пример взят из MSDN и слегка модифицирован:</p>
+<div id="EBJBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">HTML</span>&gt;
+&lt;<span class="ACCENT">HEAD</span>&gt;&lt;<span class="ACCENT">TITLE</span>&gt;Пример ADO Recordset Persistence&lt;/<span class="ACCENT">TITLE</span>&gt;&lt;/<span class="ACCENT">HEAD</span>&gt;
+&lt;<span class="ACCENT">BODY</span>&gt;
+
+&lt;<span class="ACCENT">OBJECT</span> <span class="KEYWORD">CLASSID</span>=<span class="STRING">"clsid:BD96C556-65A3-11D0-983A-00C04FC29E33"</span> <span class="KEYWORD">ID</span>=<span class="STRING">"RDC1"</span>
+  &lt;<span class="ACCENT">PARAM</span> <span class="KEYWORD">NAME</span>=<span class="STRING">"URL"</span> <span class="KEYWORD">VALUE</span>=<span class="STRING">"http://yourserver/XMLPersist/XMLResponse.asp"</span>&gt;
+&lt;/<span class="ACCENT">OBJECT</span>&gt;
+
+&lt;<span class="ACCENT">TABLE</span> <span class="KEYWORD">DATASRC</span>=<span class="STRING">"#RDC1"</span>&gt;
+  &lt;<span class="ACCENT">TR</span>&gt;
+    &lt;<span class="ACCENT">TD</span>&gt;&lt;<span class="ACCENT">SPAN</span> <span class="KEYWORD">DATAFLD</span>=<span class="STRING">"au_fname"</span>&gt;&lt;/<span class="ACCENT">SPAN</span>&gt;&lt;/<span class="ACCENT">TD</span>&gt;
+    &lt;<span class="ACCENT">TD</span>&gt;&lt;<span class="ACCENT">SPAN</span> <span class="KEYWORD">DATAFLD</span>=<span class="STRING">"au_lname"</span>&gt;&lt;/<span class="ACCENT">SPAN</span>&gt;&lt;/<span class="ACCENT">TD</span>&gt;
+    &lt;<span class="ACCENT">TD</span>&gt;&lt;<span class="ACCENT">SPAN</span> <span class="KEYWORD">DATAFLD</span>=<span class="STRING">"address"</span>&gt;&lt;/<span class="ACCENT">SPAN</span>&gt;&lt;/<span class="ACCENT">TD</span>&gt;
+  &lt;/<span class="ACCENT">TR</span>&gt;
+&lt;/<span class="ACCENT">TABLE</span>&gt;
+&lt;/<span class="ACCENT">BODY</span>&gt;
+&lt;/<span class="ACCENT">HTML</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>А вот как создать на клиенте точную копию отправленного рекордсета (код на vbs):</p>
+<div id="E3LBG"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">Dim</span> rs
+<span class="KEYWORD">Set</span> rs = CreateObject(<span class="STRING">"ADODB.Recordset"</span>)
+rs.Open <span class="STRING">"http://server/server_dir/sql2xml.asp"</span>
+</pre></td></tr></tbody></table></div>
+
+
+<h3>Возможности ADO 2.6<a name="EJMBG"></a></h3>
+<p>В этой версии библиотеки появилась возможность выполнять с помощью 
+объекта Command не только SQL-запросы, но и XML-шаблоны и запросы XPath.
+ Для этого было введено новое свойство Dialect. Далее приведены все 
+известные на сегодняшний момент значения этого свойства [10].</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>Тип команды</th><th>Значение в ADO</th></tr>
+<tr><td>Запрос Transact-SQL</td><td>{C8B522D7-5CF3-11CE-ADE5-00AA0044773D}</td></tr>
+<tr><td>Запрос XPath</td><td>{EC2A4293-E898-11D2-B1B7-00C04F680C56}</td></tr>
+<tr><td>Запрос в XML-шаблоне</td><td>{5D531CB2-E6Ed-11D2-B252-00C04F681B71}</td></tr>
+<tr><td>Поведение провайдера по умолчанию</td><td>{C8B521FB-5CF3-11CE-ADE5-00AA0044773D}</td></tr>
+</tbody></table>
+<p>Так как результат выполнения объекта Command теперь не всегда может 
+иметь реляционный характер, его нельзя помещать в объект Recordset. 
+Название нового стандартного свойства Output Stream говорит само за 
+себя: результат выполнения объекта Command может быть сохранен в потоке 
+(любом объекте, поддерживающим интерфейс IStream). Кроме этого, 
+поскольку запрос (свойство CommandText) теперь может представлять собой 
+запрос XPath, нужно как-то задать аннотированную схему для него. Это 
+делается с помощью стандартного свойства Mapping Schema. Пора переходить
+ к примерам.</p>
+<h4>Использование Command для формирования XML-документа на сервере</h4>
+<p>В этом примере показано, как сформировать XML-документ на сервере и отправить его клиенту с использованием ADO:</p>
+<div id="ELNBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;%
+
+<span class="COMMENT">' Определяем константы ADO.</span>
+<span class="KEYWORD">Const</span> adopenStatic = 3
+<span class="KEYWORD">Const</span> adLockReadOnly = 1
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adPersistXML = 1
+<span class="KEYWORD">Const</span> adExecuteStream = &amp;H400
+
+<span class="COMMENT">' создание объектов</span>
+<span class="KEYWORD">Dim</span> cmd,conn
+<span class="KEYWORD">Set</span> cmd = Server.CreateObject(<span class="STRING">"ADODB.Command"</span>)
+<span class="KEYWORD">Set</span> conn = Server.CreateObject(<span class="STRING">"ADODB.Connection"</span>)
+
+conn.Provider = <span class="STRING">"sqloledb"</span>
+conn.Open <span class="STRING">"Data Source=server;Initial catalog=pubs;"</span>, <span class="STRING">"user"</span>, <span class="STRING">"password"</span>
+
+<span class="KEYWORD">Set</span> cmd.ActiveConnection = conn
+cmd.CommandType = adCmdText
+cmd.CommandText = <span class="STRING">"select au_fname, au_lname, address "</span> _
+  &amp; <span class="STRING">"from authors where au_fname like 'M%' for xml auto"</span>
+cmd.Properties(<span class="STRING">"Output Stream"</span>) = Response
+cmd.Properties(<span class="STRING">"xml root"</span>) = <span class="STRING">"root"</span>
+cmd.Execute , , adExecuteStream
+
+<span class="KEYWORD">Set</span> cmd = <span class="KEYWORD">nothing</span>
+<span class="KEYWORD">Set</span> conn = <span class="KEYWORD">nothing</span>
+%&gt;
+</pre></td></tr></tbody></table></div>
+<p>Здесь используется встроенная инструкция FOR XML AUTO для 
+формирования XML-документа на SQL Server’е. В результирующем документе 
+отсутствует корневой элемент, и для его указания используется еще одно 
+стандартное свойство – xml root. В качестве выходного потока был 
+использован объект Response. Результат обращения к этой ASP-страничке 
+вы, наверное, уже давно выучили наизусть: это будет XML-документ с 
+именами, фамилиями и адресами авторов.</p>
+
+<h4>Выполнение шаблона</h4>
+<p>Возьмем шаблон из первого примера раздела «Шаблоны» (код на ASP):</p>
+<div id="EKPBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;%
+<span class="COMMENT">' Нужно указать это:</span>
+Response.ContentType = <span class="STRING">"text/xml"</span>
+
+<span class="COMMENT">' Определяем константы ADO.</span>
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adExecuteStream = &amp;H400
+
+<span class="COMMENT">' Создаем объекты</span>
+<span class="KEYWORD">Dim</span> cmd,conn
+<span class="KEYWORD">Set</span> cmd = Server.CreateObject(<span class="STRING">"ADODB.Command"</span>)
+<span class="KEYWORD">Set</span> conn = Server.CreateObject(<span class="STRING">"ADODB.Connection"</span>)
+
+conn.Provider = <span class="STRING">"sqloledb"</span>
+conn.Open <span class="STRING">"Data Source=server;Initial catalog=pubs;"</span>, <span class="STRING">"user"</span>,<span class="STRING">"password"</span>
+
+<span class="COMMENT">' Шаблон</span>
+<span class="KEYWORD">Dim</span> s
+s = <span class="STRING">"&lt;?xml version='1.0' ?&gt;"</span> &amp; _
+  <span class="STRING">"&lt;my_root xmlns:sql='urn:schemas-microsoft-com:xml-sql'&gt;"</span> &amp; _
+    <span class="STRING">"&lt;sql:query&gt;"</span> &amp; _
+      <span class="STRING">"select au_fname,au_lname,address from authors "</span> &amp; _
+        <span class="STRING">"where au_fname like 'M%' for xml auto"</span> &amp; _
+    <span class="STRING">"&lt;/sql:query&gt;"</span> &amp; _
+  <span class="STRING">"&lt;/my_root&gt;"</span>
+
+<span class="KEYWORD">Set</span> cmd.ActiveConnection = conn
+cmd.CommandType = adCmdText
+cmd.CommandText = s
+
+<span class="COMMENT">' Диалект шаблона</span>
+cmd.Dialect = <span class="STRING">"{5D531CB2-E6Ed-11D2-B252-00C04F681B71}"</span>
+cmd.Properties(<span class="STRING">"Output Stream"</span>) = Response
+cmd.Execute , , adExecuteStream
+
+<span class="KEYWORD">Set</span> cmd = <span class="KEYWORD">nothing</span>
+<span class="KEYWORD">Set</span> conn = <span class="KEYWORD">nothing</span>
+%&gt;
+</pre></td></tr></tbody></table></div>
+
+<h4>Выполнение запроса XPath</h4>
+<p>С помощью ADO также можно выполнять запросы XPath, правда, пока 
+только на аннотированных XDR-схемах. Вот скрипт на vbs, выполняющий 
+такой запрос:</p>
+<div id="ETRBG"><table class="code" width="98%"><tbody><tr><td><pre><span class="COMMENT">' Определяем константы ADO.</span>
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adExecuteStream = &amp;H400
+
+<span class="COMMENT">' Создание объектов</span>
+<span class="KEYWORD">Dim</span> cmd,conn,cmdStream
+
+<span class="KEYWORD">Dim</span> ie 
+<span class="KEYWORD">Set</span> ie = CreateObject(<span class="STRING">"InternetExplorer.Application"</span>)
+ie.Navigate <span class="STRING">"about:blank"</span>
+
+<span class="KEYWORD">Set</span> cmd = CreateObject(<span class="STRING">"ADODB.Command"</span>)
+<span class="KEYWORD">Set</span> conn = CreateObject(<span class="STRING">"ADODB.Connection"</span>)
+<span class="KEYWORD">Set</span> cmdStream = CreateObject(<span class="STRING">"ADODB.Stream"</span>)
+
+conn.Provider = <span class="STRING">"sqloledb"</span>
+conn.Open <span class="STRING">"Data Source=server;Initial catalog=pubs;"</span>, <span class="STRING">"user"</span>, <span class="STRING">"password"</span>
+
+cmdStream.Open
+
+<span class="KEYWORD">Set</span> cmd.ActiveConnection = conn
+cmd.CommandType = adCmdText
+<span class="COMMENT">' XPath-запрос</span>
+cmd.CommandText = <span class="STRING">"Авторы"</span>
+<span class="COMMENT">' Диалект XPath </span>
+cmd.Dialect = <span class="STRING">"{EC2A4293-E898-11D2-B1B7-00C04F680C56}"</span>
+cmd.Properties(<span class="STRING">"Base Path"</span>) = <span class="STRING">"C:\Inetpub\wwwroot\server_pubs"</span>
+cmd.Properties(<span class="STRING">"Output Stream"</span>) = cmdStream
+<span class="COMMENT">' Аннотированная схема</span>
+cmd.Properties(<span class="STRING">"Mapping Schema"</span>) = <span class="STRING">"schema\myschema.xml"</span>
+<span class="COMMENT">' Шаблон трансформации</span>
+cmd.Properties(<span class="STRING">"XSL"</span>) = <span class="STRING">"\template\first_select.xsl"</span>
+cmd.Properties(<span class="STRING">"xml root"</span>) = <span class="STRING">"my_root"</span>
+cmd.Execute , , adExecuteStream
+
+<span class="KEYWORD">Dim</span> str
+str = cmdStream.ReadText
+
+<span class="KEYWORD">do</span>
+<span class="KEYWORD">loop</span> <span class="KEYWORD">while</span> ie.Busy
+
+ie.Document.writeln <span class="KEYWORD">CStr</span>(str)
+ie.Document.close
+
+ie.visible = 1
+</pre></td></tr></tbody></table></div>
+<p>Здесь я использовал новую аннотированную схему и шаблон трансформации.</p>
+<p>Аннотированная схема:</p>
+<div id="EKUBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">Schema</span> <span class="KEYWORD">xmlns</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-data"</span>
+  <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span>
+  <span class="KEYWORD">xmlns:dt</span>=<span class="STRING">"urn:schemas-microsoft-com:datatypes"</span>&gt;
+  
+  &lt;<span class="ACCENT">ElementType</span> <span class="KEYWORD">name</span>=<span class="STRING">"Авторы"</span> <span class="KEYWORD">sql:relation</span>=<span class="STRING">"authors"</span>&gt;
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"Имя"</span> <span class="KEYWORD">dt:type</span>=<span class="STRING">"string"</span> /&gt; 
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"Фамилия"</span> <span class="KEYWORD">dt:type</span>=<span class="STRING">"string"</span> /&gt; 
+    &lt;<span class="ACCENT">AttributeType</span> <span class="KEYWORD">name</span>=<span class="STRING">"Адрес"</span> <span class="KEYWORD">dt:type</span>=<span class="STRING">"string"</span> /&gt; 
+
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"Имя"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_fname"</span> /&gt;
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"Фамилия"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_lname"</span> /&gt;
+    &lt;<span class="ACCENT">attribute</span> <span class="KEYWORD">type</span>=<span class="STRING">"Адрес"</span> <span class="KEYWORD">sql:field</span>=<span class="STRING">"address"</span> /&gt;
+  &lt;/<span class="ACCENT">ElementType</span>&gt;
+&lt;/<span class="ACCENT">Schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Шаблон трансформации:</p>
+<div id="ERXBG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">xsl:stylesheet</span> <span class="KEYWORD">xmlns:xsl</span>=<span class="STRING">"http://www.w3.org/1999/XSL/Transform"</span> version=<span class="STRING">"1.0"</span>&gt;
+  
+  &lt;<span class="ACCENT">xsl:template</span> <span class="KEYWORD">match</span> = <span class="STRING">"*"</span>&gt;
+    &lt;<span class="ACCENT">xsl:apply-templates</span> /&gt;
+  &lt;/<span class="ACCENT">xsl:template</span>&gt;
+
+  &lt;<span class="ACCENT">xsl:template</span> <span class="KEYWORD">match</span> = <span class="STRING">"/"</span>&gt;
+    &lt;<span class="ACCENT">html</span>&gt;
+    &lt;<span class="ACCENT">body</span>&gt;
+      &lt;<span class="ACCENT">table</span> <span class="KEYWORD">border</span>=<span class="STRING">"1"</span> <span class="KEYWORD">style</span>=<span class="STRING">"table-layout:fixed"</span> <span class="KEYWORD">width</span>=<span class="STRING">"600"</span>&gt;
+      &lt;<span class="ACCENT">tr</span> <span class="KEYWORD">bgcolor</span>=<span class="STRING">"teal"</span>&gt;
+          &lt;<span class="ACCENT">th</span>&gt;&lt;<span class="ACCENT">font</span> <span class="KEYWORD">color</span>=<span class="STRING">"white"</span>&gt;<span class="NUMBER">Имя</span>&lt;/<span class="ACCENT">font</span>&gt;&lt;/<span class="ACCENT">th</span>&gt;
+          &lt;<span class="ACCENT">th</span>&gt;&lt;<span class="ACCENT">font</span> <span class="KEYWORD">color</span>=<span class="STRING">"white"</span>&gt;Фамилия&lt;/<span class="ACCENT">font</span>&gt;&lt;/<span class="ACCENT">th</span>&gt;
+          &lt;<span class="ACCENT">th</span>&gt;&lt;<span class="ACCENT">font</span> <span class="KEYWORD">color</span>=<span class="STRING">"white"</span>&gt;Адрес&lt;/<span class="ACCENT">font</span>&gt;&lt;/<span class="ACCENT">th</span>&gt;
+      &lt;/<span class="ACCENT">tr</span>&gt;
+        &lt;<span class="ACCENT">xsl:for-each</span> <span class="KEYWORD">select</span>=<span class="STRING">"my_root/Авторы"</span>&gt;
+        &lt;<span class="ACCENT">tr</span>&gt;
+          &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">font</span> <span class="KEYWORD">color</span>=<span class="STRING">"teal"</span>&gt;&lt;<span class="ACCENT">xsl:value-of</span> <span class="KEYWORD">select</span>=<span class="STRING">"@Имя"</span>/&gt;&lt;/<span class="ACCENT">font</span>&gt;&lt;/<span class="ACCENT">td</span>&gt;
+          &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">font</span> <span class="KEYWORD">color</span>=<span class="STRING">"teal"</span>&gt;&lt;<span class="ACCENT">xsl:value-of</span> <span class="KEYWORD">select</span>=<span class="STRING">"@Фамилия"</span>/&gt;&lt;/<span class="ACCENT">font</span>&gt;&lt;/<span class="ACCENT">td</span>&gt;
+          &lt;<span class="ACCENT">td</span>&gt;&lt;<span class="ACCENT">font</span> <span class="KEYWORD">color</span>=<span class="STRING">"teal"</span>&gt;&lt;<span class="ACCENT">xsl:value-of</span> <span class="KEYWORD">select</span>=<span class="STRING">"@Адрес"</span>/&gt;&lt;/<span class="ACCENT">font</span>&gt;&lt;/<span class="ACCENT">td</span>&gt; 
+        &lt;/<span class="ACCENT">tr</span>&gt;
+        &lt;/<span class="ACCENT">xsl:for-each</span>&gt;
+      &lt;/<span class="ACCENT">table</span>&gt;
+    &lt;/<span class="ACCENT">body</span>&gt;
+    &lt;/<span class="ACCENT">html</span>&gt;
+  &lt;/<span class="ACCENT">xsl:template</span>&gt;
+
+&lt;/<span class="ACCENT">xsl:stylesheet</span>&gt;
+</pre></td></tr></tbody></table></div>
+
+
+<h3>XML-документ на стороне клиента<a name="EE4BG"></a></h3>
+<p>Предположим, ваш SQL Server работает в очень напряженном режиме, и вы
+ не хотите нагружать его еще больше, заставляя формировать 
+XML-документы. Можно сделать так: создать обычный рекордсет и загрузить 
+его в формате XML в объект DOMDocument или какой-либо другой. Решение на
+ первый взгляд здравое, однако, поработав немного с таким документом, вы
+ поймете, что это не то. Во-первых, структура такого XML-документа 
+задается жестко без возможности изменения. Во-вторых, схема сохраняется в
+ формате XDR, а он уже стар и может не удовлетворять вашим потребностям.
+ К тому же возникают проблемы с выполнением шаблонов и XPath-запросами. 
+Для решения этих (и многих других) проблем был создан новый сервисный 
+провайдер – SQLXMLOLEDB. Как и другие сервисные провайдеры (например, 
+MSDataShape) он предназначен только для преобразования результирующего 
+набора строк в нужный формат. Так как SQLXMLOLEDB ничего не знает о 
+форматах протоколов обмена данными с SQL-серверами, он использует для 
+этого соответствующий провайдер. К сожалению, провайдер SQLXMLOLEDB пока
+ умеет работать совместно только с SQLOLEDB-провайдером для SQL Server, 
+однако в будущем (по крайней мере, я очень надеюсь) он сможет работать с
+ другими провайдерами, например, MSDAORA (провайдер для Oracle). Если 
+такая поддержка будет встроена, у нас будет возможность получать 
+XML-документы от источников, которые не поддерживают XML напрямую.</p>
+<p>В режиме форматирования XML-документа на клиенте можно использовать в
+ запросе предикат GROUP BY и агрегатные функции, недоступные в режиме 
+формирования XML-документа на сервере (в режиме FOR XML AUTO). Как и 
+любой другой сервисный провайдер, SQLXMLOLEDB предоставляет свой 
+синтаксис запросов. К счастью, он не так сложен, как, например, 
+синтаксис провайдера MSDataShape и ограничивается, по существу, 
+следующим:</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>Оператор</th><th>Назначение</th></tr>
+<tr><td>FOR XML RAW</td><td>Аналогичен серверному FOR XML RAW</td></tr>
+<tr><td>FOR XML NESTED</td><td>Аналогичен серверному FOR XML AUTO</td></tr>
+<tr><td>FOR XML EXPLICIT</td><td>Аналогичен серверному FOR XML EXPLICIT</td></tr>
+</tbody></table>
+<p>Архитектура формирования документов на клиентской стороне изображена на рисунке 1.</p>
+<p style="text-align: center;"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/xmlsqlsqlxml2.gif"><br><i style="font-face: verdana; font-size:x-small;">Рисунок 1. </i></p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>Возможность</th><th>Формирование на клиенте</th><th>Формирование на сервере</th></tr>
+<tr><td>Использование предиката GROUP BY и агрегатных функций совместно с FOR XML AUTO (NESTED)</td><td>Да</td><td>Нет</td></tr>
+<tr><td>Возможность получения одновременно нескольких рекордсетов</td><td>Нет</td><td>Да</td></tr>
+<tr><td>Задание имен элементов результирующего документа с помощью псевдонимов таблиц</td><td>Нет</td><td>Да</td></tr>
+</tbody></table>
+<p>Другие отличия вы можете найти в MSDN. Давайте перейдем к примерам.</p>
+<h4>Шаблон с агрегатными функциями</h4>
+<p>Ниже приведен пример использования FOR XML NESTED и атрибута 
+client-side-xml. Шаблон возвращает документ с названиями городов и 
+количеством авторов в каждом городе. Атрибут client-side-xml 
+устанавливается в 1, что говорит об использовании клиентского 
+форматирования.</p>
+<div id="EA6BG"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> ?&gt;
+&lt;<span class="ACCENT">my_root</span> <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-sql"</span>&gt;
+  &lt;<span class="ACCENT">sql:query</span> <span class="KEYWORD">client-side-xml</span>=<span class="STRING">"1"</span>&gt;
+    <span class="KEYWORD">select</span> count(*) <span class="KEYWORD">as</span> number_of_authors,city
+    <span class="KEYWORD">from</span> authors
+    <span class="KEYWORD">group</span> <span class="KEYWORD">by</span> city
+    <span class="KEYWORD">order</span> <span class="KEYWORD">by</span> number_of_authors <span class="KEYWORD">desc</span>
+    <span class="KEYWORD">for</span> <span class="KEYWORD">xml</span> <span class="KEYWORD">nested</span>
+  &lt;/<span class="ACCENT">sql:query</span>&gt;
+&lt;/<span class="ACCENT">my_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+
+<h4>Формирование XML-документа на клиенте с помощью ADO</h4>
+<p>У объекта Command есть свойство ClientSideXML, которое позволяет формировать XML-документ на клиенте. Рассмотрим пример:</p>
+<div id="EWAAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;%
+<span class="KEYWORD">Const</span> adCmdText = 1
+<span class="KEYWORD">Const</span> adExecuteStream = &amp;H400
+
+Response.ContentType = <span class="STRING">"text/xml"</span>
+
+<span class="COMMENT">' Creating the objects</span>
+<span class="KEYWORD">Dim</span> conn,cmd
+<span class="KEYWORD">Set</span> conn = Server.CreateObject(<span class="STRING">"ADODB.Connection"</span>)
+<span class="KEYWORD">Set</span> cmd = Server.CreateObject(<span class="STRING">"ADODB.Command"</span>)
+
+conn.Provider = <span class="STRING">"sqlxmloledb"</span>
+conn.Open <span class="STRING">"Data Source=server;Initial catalog=pubs;Data Provider=sqloledb"</span>, _
+  <span class="STRING">"user"</span>,<span class="STRING">"password"</span>
+
+<span class="KEYWORD">Dim</span> s
+s = <span class="STRING">"select count(*) as number_of_authors,city"</span> &amp; _
+    <span class="STRING">"from authors"</span> &amp; _
+    <span class="STRING">"group by city"</span> &amp; _
+    <span class="STRING">"order by number_of_authors desc"</span> &amp; _
+    <span class="STRING">"for xml nested"</span>
+
+<span class="KEYWORD">Set</span> cmd.ActiveConnection = c
+cmd.Properties(<span class="STRING">"ClientSideXML"</span>) = <span class="STRING">"True"</span>
+cmd.CommandType = adCmdText
+cmd.CommandText = s
+
+cmd.Properties(<span class="STRING">"Output Stream"</span>) = Response
+cmd.Properties(<span class="STRING">"xml root"</span>) = <span class="STRING">"root"</span>
+cmd.Execute , , adExecuteStream
+
+<span class="KEYWORD">Set</span> cmd = <span class="KEYWORD">nothing</span>
+<span class="KEYWORD">Set</span> conn = <span class="KEYWORD">nothing</span>
+%&gt;
+</pre></td></tr></tbody></table></div>
+<p>В качестве основного провайдера задан провайдер SQLXMLOLEDB. 
+Провайдер SQL Server’а задается с помощью строки Data Provider=sqloledb.
+ Чтобы указать, что используется клиентское форматирование, свойство 
+ClientSideXML установлено в true. Следует заметить, что это свойство 
+(т.е. клиентское форматирование) можно использовать только для типа 
+adCmdText. При вызове хранимых процедур его устанавливать нельзя.</p>
+
+
+<h2>Апдейтаграммы и XML Bulk Load<a name="EYCAI"></a></h2>
+<p>В этом разделе мы рассмотрим способы изменения данных (удаление, 
+добавление и правка) с помощью XML-документов. Какие достоинства у этого
+ метода перед использованием SQL-инструкций непосредственно в шаблоне? 
+Во-первых, апдейтаграммы намного понятнее простым пользователям или 
+неосведомленным программистам. Хотя синтаксис написания апдейтаграмм не 
+так уж и прост, он подчиняется обычным правилам XML и, если вы совсем не
+ разбираетесь в SQL, апдейтаграммы – лучший выбор. Кроме этого, вы 
+просто не имеете другой столь же эффективной альтернативы, как XML Bulk 
+Load для загрузки больших, очень больших объемов XML-данных. Но обо всем
+ по порядку.</p>
+<h3>Апдейтаграммы<a name="E4CAI"></a></h3>
+<p>Апдейтаграммы – это особый тип шаблонов, в котором вместо запроса на 
+выборку данных хранится информация, необходимая для изменения данных. 
+Синтаксис их таков:</p>
+<div id="ECDAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">your_root</span> <span class="KEYWORD">xmlns:updg</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-updategram"</span>
+    [<span class="KEYWORD">mapping-schema</span>=<span class="STRING">"your_schema.xml"</span>]&gt;
+  &lt;<span class="ACCENT">updg:header</span>&gt;
+    &lt;<span class="ACCENT">updg:param</span> <span class="KEYWORD">name</span>=<span class="STRING">"param1_name"</span> /&gt;
+    &lt;<span class="ACCENT">updg:param</span> <span class="KEYWORD">name</span>=<span class="STRING">"param2_name"</span> /&gt;
+  &lt;/<span class="ACCENT">updg:header</span>&gt;
+  &lt;<span class="ACCENT">updg:sync</span>&gt;
+    &lt;<span class="ACCENT">updg:before</span>&gt;
+      xml-узлы
+    &lt;/<span class="ACCENT">updg:before</span>&gt;
+    &lt;<span class="ACCENT">updg:after</span> [<span class="KEYWORD">updg:returnid</span>=<span class="STRING">"your_id"</span>]&gt;
+      xml-узлы
+    &lt;/<span class="ACCENT">updg:after</span>&gt;
+  &lt;/<span class="ACCENT">updg:sync</span>&gt;
+&lt;/<span class="ACCENT">your_root</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Как видно из синтаксиса, апдейтаграмма может иметь параметры. Они, 
+как обычно, задаются в URL и, как обычно, могут опускаться. Раздел 
+header не является обязательным, но на практике без него обойтись 
+трудно. Раздел before, по существу, определяет запись, над которой будет
+ производиться действие. Он обязателен для изменения или удаления 
+данных. В случае вставки его можно опустить. Раздел after определяет, 
+как будет выглядеть найденная запись после выполнения апдейтаграммы. В 
+случае удаления его указывать не нужно. Раздел sync определяет границы 
+транзакции и буквально трансформируется в команды begin trans и commit 
+trans. В случае неудачного выполнения шаблона транзакция откатывается с 
+помощью rollback trans.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>Все аспекты работы апдейтаграмм хорошо видны в профайлере. Если у вас возникают вопросы, рекомендую сразу же им воспользоваться.</p>
+</td></tr></tbody></table>
+<p>В каком случае может возникнуть ошибка? Причин много:</p>
+<ul style="LIST-STYLE:square"><li>Раздел before не может однозначно 
+определить запись, над которой будет производиться действие. Например, 
+если вы захотите удалить все записи, у которых поле age равно 33, то в 
+ответ получите ошибку Ambiguous delete, unique identifier required. 
+Другая ошибка возникает, когда такую запись невозможно найти совсем. В 
+этом случае генерируется сообщение Empty delete, no deletable rows found
+ для операции удаления, или Empty update, no updatable rows found для 
+операции обновления.</li>
+<li>Откат транзакции в триггере.</li>
+<li>Ошибка ограничения (constraint violation).</li>
+</ul>
+<p>Для того чтобы SQL Server понял, какие таблицы и поля ему изменять, 
+вы можете использовать аннотированные схемы XDR или XSD. Если схема не 
+используется, по умолчанию названия элементов соответствуют названиям 
+таблиц, названия и значения атрибутов – названию и значению полей 
+соответственно.</p>
+<h4>Добавление данных</h4>
+<p>Для вставки данных используется раздел after. Раздел before 
+опускается. Если вы хотите получить на выходе значение колонки identity,
+ укажите атрибут returned (и атрибут at-identity, см. далее). Для 
+элемента, обозначающего таблицу, вы можете дополнительно указать три 
+атрибута:</p>
+<ul style="LIST-STYLE:square"><li>id – будет рассмотрен в разделе Обновление данных;</li>
+<li>at-identity – позволяет получить в результирующий XML-документ 
+значение вставленного поля для колонки identity. Например, пусть имеется
+ такая таблица</li>
+</ul>
+<div id="EOFAI"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">create</span> <span class="KEYWORD">table</span> test1(_id int <span class="KEYWORD">identity</span>,fld1 int)
+</pre></td></tr></tbody></table></div>
+<p>Вот шаблон, который вставляет в нее данные:</p>
+<div id="EZFAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">ROOT</span> <span class="KEYWORD">xmlns:updg</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-updategram"</span>&gt;
+  &lt;<span class="ACCENT">updg:sync</span>&gt;
+    &lt;<span class="ACCENT">updg:after</span> <span class="KEYWORD">updg:returnid</span>=<span class="STRING">"ident_field"</span>&gt;
+      &lt;<span class="ACCENT">test1</span> <span class="KEYWORD">fld1</span>=<span class="STRING">"23"</span> <span class="KEYWORD">updg:at-identity</span>=<span class="STRING">"ident_field"</span>/&gt;
+    &lt;/<span class="ACCENT">updg:after</span>&gt;
+  &lt;/<span class="ACCENT">updg:sync</span>&gt;
+&lt;/<span class="ACCENT">ROOT</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Результатом выполнения команды «http://server/server_pubs/template/upd1.xml» будет следующий документ:</p>
+<div id="E3GAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">ROOT</span> <span class="KEYWORD">xmlns:updg</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-updategram"</span>&gt;
+  &lt;<span class="ACCENT">returnid</span>&gt;&lt;<span class="ACCENT">ident_field</span>&gt;1&lt;/<span class="ACCENT">ident_field</span>&gt;&lt;/<span class="ACCENT">returnid</span>&gt;
+&lt;/<span class="ACCENT">ROOT</span>&gt;
+</pre></td></tr></tbody></table></div>
+<ul style="LIST-STYLE:square"><li>guid – предназначен для генерации глобально уникального идентификатора (GUID).</li>
+</ul>
+<p>Давайте рассмотрим более сложный пример с использованием схемы. Вот схема:</p>
+<div id="EVHAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+            <span class="KEYWORD">xmlns:sql</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>&gt;
+  &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"Авторы"</span> <span class="KEYWORD">sql:relation</span>=<span class="STRING">"authors"</span>&gt;
+    &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Имя"</span> <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> 
+                     <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_fname"</span> /&gt; 
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Фамилия"</span> <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> 
+                     <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_lname"</span> /&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Идентификатор"</span> <span class="KEYWORD">type</span>=<span class="STRING">"xsd:string"</span> 
+                     <span class="KEYWORD">sql:field</span>=<span class="STRING">"au_id"</span> /&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"Контракт"</span> <span class="KEYWORD">type</span>=<span class="STRING">"xsd:integer"</span> 
+                     <span class="KEYWORD">sql:field</span>=<span class="STRING">"contract"</span> <span class="KEYWORD">default</span>=<span class="STRING">"1"</span>/&gt;
+    &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+  &lt;/<span class="ACCENT">xsd:element</span>&gt;
+&lt;/<span class="ACCENT">xsd:schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Здесь мы явно использовали аннотации, так как названия XML-узлов составлены на русском. После выполнения следующего шаблона:</p>
+<div id="E3KAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">ROOT</span> <span class="KEYWORD">xmlns:updg</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-updategram"</span>&gt;
+  &lt;<span class="ACCENT">updg:sync</span> <span class="KEYWORD">mapping-schema</span>=<span class="STRING">"upd_schema.xml"</span>&gt;
+    &lt;<span class="ACCENT">updg:after</span>&gt;
+      &lt;<span class="ACCENT">Авторы</span> <span class="KEYWORD">Имя</span>=<span class="STRING">"alex"</span> <span class="KEYWORD">Фамилия</span>=<span class="STRING">"shirshov"</span> <span class="KEYWORD">Идентификатор</span>=<span class="STRING">"123-15-3452"</span>/&gt;
+    &lt;/<span class="ACCENT">updg:after</span>&gt;
+  &lt;/<span class="ACCENT">updg:sync</span>&gt;
+&lt;/<span class="ACCENT">ROOT</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>мои имя и фамилия (да простят мне читатели нескромность) окажутся в таблице authors.</p>
+
+<h4>Обновление данных</h4>
+<p>Для обновления данных нужно использовать раздел before для 
+определения обновляемых данных, и раздел after для определения конечных 
+значений данных.</p>
+<p>Давайте разберем пример:</p>
+<div id="EVMAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">ROOT</span> <span class="KEYWORD">xmlns:updg</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-updategram"</span>&gt;
+  &lt;<span class="ACCENT">updg:sync</span> <span class="KEYWORD">mapping-schema</span>=<span class="STRING">"upd_schema.xml"</span>&gt;
+    &lt;<span class="ACCENT">updg:before</span>&gt;
+      &lt;<span class="ACCENT">Авторы</span> <span class="KEYWORD">Имя</span>=<span class="STRING">"alex"</span> <span class="KEYWORD">Фамилия</span>=<span class="STRING">"shirshov"</span> <span class="KEYWORD">Идентификатор</span>=<span class="STRING">"123-15-3452"</span> 
+<span class="KEYWORD">              updg:id</span>=<span class="STRING">"for_update"</span>/&gt;
+    &lt;/<span class="ACCENT">updg:before</span>&gt;
+    &lt;<span class="ACCENT">updg:after</span>&gt;
+      &lt;<span class="ACCENT">Авторы</span> <span class="KEYWORD">Имя</span>=<span class="STRING">"Алексей"</span> <span class="KEYWORD">Фамилия</span>=<span class="STRING">"Ширшов"</span> <span class="KEYWORD">Идентификатор</span>=<span class="STRING">"123-15-3452"</span> 
+              <span class="KEYWORD">updg:id</span>=<span class="STRING">"for_update"</span>/&gt;
+      &lt;<span class="ACCENT">Авторы</span> <span class="KEYWORD">Имя</span>=<span class="STRING">"alex"</span> <span class="KEYWORD">Фамилия</span>=<span class="STRING">"shirshov"</span> <span class="KEYWORD">Идентификатор</span>=<span class="STRING">"123-15-3453"</span> 
+              <span class="KEYWORD">updg:id</span>=<span class="STRING">"for_insert"</span>/&gt;
+    &lt;/<span class="ACCENT">updg:after</span>&gt;
+  &lt;/<span class="ACCENT">updg:sync</span>&gt;
+&lt;/<span class="ACCENT">ROOT</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Работает он так: сначала находится запись, однозначно 
+идентифицируемая в разделе before (ее мы вставили в предыдущем примере).
+ Этой записи, с помощью атрибута id, присваивается идентификатор. Зачем 
+он нужен? Так как в разделе after мы указали две записи, то возникает 
+неоднозначность: одну из них нужно использовать для вставки, а другую 
+для обновления. Чтобы эту неоднозначность разрешить, в разделе after 
+присутствует ссылка на найденную в разделе before запись посредством 
+атрибута id. В результате выполнения шаблона будут исправлены имя и 
+фамилия в записи с идентификатором 123-15-3452, а также добавлена новая 
+запись.</p>
+
+<h4>Удаление</h4>
+<p>Это совсем тривиальная задача, главное помнить, что в разделе before запись должна однозначно определяться.</p>
+<div id="EYPAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;?<span class="ACCENT">xml</span> <span class="KEYWORD">version</span>=<span class="STRING">"1.0"</span> <span class="KEYWORD">encoding</span>=<span class="STRING">"windows-1251"</span> ?&gt;
+&lt;<span class="ACCENT">ROOT</span> <span class="KEYWORD">xmlns:updg</span>=<span class="STRING">"urn:schemas-microsoft-com:xml-updategram"</span>&gt;
+  &lt;<span class="ACCENT">updg:sync</span> <span class="KEYWORD">mapping-schema</span>=<span class="STRING">"upd_schema.xml"</span>&gt;
+    &lt;<span class="ACCENT">updg:before</span>&gt;
+      &lt;<span class="ACCENT">Авторы</span> <span class="KEYWORD">Имя</span>=<span class="STRING">"alex"</span> <span class="KEYWORD">Фамилия</span>=<span class="STRING">"shirshov"</span> <span class="KEYWORD">Идентификатор</span>=<span class="STRING">"123-15-3453"</span>/&gt;
+    &lt;/<span class="ACCENT">updg:before</span>&gt;
+  &lt;/<span class="ACCENT">updg:sync</span>&gt;
+&lt;/<span class="ACCENT">ROOT</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>В этом примере будет удалена запись с идентификатором 123-15-3453.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>Атрибуты
+ «Имя» и «Фамилия» приведены здесь для того, чтобы вам проще было 
+понять, какая строка удаляется. Так как идентификатор уникально 
+определяет запись, их можно было не указывать.</p>
+</td></tr></tbody></table>
+<p>Более подробную информацию об апдейтаграммах с примерами можно найти в MSDN или в [10].</p>
+
+
+<h3>XML Bulk Load<a name="ERRAI"></a></h3>
+<p>Предположим, у вас имеется XML-документ, содержимое которого нужно 
+«залить» в базу. Методов решения проблемы, как всегда, очень много, и 
+вся сложность состоит в выборе наиболее подходящего. Вы можете загрузить
+ документ в DOMDocument и в цикле, выбирая значения элементов и 
+атрибутов, производить добавление данных с помощью инструкции SQL. Если 
+вы не знакомы с объектной моделью DOM, то можете написать свой парсер. 
+Такое лобовое решение обычно принимают самые отважные и «крутые» 
+программисты, которые не боятся трудностей написания нового парсера, 
+изучения SQL и начальства. Что ж, лично я (хотя начальства не особо 
+боюсь) к такой категории себя отнести не могу. Мне нужно решение, 
+которое опирается на уже существующие возможности и технологии. Второе, 
+что приходит в голову – передать XML-документ в хранимую процедуру и с 
+помощью OPENXML «залить» данные в таблицу. Решение здравое и наиболее 
+эффективное в большинстве случаев. Но что делать, если у вас имеется 
+большой документ? Конечно, его можно все так же передавать в хранимую 
+процедуру в параметре text или ntext и также разбирать с помощью 
+OPENXML. Но все дело в том, что OPENXML использует DOM, а обработка 
+больших документов таким способом имеет кучу недостатков. Мало того, что
+ расходуется большое количество драгоценных системных ресурсов, это еще и
+ медленно! Для больших документов идеальным вариантом является XML Bulk 
+Load.</p>
+<p>XML Bulk Load – это обычный COM-сервер, размещенный в DLL, и 
+использующий для анализа XML-документа SAX (Simple API for XML). 
+Благодаря этому он обрабатывает документ по частям, намного менее 
+ресурсоемок и более быстр. Для обновления данных XML Bulk Load должен 
+знать, какие XML-узлы соотносятся с полями в таблицах, и каков их тип. 
+Для этого он использует все те же аннотированные схемы, которые могут 
+быть написаны на XDR или XSD.</p>
+<p>Семантика объекта XML Bulk Load не может показаться сложной – объект 
+содержит всего один метод и несколько свойств. Рассмотрим наиболее 
+используемые свойства:</p>
+<ul style="LIST-STYLE:square"><li><b>ConnectionString</b> – строка соединения с базой данных (формат SQLOLEDB).</li>
+<li><b>ConnectionCommand</b> – позволяет использовать уже существующий объект ADODB.Connection.</li>
+<li><b>BulkLoad</b> – если установлено в true, кроме генерации схемы 
+(таблиц) происходит также закачка данных. Если установлен в false – 
+создаются только таблицы (см. свойство SchemaGen). По умолчанию – true.</li>
+<li><b>ErrorLogFile</b> – позволяет указать файл, в который будут записываться сообщения об ошибках.</li>
+<li><b>Transaction</b> – если установлено в true, все операции XML Bulk Load выполняются в контексте одной транзакции. По умолчанию – false.</li>
+<li><b>TempFilePath</b> – директория, в которой будет создан файл лога 
+транзакции. Настоятельно рекомендую устанавливать его самостоятельно, 
+так как по-другому у меня просто не получалось. Свойство имеет значение,
+ только если Transaction установлено в true. По умолчанию создает файл в
+ папке %temp%.</li>
+<li><b>SchemaGen</b> – если установлено в true, создаются указанные в 
+аннотированной схеме таблицы. Если таблицы уже существуют, используется 
+свойство SGDropTables. По умолчанию – false.</li>
+<li><b>SGDropTables</b> – если установлено в true, существующие в базе 
+таблицы удаляются перед закачкой. Для добавления данных к уже 
+существующим, оставьте это свойство равным false (по умолчанию).</li>
+<li><b>KeepIdentity</b> – если установлено в true, то значения для поля 
+типа identity выбираются из XML-документа, если false – SQL Server сам 
+выполняет обновление данного поля. По умолчанию – false.</li>
+</ul>
+<p>Другие свойства можно найти в документации, все они аналогичны 
+настройкам утилиты bcp (bulk copy program – утилита командной строки, 
+поставляемая с SQL Server, которая позволяет загружать/выгружать данные 
+в/из текстового файла) и оператора BULK LOAD. Перейдем к примерам.</p>
+<h4>Создание новой таблицы и загрузка данных</h4>
+<p>В разделе "Апдейтаграммы", в примере "Добавление данных" мы создали 
+простую таблицу из одного поля и добавили в нее значение. Вот как это 
+можно сделать с помощью XML Bulk Load.</p>
+<p>Аннотированная схема:</p>
+<div id="EJTAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+  <span class="KEYWORD">xmlns:ms</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>&gt;
+  &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"test-table"</span> <span class="KEYWORD">ms:relation</span>=<span class="STRING">"test1"</span>&gt;
+    &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"identifier"</span> <span class="KEYWORD">ms:datatype</span>=<span class="STRING">"int"</span> <span class="KEYWORD">ms:field</span>=<span class="STRING">"_id"</span>/&gt; 
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"field1"</span> <span class="KEYWORD">ms:datatype</span>=<span class="STRING">"int"</span> <span class="KEYWORD">ms:field</span>=<span class="STRING">"fld1"</span>/&gt; 
+    &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+  &lt;/<span class="ACCENT">xsd:element</span>&gt;
+&lt;/<span class="ACCENT">xsd:schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Она ссылается на таблицу test1 и две колонки типа int – _id и fld1. В
+ XML-документе соответствующие атрибуты будут называться identifier и 
+field1.</p>
+<p>Теперь скрипт:</p>
+<div id="EIVAI"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">Dim</span> xbcp,adoStream
+<span class="KEYWORD">Set</span> xbcp = CreateObject(<span class="STRING">"SQLXMLBulkLoad.SQLXMLBulkLoad.3.0"</span>)
+<span class="KEYWORD">Set</span> adoStream = CreateObject (<span class="STRING">"ADODB.Stream"</span>)
+
+adoStream.Open
+adoStream.WriteText <span class="STRING">"&lt;root&gt;&lt;test-table field1='145' identifier='1' /&gt;&lt;/root&gt;"</span>
+AdoStream.Position = 0
+
+xbcp.ConnectionString = <span class="STRING">"Provider=sqloledb.1;Data Source=server;"</span> &amp; _
+  <span class="STRING">"database=pubs;User ID=user;Password=password;"</span>
+
+xbcp.SchemaGen = <span class="KEYWORD">true</span>
+xbcp.SGDropTables = <span class="KEYWORD">true</span>
+xbcp.Transaction = <span class="KEYWORD">true</span>
+xbcp.ErrorLogFile = <span class="STRING">"c:\error.log"</span>
+xbcp.TempFilePath = <span class="STRING">"c:\temp"</span>
+
+xbcp.Execute <span class="STRING">"xbcp_schema.xml"</span>,adoStream
+</pre></td></tr></tbody></table></div>
+<p>Чтобы не создавать отдельно малюсенький XML-документ, в примере 
+используется объект Stream из ADO. В качестве схемы stream использовать 
+нельзя, а жаль.</p>
+<table class="note" width="98%"><tbody><tr><td><strong>ПРИМЕЧАНИЕ</strong><br><p>Лично
+ мне не удавалось запускать подобные скрипты на клиентской машине. Так 
+как я не администратор домена, приходилось просить скопировать схему и 
+скрипт на сервер и там уже запускать. Может, просто не хватало прав.</p>
+</td></tr></tbody></table>
+
+<h4>Загрузка иерархических документов</h4>
+<p>Если у вас имеется иерархический документ, и вам необходимо его 
+загрузить с сохранением родительско-дочерних связей, этот пример – для 
+вас. В нем создается две таблицы: родительская test1 и дочерняя test2. 
+Самое сложное при этом – написать правильную аннотированную схему.</p>
+<div id="ETWAI"><table class="code" width="98%"><tbody><tr><td><pre>&lt;<span class="ACCENT">xsd:schema</span> <span class="KEYWORD">xmlns:xsd</span>=<span class="STRING">"http://www.w3.org/2001/XMLSchema"</span>
+  <span class="KEYWORD">xmlns:ms</span>=<span class="STRING">"urn:schemas-microsoft-com:mapping-schema"</span>&gt;
+  &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"test-table1"</span> <span class="KEYWORD">ms:relation</span>=<span class="STRING">"test1"</span>&gt;
+    &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+      &lt;<span class="ACCENT">xsd:sequence</span>&gt;
+        &lt;<span class="ACCENT">xsd:element</span> <span class="KEYWORD">name</span>=<span class="STRING">"test-table2"</span> <span class="KEYWORD">ms:relation</span>=<span class="STRING">"test2"</span>&gt;
+          &lt;<span class="ACCENT">xsd:annotation</span>&gt;
+            &lt;<span class="ACCENT">xsd:appinfo</span>&gt;
+              &lt;<span class="ACCENT">ms:relationship</span> <span class="KEYWORD">parent</span>=<span class="STRING">"test1"</span>
+                <span class="KEYWORD">parent-key</span>=<span class="STRING">"test1_id"</span>
+                <span class="KEYWORD">child</span>=<span class="STRING">"test2"</span>
+                <span class="KEYWORD">child-key</span>=<span class="STRING">"test1_id"</span> /&gt;
+            &lt;/<span class="ACCENT">xsd:appinfo</span>&gt;
+          &lt;/<span class="ACCENT">xsd:annotation</span>&gt;
+          &lt;<span class="ACCENT">xsd:complexType</span>&gt;
+            &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"identifier"</span> <span class="KEYWORD">ms:datatype</span>=<span class="STRING">"int"</span>
+              <span class="KEYWORD">ms:field</span>=<span class="STRING">"test2_id"</span>/&gt; 
+          &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+        &lt;/<span class="ACCENT">xsd:element</span>&gt;
+      &lt;/<span class="ACCENT">xsd:sequence</span>&gt;
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"identifier"</span> <span class="KEYWORD">ms:datatype</span>=<span class="STRING">"int" </span><span class="KEYWORD">ms:field</span>=<span class="STRING">"test1_id"</span>/&gt; 
+      &lt;<span class="ACCENT">xsd:attribute</span> <span class="KEYWORD">name</span>=<span class="STRING">"field1"</span> <span class="KEYWORD">ms:datatype</span>=<span class="STRING">"int"</span> <span class="KEYWORD">ms:field</span>=<span class="STRING">"fld1"</span>/&gt;
+    &lt;/<span class="ACCENT">xsd:complexType</span>&gt;
+  &lt;/<span class="ACCENT">xsd:element</span>&gt;
+&lt;/<span class="ACCENT">xsd:schema</span>&gt;
+</pre></td></tr></tbody></table></div>
+<p>Скрипт (написан на vbs):</p>
+<div id="EL1AI"><table class="code" width="98%"><tbody><tr><td><pre><span class="KEYWORD">Dim</span> xbcp,adoStream
+<span class="KEYWORD">Set</span> xbcp = CreateObject(<span class="STRING">"SQLXMLBulkLoad.SQLXMLBulkLoad.3.0"</span>)
+<span class="KEYWORD">Set</span> adoStream = CreateObject (<span class="STRING">"ADODB.Stream"</span>)
+
+adoStream.Open
+adoStream.WriteText <span class="STRING">"&lt;ROOT&gt;"</span> &amp; _
+    <span class="STRING">"&lt;test-table1 identifier='10' field1='345'&gt;"</span> &amp; _
+      <span class="STRING">"&lt;test-table2 identifier='1' /&gt;"</span> &amp; _
+    <span class="STRING">"&lt;/test-table1&gt;"</span> &amp; _
+  <span class="STRING">"&lt;/ROOT&gt;"</span>
+AdoStream.Position = 0
+
+xbcp.ConnectionString = <span class="STRING">"Provider=sqloledb.1;Data Source=server;"</span> &amp; _
+  <span class="STRING">"database=pubs;User ID=user;Password=password;"</span>
+
+xbcp.SchemaGen = <span class="KEYWORD">true</span>
+xbcp.SGDropTables = <span class="KEYWORD">true</span>
+xbcp.Transaction = <span class="KEYWORD">true</span>
+xbcp.ErrorLogFile = <span class="STRING">"c:\error.log"</span>
+xbcp.TempFilePath = <span class="STRING">"c:\temp"</span>
+
+xbcp.Execute <span class="STRING">"xbcp_schema.xml"</span>,adoStream
+</pre></td></tr></tbody></table></div>
+<p>После его выполнения будут созданы следующие таблицы.</p>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>test1_id</th><th>field1</th></tr>
+<tr><td>10</td><td>345</td></tr>
+</tbody></table><font style="font-size:x-small;margin-left:1em" face="verdana"><i>Таблица test1.</i></font>
+<table border="0" cellpadding="5" cellspacing="2"><tbody><tr><th>test1_id</th><th>test2_id</th></tr>
+<tr><td>10</td><td>1</td></tr>
+</tbody></table><font style="font-size:x-small;margin-left:1em" face="verdana"><i>Таблица test2.</i></font>
+
+
+<h2>Заключение<a name="EN3AI"></a></h2>
+<p>Ну вот, мы и добрались, наконец, до заключения. Хотя все 
+рассмотренные методы работы с XML-документами опирались на технологии 
+Microsoft, общая картина вам должна быть ясна: любой современный 
+SQL-сервер уже не ограничивается работой только с реляционными данными. 
+Например, в Oracle 9i также включена встроенная поддержка XML – тип 
+таблиц XMLType. Вы можете делать SQL-запросы к документами XML и 
+XML-запросы (запросы XPath) к реляционным таблицам, так же, как и в MS 
+SQL Server[12]. В дальнейшем эти возможности будут улучшаться, например,
+ уже сейчас мы можем сделать из SQL Server сервер Web-служб (Oracle 9i 
+также поддерживает эту возможность). Остается только надеяться, что 
+Microsoft в этом плане будет придерживаться стандартов, и не будет 
+бежать впереди паровоза, как это было с XDR и схемами трансформации.</p>
+<h2>Литература<a name="ET3AI"></a></h2>
+<ol><li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/xmlsdk30/htm/xmconxmlschemadevelopersguide.asp" class="link-ext" target="_blank">Описание XDR</a></li>
+<li><a href="http://www.w3.org/TR/XPath" class="link-ext" target="_blank">Спецификация XPath</a></li>
+<li><a href="http://msdn.microsoft.com/library/en-us/sqlxml3/htm/intro_3tbm.asp" class="link-ext" target="_blank">Настройка IIS для SQL Server</a> </li>
+<li><a href="http://www.w3.org/TR/xslt" class="link-ext" target="_blank">Спецификация XSL</a></li>
+<li><a href="http://www.w3.org/TR/xmlschema-1" class="link-ext" target="_blank">Спецификация XSD</a></li>
+<li><a href="http://search.microsoft.com/gomsuri.asp?n=2&amp;c=rp_Results&amp;siteid=us/dev&amp;target=http://msdn.microsoft.com/library/en-us/xmlsql/ac_mschema_5cfn.asp" class="link-ext" target="_blank">Использование SDR схем для запросов XPath</a></li>
+<li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sqlxml3/htm/ssxsdannotations_1u7n.asp" class="link-ext" target="_blank">Использование XSD схем для запросов XPath</a></li>
+<li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sqlxml3/htm/ssxsdannotations_8hlw.asp" class="link-ext" target="_blank">Преобразование XDR в XSD</a></li>
+<li>XML для профессионалов, Дидье Мартин, Марк Бирбек и другие.</li>
+<li><a href="http://www.sql.ru/docs/AccessingData/XML/SQLServer2K/index.shtml" class="link-ext" target="_blank">XML в MS SQL Server 2000 и технологиях доступа к данным</a>, Алексей Шуленин.</li>
+<li><a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/sqlxml3/htm/bulkload_5l44.asp" class="link-ext" target="_blank">Ограничения XML Bulk Load</a></li>
+<li><a href="http://otn.oracle.com/oramag/oracle/03-jan/o13xml.html" class="link-ext" target="_blank">Поддержка XML в Oracle 9i</a></li>
+</ol>
+<p></p>
+<div align="right"><font style="font-family:arial;font-size:9pt;color:#8088a0"><i><hr color="#8088a0" size="1" width="100%"><div align="justify"><font size="2">
+                     Эта статья опубликована в журнале 
+                     RSDN Magazine
+                                         
+                        #1-2003. Информацию о журнале можно найти <a href="http://www.rsdn.ru/mag/main.htm">здесь</a></font></div></i></font></div>
+<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1276305-1");
+	pageTracker._addOrganic("rambler.ru", "words");
+	pageTracker._addOrganic("mail.ru", "q");
+	pageTracker._addOrganic("aport.ru", "r");
+	pageTracker._addOrganic("metabot.ru", "st");
+	pageTracker._addOrganic("meta.ua", "q");
+	pageTracker._addOrganic("bigmir.net", "q");
+	pageTracker._addOrganic("nigma.ru", "s");
+	pageTracker._trackPageview();
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter49003 = new Ya.Metrika({id:49003, enableAll: true, trackHash:true, webvisor:true,type:1});
+        } catch(e) { }
+    });
+    
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/49003?cnt-class=1" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter --><table celpadding="2" style="font-family:verdana;font-weight:bold;padding: 0px 5px; BORDER: #9daabd 1px 	solid; 	COLOR: #646464; BACKGROUND-COLOR: #e6e6e6;" border="0" cellspacing="0" width="100%"><tbody><tr><td nowrap="nowrap"><font style="font-weight:normal" size="1"><script src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/shMenu.js" type="text/javascript" charset="utf-8"></script>&lt;&lt;<a href="http://www.rsdn.ru/?article/db/xmlsql.xml" target="_top">Показать&nbsp;меню</a>&nbsp;</font></td><td align="right" nowrap="nowrap" width="100%"><font size="2">&nbsp;<a href="http://www.rsdn.ru/article/db/xmlsql.xml?print" target="_blank" title="Версия для печати"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/printer2.gif" height="14" align="absmiddle" border="0" width="16"></a>&nbsp;&nbsp;<a href="http://www.rsdn.ru/forum/db/320639" target="_self" title="Перейти к обсуждению статьи"><font color="#646464" size="1"> Сообщений </font><font color="black">1</font></a>&nbsp;&nbsp;<a href="http://www.rsdn.ru/forum/db/320639" target="_self" title="Перейти к обсуждению статьи"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/showfr.gif" height="14px" align="absmiddle" border="0" width="18px"></a>&nbsp;<a href="http://www.rsdn.ru/Forum/RateList.aspx?mid=320639"><font color="#646464"><font size="1"> Оценка </font><font color="black">301</font></font></a>&nbsp;&nbsp; <a target="_blank" rel="nofollow" href="http://www.rsdn.ru/Users/Private/AddFav.aspx?mid=320639" onclick="return AddFav(this.href);" title="Добавить в избранное"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/fav.gif" height="14px" align="absmiddle" border="0"></a>&nbsp;&nbsp;<a href="http://www.rsdn.ru/Forum/Private/Subscr.aspx?tid=320639" onclick="return SubMsg(this.href)" title="Подписка на сообщения" rel="nofollow"><img class="i" src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/sub.gif" height="14px" align="absmiddle" border="0" width="18px"></a>&nbsp;&nbsp;&nbsp;<font size="1">Оценить </font><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=-3" onclick="return RateMsg(this.href);" title="+1"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n11.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=1" onclick="return RateMsg(this.href);" title="Интересно"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n1.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=2" onclick="return RateMsg(this.href);" title="Спасибо"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n2.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=3" onclick="return RateMsg(this.href);" title="Супер"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/n3.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=-1" onclick="return RateMsg(this.href);" title="Удалить оценку"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/nx.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=-4" onclick="return RateMsg(this.href);" title="Согласен"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/np.gif" height="14px" align="absmiddle" border="0" width="18px"></a><a target="_blank" rel="nofollow" href="http://www.rsdn.ru/forum/Private/Rate.aspx?mid=320639&amp;rate=0" onclick="return RateMsg(this.href);" title="Не согласен"><img src="%D0%98%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20XML%20%D1%81%D0%BE%D0%B2%D0%BC%D0%B5%D1%81%D1%82%D0%BD%D0%BE%20%D1%81%20SQL_files/nm.gif" eight="14px" align="absmiddle" border="0" width="18px"></a>&nbsp;
+					</font></td></tr></tbody></table></body></html>

@@ -1,0 +1,348 @@
+﻿@page a4 {
+        margin: 10mm 20mm 10mm 20mm;
+        mso-mirror-margins: no;
+}
+
+div.a4 
+{
+    page: a4;
+}
+
+.schedule .emphasis 
+{
+	background-color:	#D3D3D3;
+}
+
+
+body
+{
+    page:					page; 
+	font-size:				12pt;
+	font-family:			Times New Roman, times;
+	color:					black;	
+	background-color:		Transparent;
+}
+
+#print-container
+{
+	margin-left: 			10mm ;
+}
+
+p
+{
+	font-size:				12pt;
+	text-align:				left;
+	margin:					2pt;
+}
+
+p.group 
+{
+    text-align:				center;
+    font-size:				70%;  
+    padding:                0 ; 
+}
+
+div.program p {
+	text-align:	justify	
+}
+
+h1
+{
+	font-size:				16pt;
+	text-align:				center;
+	page-break-after:		avoid;
+	page-break-before:		avoid;
+	margin-top:         	0;
+	margin-bottom:     		0.2cm;
+}
+
+h1.institute
+{
+	font-size:				12pt;
+	font-weight:			bold;
+	text-transform:			uppercase;
+	margin-top:				0px;
+	border-bottom:			1px solid black;	
+}
+
+h1.agency
+{
+	font-size:				12pt;
+	font-weight:			bold;
+	margin:					0px;
+}
+
+h2
+{
+	text-align:			center;
+	font-size:			14pt;
+	page-break-after:	avoid;
+	margin-top:         0;
+	margin-bottom:      0.2cm;	
+}
+
+h3
+{
+	font-size:				14pt;
+	text-align:				left;
+	page-break-after: avoid;
+}
+
+h4, h5, h6
+{
+	font-size:				12pt;
+}
+
+.nextpage
+{
+	page-break-after:			avoid;
+	page-break-before:			always;
+}
+
+table
+{
+	font-size:				10pt;
+	border-collapse:			collapse;
+	margin:					auto;
+}
+
+th
+{
+	border:						1px solid black;
+	background-color:			#eeeeee;
+	padding:					2px;
+}
+
+tr
+{
+	page-break-after:		avoid;
+}
+
+td
+{
+	border:						1px solid black;
+	padding:					2px 2px 2px 6px;
+	text-align:					center;
+}
+
+td.name
+{
+	text-align:			left;	
+}
+
+a:link, a:visited, a:hover
+{
+	text-decoration:none;				
+	color:						black;
+	/*cursor:						text;*/
+}
+
+a img 
+{
+	border:						none;	
+}
+
+img.left
+{
+float:							left;
+clear:							both;	
+}
+
+li
+{
+	text-align:			left;
+}
+
+/**/
+table.list
+{
+	width:						100%;
+	border:						1px solid black;
+	margin:						8px 0px;
+}
+
+table.left th,
+table.left td
+{
+	text-align:				left;
+}
+
+.number
+{
+	width:						1cm;
+}
+.time
+{
+	width:						2cm;
+}
+.min
+{
+	text-decoration:	underline;
+}
+.date
+{
+	width:						1.5cm;
+}
+.fixed
+{
+	width:						3cm;
+}
+
+.PersonName
+{
+	text-align:				left;	
+	white-space:				nowrap;
+}
+.navigationbar {
+	display: none;
+	}
+.content {
+	border: none;
+	}
+/* РћС‚РјРµРЅР° РІС‹РІРѕРґР° РЅР° РїРµС‡Р°С‚СЊ С€Р°РїРєРё*/
+td.header, div.logo , fieldset
+{
+	display:					none;	
+}
+/* РћС‚РјРµРЅР° РІС‹РІРѕРґР° РЅР° РїРµС‡Р°С‚СЊ Р»РµРІРѕРіРѕ РјРµРЅСЋ*/
+td.leftmenu
+{
+	display:					none;	
+}
+/* РћС‚РјРµРЅР° РІС‹РІРѕРґР° РЅР° РїРµС‡Р°С‚СЊ С‚Р°Р±Р»РёС†С‹ РІС‹Р±РѕСЂР° РЅРµРґРµР»Рё РІ СЂР°СЃРїРёСЃР°РЅРёРё*/
+table.weekchoice
+{
+	display:					none;	
+}
+table.base
+{
+	border:						none;
+}
+div#print
+{
+	display:					none;
+}
+.profiling
+{
+	display:					none;	
+}
+/*РўР°Р±Р»РёС†Р° РґР»СЏ РІС‹РІРѕРґР° РІСЃРµРіРѕ СЃРїРёСЃРєР° РіСЂСѓРїРї РІРѕ РІС‚РѕСЂРѕРј РІС‹СЃС€РµРј*/
+table.groups
+{
+    width: 100%;
+}
+table.groups td
+{
+	margin:						0px;
+	padding:					2px;
+	vertical-align:		top;
+	border:						1px solid black;
+	text-align:				left;
+}
+table.groups li
+{
+	font-size:				10pt;
+}
+table.groups h3
+{
+	font-size:				100%;
+	text-align:				center;
+	background-color:	#eeeeee;
+}
+
+.studentslist
+{
+	width:				100%;	
+}
+
+/*     */
+table#printheader
+{
+		border:none;
+		font-family:Arial;
+		width:100%;
+}
+table#printheader td
+{
+		border:none;
+		vertical-align:middle;
+	text-transform:uppercase;
+}
+
+table#printheader p
+{
+	text-align:center;
+	font-size: 8pt;
+	margin:0px;
+}
+table#printheader p#faculty, table#printheader p#department
+{
+	letter-spacing: 2pt;
+}
+table#printheader p#department
+{	
+	background-color:#084081;
+	color:#ffffff;
+	margin:0px;
+	
+}
+
+table#printheader td#fstlogo
+{	
+	background-color:#FFFFFF;
+	width:1.25cm;
+
+}
+table#printheader td#title
+{
+		background-color:#CCCCCC;
+		
+}
+table#printheader td#spec
+{	
+	background-color:#FFFFFF;
+	width:1.25cm;
+	text-transform:uppercase;
+}
+table#printheader td#coursetitle
+{	
+	background-color:#084081;
+	color:#ffffff;
+	text-transform:uppercase;
+	
+}
+
+	
+table#printfooter
+{
+	width: 100%;
+	height: 1cm;
+	border-top: 1px solid #084081;
+	border-bottom: 1px solid #084081;	
+	border-left:0px;
+	border-right:0px;
+	margin-top:1cm;
+	margin-bottom:1cm;
+}
+table#printfooter td
+
+{
+	border:none;
+	vertical-align:middle;
+
+}
+
+#gcs-form,
+.navigationbar,
+.header {
+	display: none;
+	}
+	
+.books{ display:none;}
+
+.icon-print {
+	display:none;
+}
+.copyright {
+	display: none;
+}

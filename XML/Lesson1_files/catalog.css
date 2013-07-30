@@ -1,0 +1,425 @@
+@import url("base.css");
+@import url("icons.css");
+
+/* Главная страница раздела/каталог */
+table.catalog
+{
+	width:						84%;
+	margin:						auto 8%;
+	font-size:					0.8em;
+}
+table.catalog td
+{
+	width:						50%;
+	padding:					10px 5px 5px 10px;
+	text-align:					left;
+}
+
+/*	Рисунки в каталоге
+		<table class="catalog" >
+		<tr>
+			<td>
+				<h4><img src="/images/design_small.jpg" alt=""/>Дизайн</h4>
+			</td>
+		</tr>
+*/
+table.catalog img
+{
+	margin-right:			10px;
+	vertical-align:			middle;
+	float:					left;
+}
+
+table.catalog img.center
+{
+	margin-right:			10px;
+	vertical-align:			middle;
+	float:					none;
+}
+/*	Заголовки разделов в каталоге
+		<table class="catalog" >
+		<tr>
+			<td>
+				<h1><img src="/images/design_small.jpg" alt=""/>Дизайн</h1>
+			</td>
+		</tr>
+*/
+table.catalog h1,
+div.error h1
+{
+	font-size:					1.1em;
+	margin:						5px 0px;
+
+}
+table.catalog h2 img {
+	margin-bottom: 5px;
+}
+
+table.catalog h4
+{
+	margin: 5px 0px 0px 0px;
+}
+table.catalog h2 {
+	font-size: 1.2em;
+	clear: left;
+	}
+
+
+/* ------------------------------
+	MB: вариант внешнего вида
+	каталога на главной странице
+
+	----------------------------------------*/
+
+#index table.catalog td {
+	padding: 0 15px 0 0;
+	}
+
+#index table.catalog h1 {
+	font: normal 1.3em "trebuchet ms", helvetica, arial, sans-serif;
+	margin: 0.95em 0 0.1em;
+	}
+	#index .test table.catalog h1:first-letter,
+	#index .test table.catalog h1 span {
+		/*color: #F00;*/
+		}
+	#index table.catalog h1 a:link,
+	#index table.catalog h1 a:visited {
+		color: #074180;
+		text-decoration: none;
+		}
+	#index table.catalog h1 a:hover {
+		color: #630780;
+		}
+#index table.catalog a:visited {
+	/*color: #074180;*/
+	}
+#index table.catalog a:hover {
+	color: #000;
+	}
+#index table.catalog h2 {
+	font: normal 1.1em "trebuchet ms", verdana, helvetica, arial, sans-serif;
+	margin: 1.35em 0 0.1em 10px;
+	font-variant: small-caps;
+	}
+#index table.catalog h2 a.emphasis:link,
+#index table.catalog h2 a.emphasis:visited {
+	color: #000;
+	text-decoration: none;
+	font-weight: normal;
+	}
+	#index table.catalog h2 a.emphasis:hover {
+		color: #630780;
+		}
+	#index table.catalog h2 a.scheme
+	{
+	    font-variant: normal;
+	    font-size:.8em;
+	    float:right;
+	    text-transform: none;
+	    color: #000;
+	    }
+	    #index table.catalog h2 a.scheme:hover
+	    {
+	        color: #900;
+	        }
+#index div.catalogcontent {
+	margin-left: 1em;
+	line-height:1.5;
+	margin-bottom:0;
+	}
+	#index div.catalogcontent a.icon-lc {
+		padding-top: 2px;
+		padding-bottom: 2px;
+		}
+	#index div.catalogcontent a:link,
+	#index div.catalogcontent a:visited	{
+		/*color: #074180;*/
+		}
+	#index div.catalogcontent a:visited {
+		color: #00029F;
+		}
+	#index div.catalogcontent a.emphasis:visited {
+		color: green;
+		}
+
+
+
+/* Блок для банера или новостей
+	<div class="hotnews">
+			Здесь могут быть новости или банер
+	</div>
+*/
+div.hotnews	, div.banner
+{
+	width:						80%;
+	/*border-top:						solid 1px #084081;
+	border-bottom:						solid 1px #084081;*/
+	text-align:				center;
+	margin:					5px auto;
+	padding:				5px 0;
+	font-size:				90%;
+}
+div.hotnews	p,  div.banner p
+{
+	margin:						0px;
+}
+div.banner2
+{
+	width:200px; 
+	height:250px;
+	padding-top:3px;
+	margin-left:11px;
+}
+
+/* Выделение цветом важной информации, к которой надо привлечь внимание
+		<span  class="attention">
+			ВНИМАНИЕ! Указанные цены действительны с 01 июля 2004г.
+		</span>
+*/
+*.attention
+{
+	color:						red;
+	font-weight : 				bold;
+	text-align : 				center;
+}
+div.center
+{
+	text-align : 				center;
+
+}
+
+
+/* Содержимое каталога (текст)
+		<div class="catalogcontent">
+			<p>Проект "Открытые уроки" является совместной работой Выпускников, Слушателей и Преподавателей Факультета переподготовки специалистов </p>
+		</div>
+*/
+div.catalogcontent p
+{
+	font-size : 				0.9em;
+
+}
+
+div.catalogcontent
+{
+	font-size: 		0.9em;
+	line-height:        1.4em;
+	/*height: auto !important;
+	min-height: 50px;
+	height: 50px;*/
+	margin: 0 0	5px 100px;
+}
+
+div.catalogcontent a:link,
+div.catalogcontent a:visited {
+	text-decoration: underline;
+	}
+/*.catalog a {
+	white-space: nowrap;
+	}*/
+
+/* Для картинки с анимацией в подразделы*/
+a.department
+{
+	width:						90px;
+	height:						70px;
+	display:					block;
+	float:						left;
+	margin-right:				5px;
+}
+/*a.department:link
+{
+	width:						90px;
+	height:						70px;
+	display:					block;
+	float:						left;
+	margin-right:				5px;
+}
+
+a.department:visited
+{
+	width: 	90px;
+	height:	70px;
+	display:block;
+	float:left;
+	margin-right:				5px;
+}
+a.department:hover
+{
+	width: 	90px;
+	height:	70px;
+}*/
+
+a.design:link{	background-image:			url(http://img.avalon.ru/icons/Departments/des.png);}
+a.design:visited{	background-image:			url(http://img.avalon.ru/icons/Departments/des.png);}
+a.design:hover{	background-image:			url(http://img.avalon.ru/icons/Departments/desOver.png);}
+
+a.ecomomics:link{	background-image:			url(http://img.avalon.ru/icons/Departments/econ.png);}
+a.ecomomics:visited{	background-image:			url(http://img.avalon.ru/icons/Departments/econ.png);}
+a.ecomomics:hover{	background-image:			url(http://img.avalon.ru/icons/Departments/econOver.png);}
+
+a.net:link{	background-image:			url(http://img.avalon.ru/icons/Departments/net.png);}
+a.net:visited{	background-image:			url(http://img.avalon.ru/icons/Departments/net.png);}
+a.net:hover{	background-image:			url(http://img.avalon.ru/icons/Departments/netOver.png);}
+
+a.pro:link{	background-image:			url(http://img.avalon.ru/icons/Departments/prog2.png);}
+a.pro:visited{	background-image:			url(http://img.avalon.ru/icons/Departments/prog2.png);}
+a.pro:hover{	background-image:			url(http://img.avalon.ru/icons/Departments/prog2Over.png);}
+
+a.soft:link{	background-image:			url(http://img.avalon.ru/icons/Departments/prog.png);}
+a.soft:visited{	background-image:			url(http://img.avalon.ru/icons/Departments/prog.png);}
+a.soft:hover{	background-image:			url(http://img.avalon.ru/icons/Departments/progOver.png);}
+
+
+
+.news-line
+{
+    font-size: 0.7em;
+    line-height: 1.8;
+    margin: 10px auto 20px;
+    background: url(http://img.avalon.ru/icons/news-bg.png) left 0px no-repeat;
+    /*border-bottom: 1px solid #0f406d;*/
+  }
+.news-line p {
+    position: relative;
+    left: -0px;
+    width: 80%;
+    padding-left: 100px;
+    text-indent: -100px;
+    margin: 0 auto;
+    background: #FFF;
+    color: #000;
+}
+	.news-line strong {
+		font-weight: normal;
+		display: inline-block;
+		width: 98px;
+		height: 20px;
+		background: url(http://img.avalon.ru/icons/news-arrow.png) -10px center no-repeat;
+		}
+	.news-line a:link,
+	.news-line a:visited {
+		color: #E66319;
+		}
+	.news-line a:hover {
+		color: #000;
+	}
+
+/*
+	Расписание занятий. Список всех семестров всех специальностей
+*/
+
+ul.schedule-list {
+	width: 100%;
+	overflow: hidden;
+	margin: 0px 0px 100px 0px;
+	padding: 0;
+	}
+	ul.schedule-list li {
+		font-size: 1.0em;
+		list-style: none;
+		float: left;
+		display: inline;
+		width: 22%;
+		margin: 0 20px 0 0;
+		padding: 0;
+		}
+		ul.schedule-list h2 {
+			font-size: 1em;
+			font-weight: normal;
+			height: 2.5em;
+			}
+		ul.schedule-list ul {
+			margin: 10px 0 0 10px;
+			padding: 0 0 0 10px;
+			list-style: disc;
+			}
+		ul.schedule-list li li {
+			font-size: 1em;
+			list-style: disc;
+			float: none;
+			display: block;
+			width: auto;
+			margin: 0 0 5px 10px;
+			padding: 0 0 0 0px;
+			}
+/* Морда второго высшего */
+.catalog-he h1 {
+	height:3.2em;
+	text-align:center;
+	font-weight:normal;
+	}
+	.catalog-he h1 a {
+		color:#333;
+	}
+.catalog-he a {
+	text-decoration:none;
+	}
+	.catalog-he a:hover {
+		text-decoration:underline;
+		}
+table.catalog-he td:hover {
+	background:#F1F1F1;
+}
+.catalog-he .schedul {
+	padding:0 50px 50px 30px;
+}
+
+.note {
+	font-size:75%;
+}
+
+/*  Страница ВВО 18.04.2012*/
+div.catalog-he  {
+	width:94%;
+	margin:0 auto;
+	font-size:					1em;
+}
+	div.catalog-he h1 {
+		font-size:			1.5em;
+		height:				1em;
+		font-weight:		bold;
+		margin-bottom:		1.3em;
+	}
+	div.catalog-he p, div.catalog-he li {
+		font-size:			0.8em;
+		text-align : 		left;
+		margin:				5px;
+		}
+	div.catalog-he p {
+		line-height:		1.5;
+		}
+	div.catalog-he ul {
+		/*margin:				0 5px 15px;*/
+		margin-top:				0;
+		}
+	div.catalog-he a {
+		font-size:			1.2em;
+		}
+div.catalog-he h2 {
+	font-size:		0.8em;
+	font-weight:		bold;
+}
+div.catalog-he table {
+	font-size:		1em;
+	border:1px solid #EEEEE0;
+}
+div.catalog-he td {
+	text-align:		center;
+	background-color: #EEEEE0;
+}
+div.catalog-he td.next {
+	background-color: #FFFFF0;
+}
+div.catalog-he td a {
+	font-size:		1em;
+	/*font-weight:	normal;*/
+	color:black;
+}
+div.catalog-he td  ul {
+	margin:0 auto;
+}
+div.catalog-he td  li a {
+	font-size:		0.9em;
+}

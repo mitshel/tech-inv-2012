@@ -307,8 +307,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 8
       TabOrder = 0
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 328
-      ExplicitWidth = 196
     end
     object CategoryPanel8: TCategoryPanel
       Tag = 8
@@ -322,8 +320,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 7
       TabOrder = 1
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 287
-      ExplicitWidth = 196
     end
     object CategoryPanel7: TCategoryPanel
       Tag = 7
@@ -337,7 +333,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 6
       TabOrder = 2
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 246
     end
     object CategoryPanel6: TCategoryPanel
       Tag = 6
@@ -351,7 +346,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 5
       TabOrder = 3
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 205
     end
     object CategoryPanel5: TCategoryPanel
       Tag = 5
@@ -365,7 +359,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 4
       TabOrder = 4
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 164
     end
     object CategoryPanel4: TCategoryPanel
       Tag = 4
@@ -379,7 +372,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 3
       TabOrder = 5
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 123
     end
     object CategoryPanel3: TCategoryPanel
       Tag = 3
@@ -394,7 +386,6 @@ object MainForm: TMainForm
       ExpandedPressedImageIndex = 2
       TabOrder = 6
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 82
     end
     object CategoryPanel2: TCategoryPanel
       Tag = 2
@@ -416,7 +407,6 @@ object MainForm: TMainForm
       ParentFont = False
       TabOrder = 7
       OnExpand = CategoryPanel1Expand
-      ExplicitTop = 41
       object ButtonGroup1: TButtonGroup
         Left = 0
         Top = 0
@@ -970,7 +960,8 @@ object MainForm: TMainForm
       Width = 856
       Height = 46
       Align = alClient
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgTitleClick, dgTitleHotTrack]
+      ReadOnly = True
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -1370,7 +1361,7 @@ object MainForm: TMainForm
     Left = 896
     Top = 56
     Bitmap = {
-      494C010119006800000210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010119006800040210001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000007000000001002000000000000070
       0000000000000000000000000000000000000000000000000000000000000000
       0000EEBFA370EEC1A47000000000000000000000000000000000000000000000
@@ -2392,7 +2383,7 @@ object MainForm: TMainForm
     Left = 792
     Top = 56
     Bitmap = {
-      494C0101090050008C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010109005000900020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000000000000000000000000000000000
       0000005C92FF005C92FF005C92FF3A81AAC5B2CDDE4D00000000000000000000
@@ -3989,7 +3980,7 @@ object MainForm: TMainForm
     Left = 744
     Top = 104
     Bitmap = {
-      494C010105001400880020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101050014008C0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000004000000001002000000000000080
       0000000000000000000000000000000000000000000000000000FEFEFE01FDFD
       FD02FBFBFB04FAFAFA05F8F8F807F6F6F609F4F4F40BF3F3F30CF2F2F20DF2F2

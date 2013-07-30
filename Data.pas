@@ -557,7 +557,7 @@ Function TDM.SelectPrompl : integer;
 var mr : integer;
 Begin
   mr:=mrCancel;
-  if Not pDataBaseIsOpen Then Exit;
+  if Not pDataBaseIsOpen Then Begin Result:=mr; Exit; End;
 
   ADOQueryPrompl.SQL.Clear;
   ADOQueryPrompl.SQL.Add(sql_GetPrompl);
@@ -682,7 +682,7 @@ Function TDM.SelectBuild : integer;
 var mr : integer;
 Begin
   mr:=mrCancel;
-  if Not pDataBaseIsOpen Then Exit;
+  if Not pDataBaseIsOpen Then Begin Result:=mr; Exit; End;
 
   ADOQueryBuild.SQL.Clear;
   ADOQueryBuild.SQL.Add(sql_GetBuild);
@@ -1182,7 +1182,7 @@ Function TDM.SelectMark : integer;
 var mr : integer;
 Begin
   mr:=mrCancel;
-  if Not pDataBaseIsOpen Then Exit;
+  if Not pDataBaseIsOpen Then Begin Result:=mr; Exit; End;
 
   ADOQueryMark.SQL.Clear;
   ADOQueryMark.SQL.Add(sql_GetMark);
@@ -1556,7 +1556,7 @@ Begin
 End;
 
 procedure TDM.ADOQueryPersFilterRecord(DataSet: TDataSet; var Accept: Boolean);
-Var str,search : String;
+Var search : String;
     adreg, adotkl, adnoreg : boolean;
 begin
   Accept:=True;
@@ -1775,8 +1775,8 @@ Begin
 End;
 
 Procedure TDM.ADRefresh;
-var ADOsp : TADOStoredProc;
-    bm : TBookmark;
+//var ADOsp : TADOStoredProc;
+//    bm : TBookmark;
 Begin
 //  if (ActiveUser.s_access and (1 shl acs_adrefresh)) = 0 then begin
 //    MessageDlg(msg_noRights,mtInformation,[mbOk],0);
@@ -1890,7 +1890,7 @@ End;
 
 procedure TDM.ADOQueryObjectsFilterRecord(DataSet: TDataSet;
   var Accept: Boolean);
-Var str,search : String;
+Var search : String;
     obj_std, obj_nowork, obj_nosit, obj_spis : boolean;
 begin
   Accept:=True;
@@ -2007,6 +2007,7 @@ Begin
      end;
   end;
 End;
+
 
 Procedure TDM.PrihodOrgEdit;
 var ADOsp : TADOStoredProc;    obj_id : Integer;    i      : Integer;Begin  if not AccessIsGranted(acs_prihod_edit) then begin     MessageDlg(msg_noRights,mtInformation,[mbOk],0);

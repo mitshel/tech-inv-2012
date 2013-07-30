@@ -1,0 +1,1320 @@
+@import url("base.css");
+@import url("enroll.css");
+@import url("leftmenu.css");
+@import url("address.css");
+@import url("forms.css");
+@import url("icons.css");
+@import url("calendar.css");
+@import url("process.css");
+@import url("icq-bar.css");
+@import url("gallery.css");
+@import url("tables.css");
+
+/*********** Таблицы ***********/
+table.main
+{
+	width:					100%;
+	height:					100%;
+}
+
+/*Название таблицы*/
+caption
+{
+	font-size:					14px;
+	font-weight:				bold;
+	background-color:			#EDF2F6;
+	border-bottom:				solid 2px #999999;
+	text-align:					left;
+	padding:					0px 0px 0px 5px;
+}
+
+/* Схема верстки страницы
+<table class="page">
+	<tr>
+		<td class="leftmenu">
+			Левое меню
+		</td>
+		<td class="content">
+			Текст и т.д.
+		</td>
+	</tr>
+</td>
+*/
+
+td.content
+{
+	padding:					0px 30px 10px 10px;
+}
+
+/* Как на странице http://new.avalon.ru/About/Officials/
+<td class="maincontent">
+	<table class="smallcatalog">
+		<tr>
+			<td>
+				<h2>Вступительное слово</h2>
+				<h2>Новости</h2>
+			</td>
+		</tr>
+	</table>
+</td>
+*/
+table.smallcatalog
+{
+	width:						100%;
+}
+table.half td, table.half th
+{
+	width:						50%;
+}
+
+table.third td, table.third th
+{
+	width:						30%;
+}
+
+table.quarter td, table.quarter th
+{
+	width:						25%;
+}
+
+table.fifth td, table.fifth th
+{
+	width:						20%;
+}
+
+table.sixth td, table.sixth th
+{
+	width:						15%;
+}
+
+table.smallcatalog td
+{
+	padding:					10px;
+	text-align:					center;
+	/*border:						1px solid #cccccc;*/
+}
+
+table.smallcatalog th
+{
+	padding:					10px;
+	border:						1px solid #cccccc;
+	background-color:			#EDF2F6;
+}
+
+/* Выбор семестра, специальности
+<table class="selection" >
+	<tr>
+		<td>
+			<img src="http://img.avalon.ru/icons/semesters/1.gif" alt="Семестр 1">
+			<h2><a href="Semester1/">1 семестр</a></h2>
+		</td>
+		<td>
+			<img src="http://img.avalon.ru/icons/semesters/2.gif" alt="Семестр 2">
+			<h2><a href="Semester2/">2 семестр</a></h2>
+		</td>
+	</tr>
+</table>
+*/
+
+table.selection
+{
+	width:						100%;
+}
+table.selection td
+{
+	padding:					10px;
+	text-align:					center;
+
+}
+
+/* Почти любые таблицы, например таблица список преподавателей, или стоимость обучения
+		<table class="list">
+				<tr>
+					<th>Преподаватель</th>
+					<th>Читаемые курсы</th>
+				</tr>
+				<tr>
+					<td>Шишкина В.А.</td>
+					<th>...</th>
+				</tr>
+		</table>
+*/
+
+table.list
+{
+	width:						100%;
+	border-collapse:			collapse;
+	margin-top:					2px;
+	margin-bottom:				10px;
+	clear:						both;
+	}
+	table.list p {
+		font-size: 0.8em;
+		margin: 0 10px 3px;
+		}
+
+/*  В таблице ОБЯЗАТЕЛЬНО заголовочные ячейки размечать <th>, а не <td>*/
+table.list th
+{
+	height:						20px;
+	background-color:			#EDF2F6;
+	border:						solid 1px #999999;
+	font-variant:				small-caps;
+	vertical-align:				middle;
+	padding:					5px;
+	font-size:					80%;
+}
+
+table.list th.sub
+{
+	font-size:					60%;
+	font-weight:				normal;
+}
+
+/* МБ. 15:46 26.11.2008. Изменил вертикальное выравнивание. Не совсем понимаю, почему так было. Может где-то что-то отвалится. */
+table.list td
+{
+	font-size:					80%;
+	height:						20px;
+	border:						solid 1px #999999;
+	vertical-align:					top; /*middle;*/
+	padding:					5px;
+}
+
+table.list .date {
+	text-align: center;
+	}
+table.list th.name
+{
+	width: 200px;
+	text-align: left;
+	vertical-align: top;
+	}
+	table.list th.name img {
+			border: 1px solid #CCC;
+		}
+table.list td.money,
+table.list td.date,
+table.list td.class
+/*,table.list td  komment 12.10.2010, т.к. в таблицах  table class="list" неожиданно стало центрироваться содержимое ячеек  */
+ {
+	vertical-align: middle;
+	text-align: center;
+	}
+
+table.list a:link,
+table.list a:visited {
+	text-decoration: none;
+	}
+table.list a:hover {
+	text-decoration: none;
+	}
+table.img td
+{
+	text-align:				center;
+	vertical-align:			top;
+}
+table.list td.current, div.current
+{
+	background-color:	#BCE2BF;
+}
+table.list td.currenttop
+{
+	background-color:	#EFF8F0;
+}
+table.list th a:link
+{
+	text-decoration:			none;
+	color:						#084081;
+}
+table.list th a:visited
+{
+	text-decoration:			none;
+	color:						#999999;
+}
+
+table.list th a:hover
+{
+	text-decoration:			underline;
+	color:						#084081;
+}
+
+table.list li, table.list h2
+{
+	font-size:				100%;
+}
+/* ---------------------------------------------------------------------- */
+
+table.semesterselection
+{
+	width:		auto;
+
+}
+table.semesterselection td, table.semesterselection th
+{
+	width:		200px;
+}
+
+/* Рисунок слева, обтекание текстом справа
+	<p>
+		<img src="http://img.avalon.ru/Classrooms/100x/205.jpg" class="left">Как и на других специальностях, ....
+	</p>
+*/
+img.left
+{
+	float:						left;
+	clear:						left;
+	margin:						5px;
+	margin-right:				10px;
+}
+img.li
+{
+	margin-right:				30px;
+}
+
+/* Рисунок справа, обтекание текстом слева
+	<p>
+			<img src="http://img.avalon.ru/Logos/OracleAI.gif" class="right">С 2004 года факультет ...
+	</p>
+*/
+ img.right
+{
+	float:						right;
+	clear:						right;
+	margin:						5px;
+	margin-left:				10px;
+}
+/* Рисунок по центру
+	<div>
+			<img src="http://img.avalon.ru/conception.gif" class="conception centerimg>С 2004 года факультет ...
+	</div>
+*/
+.center, div.centerimg
+{
+	text-align:					center;
+	margin: 5px 0px;
+}
+
+.right
+{
+	text-align:					right;
+}
+.top
+{
+	vertical-align:				top;
+}
+/*********** Текст ***********/
+/* Вложенные списки, вопросы-ответы */
+ol ul, ul ul
+{
+	font-size:				100%;
+	list-style:				disc;
+
+}
+ul ul
+{
+	list-style:				square;
+
+}ol li.question ul
+{
+	list-style:				none;
+	font-weight:			normal;
+	font-style:				italic;
+	font-size:				100%;
+}
+
+li.question
+{
+	padding-top: 5px;
+}
+
+.answer
+{
+	padding-top: 2px;
+	text-align:  justify;
+	margin-left:	5%;
+	/*font-style: italic;*/
+}
+
+ul.compact
+{
+	margin:						0px 0px 0px 20px;
+	list-style:					 inside;
+}
+/* Пункт списка */
+ul, ol, dl {font-size:			0.8em;}
+
+li, dd, dt
+{
+	font-size:				100%;
+	margin:					5px 0px;
+    }
+    dd p
+    {
+        font-size: 1.0em;
+        margin-left: 0;
+    }
+dt
+{
+	font-weight:				bold;
+	margin-top:				2px;
+}
+li li
+{
+	font-size:				100%;
+
+}
+li p
+{
+	font-size:				100%;
+
+}
+
+ul, li {																		/* proba */
+	margin-top: 0;
+	/*padding: 0*/
+}
+
+.persons ul {
+	font-size: 1.0em;
+	padding: 0 0 0 1.5em;
+}
+/* многоуровневые списки в программах КСК */
+div.program-list ul>li{
+  display:block;
+}
+div.program-list ul{
+  counter-reset:item;
+}
+div.program-list ul>li:before{
+  counter-increment:item;
+  content:counters(item,".") ". ";
+}
+/* -- */
+
+/* Обычный абзац
+	<p>Ближайшие «Дни открытых дверей» состоятся: </p>
+*/
+p
+{
+	font-size:					0.8em;
+	text-align : 				left;
+	margin:						5px;
+	}
+	.content p {
+		line-height: 1.4;
+		margin-bottom: 1.4em;
+		}
+		.content p img {
+			vertical-align: middle;
+			}
+
+
+
+
+/*<p class="degree"> кандидат
+								технических наук, Директор Института государственного управления и
+								информатизации СПбГПУ.</p>
+*/
+
+p.degree
+{
+	margin:						0px 0px 0px 5px;
+	font-weight:				bold;
+	text-align:					center;
+}
+
+/*<p class="time"> Часы приема: по вторникам с 17<sup class="min">00</sup> до 19<sup class="min">00</sup>, ауд. 303. (3 этаж)</p>
+*/
+p.time
+{
+	text-align:					center;
+
+}
+
+p.footnote, p.note
+{
+	font-size:					60%;
+}
+p.beforelist
+{
+	margin-bottom:2px;
+}
+.note
+{
+	font-size:					75%;
+	font-weight:				normal;
+}
+
+.phone
+{
+	font-size:				60%;
+}
+
+.weekday
+{
+	font-size:				75%;
+	font-variant: small-caps;
+}
+
+/*<span class="bookname"><xsl:value-of select="Name" /></span></p>
+*/
+.bookname
+{
+	font-weight:				bold;
+}
+/*<span class="bookname"><xsl:value-of select="Name" /></span></p>
+*/
+.bookannotation
+{
+	/*clear:						both;	*/
+	margin-left:				5px
+}
+/* Параграф внутри таблицы
+*/
+table.list p
+{
+		text-align:				left;
+}
+/* Заголовок первого уровня (заголовок страницы)
+		<h1>Форма и место проведения занятий</h1>
+		<h1>Расписание</h1>
+*/
+h1
+{
+	font-size:1.4em;
+	font-weight:bold;
+	margin:5px 10px 10px 0px;
+	clear:left;
+	}
+	body.with-social .content h1 {
+		margin:5px 200px 10px 0px;
+		}
+/* Заголовок второго уровня (заголовок подраздела)
+		<h1>Концепция специальности</h1>
+		<h2>Схема обучени</h2>
+*/
+h2
+{
+	font-size:					1.1em;
+	/*background-color:			#EDF2F6;*/
+	border-bottom:				solid 1px #999999;
+	margin: 					15px 0px 5px 0px;
+	padding:					1px 5px;
+	clear:						both;
+    }
+    h2 a:link
+    {
+        text-decoration: none;
+        }
+    h2 a:hover
+    {
+        text-decoration: underline;
+    }
+
+/* Заголовок третьего уровня (заголовок подраздела)
+		<h1>Контакты</h1>
+		<h3>Деканат</h3>
+*/
+h3, table.smallcatalog h2, table.selection h2
+{
+	font-size:					0.9em;
+	font-weight:				bold;
+	/*text-transform:				uppercase;*/   		/* proba */
+	/*font-variant: 				small-caps;*/  		/* proba */
+	text-align:					left;
+	margin: 					2em 5px 0;
+	background-color:		 	transparent;
+	border-bottom:				none;
+}
+table.smallcatalog h2, table.selection h2
+{
+	clear:	both	;
+}
+table.smallcatalog h2, table.selection h2
+{
+	margin: 					0px 0px 5px 0px;
+	text-align:					center;
+
+}
+/* страница Официальные лица 14.03.2011 EkaterinaP*/
+table.smallcatalog div.officials
+{
+	width:450px;
+	height:240px;
+	border:1px solid #ddd; 
+	overflow:hidden;
+	padding:5px 5px 10px 10px;
+	margin:0 auto;
+	line-height:1.3;
+	font-size:					1em;
+}
+
+table.smallcatalog div.officials h2, table.smallcatalog div.deansoffice h2
+{
+	margin-bottom:15px;
+}
+table.smallcatalog div.officials img
+{
+	float:left;
+	margin-right:10px;
+	height:200px;
+}
+/* для страниц Контакты ВВО и КСК 23.03.2011 EkaterinaP*/
+table.smallcatalog div.he_contacts
+{
+	width:450px;
+	height:400px; /* 350px 310px  когда добавляем график работы в праздничные дни */
+	border:1px solid #ddd; 
+	overflow:hidden;
+	padding:5px 5px 10px 10px;
+	margin:0 auto;
+}
+table.smallcatalog div.he_contacts ul 
+{
+	text-align:					left;
+}
+table.smallcatalog div.he_contacts p 
+{
+	margin:				0;
+}
+table.smallcatalog div.he_contacts .splash
+{
+	display:none;
+}
+table.smallcatalog div.he_contacts small 
+{
+	font-size:					0.8em;
+}
+table.smallcatalog div.he_contacts div.officials
+{
+	border:						none;
+}
+/* end для страниц Контакты ВВО и КСК 23.03.2011 EkaterinaP*/
+
+/*	Заголовок  */
+ h4
+{
+	margin:						1em 0px 0px;
+	font-size:					0.9em;
+	clear:						both;
+	font-weight:				bold;      				/* proba */
+}
+
+/* Минуты во времени
+	с 10<sup class="min">00</sup>  до 18<sup class="min">30</sup>
+*/
+.min
+{
+	text-decoration:			underline;
+}
+*.attention
+{
+	/*color:						red;*/
+	font-weight : 				bold;
+	text-align : 				center;
+}
+/* Выделение цветом важной информации, к которой надо привлечь внимание
+		<span  class="attention">
+			ВНИМАНИЕ! Указанные цены действительны с 01 июля 2004г.
+		</span>
+*/
+*.attention-date 
+{
+	font-size: 14px;
+	color:	red;
+	font-weight : 				bold;
+	text-align : 				center;
+}
+/* Выделение имени внутри строки
+		<span  class="name">
+			Евгения Тучкевич.:
+		</span>
+*/
+span.name
+{
+	font-weight : 				bold;
+}
+
+td.shaded, td.shaded a
+{
+	background-color: #EEEEEE;
+	color: #CCCCCC;
+}
+
+/* Центрирование в ячейке номеров групп, семестров, цен
+		<td class="number">
+			Семеестр 1
+		</td>
+*/
+*.number
+{
+	text-transform:				uppercase;
+	font-weight:				bold;
+	font-variant: 				small-caps;
+	text-align:					center;
+}
+.newline
+{
+	clear:			both;
+}
+
+
+/* Для ячеек/закладок
+		<td class="tab">Аннотация</td>
+		<td class="tab">Полезные ссылки</td>
+*/
+table.list td.tab
+{
+	font-weight:				bold;
+	font-size:					70%;
+	font-variant: 				small-caps;
+	text-align:					center;
+}
+
+*.hiddenblock
+{
+	display:		 			none;
+}
+
+*.visibleblock
+{
+	margin-left:				10px;
+	margin-top: 				2pt;
+	margin-bottom: 				2pt;
+}
+.profiling
+{
+	color:					#ffffff;
+	font-size:				10px;
+}
+
+div.date
+{
+	border: 1px solid #999999; padding:2px; float:left; width:15ex;text-align:center;
+}
+/*******************Оценки слушателей*********************/
+
+.grade {text-align:	center; font-size:x-small;}
+.grade0{	font-variant:	small-caps; font-weight:	bold; color:		red; }
+.grade1{	font-variant:	small-caps; font-weight:	bold; color:		red; }
+.grade2{	font-variant:	small-caps; font-weight:	bold; color:		red; }
+.grade3{	font-variant:	small-caps; font-weight:	bold; color:		black; }
+.grade4{	font-variant:	small-caps; font-weight:	bold; color:		green; }
+.grade5{	font-variant:	small-caps; font-weight:	bold; color:		blue; }
+
+/******************* Программа курса *********************/
+div.program div.topic,
+div.program div.lab,
+div.program div.exercise
+{
+	margin-left:				20px;
+
+}
+/* _________________________   KS 27.11.2006 _________________________  */
+div.program h1,
+div.program h2
+{
+	font-size:					1em;
+	font-weight:				bold;
+	text-transform:				uppercase;
+	font-variant: 				small-caps;
+	margin: 					5px 0px;
+	padding:					10px 0px 10px 0px;
+	border:						0px;
+	clear:						both;
+}
+
+div.program h3
+{
+	font-size:					0.85em;
+	font-weight:				bold;
+	margin: 					10px 0px 3px;
+	padding:					10px 0px 0 0px;
+	border:						0px;
+	clear:						both;
+}
+
+div.program h4,
+div.program h5,
+div.program h6
+{
+	clear:  both; /*clear:  none;     25.03.2011*/
+	font-size:					.8em;
+	font-weight: 				bold;
+	padding:					10px 0px 5px 0px;
+	margin-top:					10px;
+}
+div.program h4 {
+	padding: 0;
+}
+
+div.program ul
+ {
+	/*margin: 0px;
+	padding: 0px;
+	list-style-type: none;   Vita 16.01.2007 */
+}
+
+div.program ul.nomarker 			/* Oksana 20.02.2007 */
+ {
+	list-style-type: none;     /* для списков, вложенных списков с двойной нумерацией */
+}
+div.program blockquote
+{
+	font-style:					normal;
+	color:						#084184;
+	font-family :				Verdana, Helvetica, sans-serif;
+	text-align : 				left;
+	margin:						5px ;
+	border-top:					none;
+}
+
+div.program p.practice
+{
+	font-style:					italic;
+}
+
+div.exercise p.title
+{
+	font-style:					italic;
+	clear:						both;
+}
+/*Галереи работ слушателей, размещение изображение
+<div class="gallery">
+<a href="http://img.avalon.ru/Gallery/HigherEducation/Design/3D/500x/Naturmort/n01_darzhm.jpg" title="Работа Жмуренковой Дарьи, увеличить" target="_blank"><img src="http://img.avalon.ru/Gallery/HigherEducation/Design/3D/200x/Naturmort/n01_darzhm_thumb.jpg" alt="Работа Жмуренковой Дарьи"></a>
+</div>
+*/
+
+div.gallery, div.formula, div.thumbnails
+{
+	/*text-align:			center;  26.03.2011 */
+	margin:				10px 0px;
+}
+/*  <div class="gallery">
+  <img width="407" height="292"
+src="http://img.avalon.ru/Gallery/HigherEducation/Programming/Diplomas/2006-CablingSystem/image002.jpg">  <p class="caption">Рис.1 Фрагмент маршрутной схемы</p>
+</div>
+*/
+/*Математическая формула
+<div class="formula">
+  <div class="formula"><sub><img width=215 height=48
+src="http://img.avalon.ru/Gallery/HigherEducation/Programming/Diplomas/2006-CablingSystem/image005.gif"></sub>,</div>
+</div>
+*/
+
+div.gallery ins {
+	display: inline-block;
+	width: 300px;
+	text-decoration: none;
+	}
+	div.gallery ins span {
+		font-size: 0.75em;
+		display: block;
+		margin: .5em 0 1em;
+		}
+
+div.gallery p.caption, div.gallery p,div.formula p.caption, p.caption
+
+{
+	text-align:					center;
+	font-weight:				bold;
+}
+div.minigallery
+{
+	margin:				20px 0px;
+}
+span.formula_number
+{
+	font-weight:				bold;
+	font-size:					80%;
+
+}
+
+/* *******************Открытые уроки (MS SQL Server 2005) oksanao 21.03.2007 ******************** */
+span.term { 								/*«зарезервированные» слова */
+	font-weight:			bold;
+}
+
+div.example 								/* Листинг и результат листинга */
+{
+	background-color:		#EDF2F6;	/* #DBEEE9;	#FAFCFE;*/
+	border:					1px solid #cccccc;
+	margin:					10px 10px 10px 40px;
+	padding: 	            4px 4px 4px 10px;
+}
+
+div.example h4								/* заголовок листинга */
+{
+	padding-bottom: 		4px;
+ 	border-bottom: 			1px solid #CCCCCC;
+}
+div.example pre 							/* код листинга */
+{
+	color:					maroon;
+	font-size:			0.9em;
+	font-family:			"Courier New", Courier,   monospace;
+}
+
+div.example span.comment					/* комментарии к коду листинга */
+{
+	color:					darkblue;
+	font-family:			"Courier New", Courier,  monospace;
+}
+
+div.result h5 { 							/* заголовок результата листинга */
+	margin:					0px 0px 4px 0px;
+	padding: 			    4px 0px;
+	border-top: 			1px solid #CCCCCC;
+}
+
+p.imagetitle{ 								/* подрисуночная подпись */
+	font-weight:			bold;
+}
+
+/* ******************* END Открытые уроки (MS SQL Server 2005) oksanao 21.03.2007 ****************** */
+
+/*
+pre.example code
+{
+	color:					maroon;
+	font-family:			Courier,monospase;
+}
+*/
+
+
+/*<td class="money"><span class="attention">13700&nbsp;руб.</span></td>*/
+td.money p, col.money
+{
+	text-align:					center;
+	font-size: 100%;
+}
+
+td.money p.note
+{
+	font-size: 75%;
+	color: #d00;
+}
+
+
+/******************** Уровни *********************/
+
+.level1
+{
+	background-color:	#F3FCF7;
+}
+.level2
+{
+	background-color:	#FBFBEB;
+}
+.level3
+{
+	background-color:	#FCF1F2;
+}
+.level4
+{
+	background-color:	#F4F4FF;
+}
+
+.level5
+{
+	background-color:	 #D1FFFF;
+}
+
+/******************** Примеры работ слушателей *********************/
+/*  -- Вариант вертикального меню по темам курса -- KS 26.01.07 */
+
+/* Names fixed VA 14-02 */
+table.gallerycontent {							/* таблицы, содержащая галерею работ слушателей */
+	width: 100%;
+	background-color: #999999;
+}
+table.gallerycontent td {
+	vertical-align:top;
+	padding: 0 5px 5px 5px;
+}
+table.gallerycontent a {
+	text-decoration: none;
+	color: #084081;
+}
+table.gallerycontent ul a:hover {
+	/*color: #ffffff; */
+	font-weight:bold;
+}
+td.gallerymenu {									/* ячейка, содержащей меню по темам работ  */
+	width: 200px;
+	background-color: #CCCCCC;
+}
+td.gallerymenu ul {								/* список-меню по темам работ  */
+	border-top: solid 5px #CCCCCC;
+	border-bottom: solid 5px #CCCCCC;
+}
+td.gallerymenu ul, td.gallerymenu ul li { 	        /* меню ссылок по темам */
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+td.gallerymenu ul li{
+	padding: 0px 10px 5px 10px;
+	width: 200px;
+	background-color: #CCCCCC;
+	border-bottom: solid 1px #FFFFFF;
+}
+td.gallerymenu ul li.curpage {					/* элемент списка, содержащий выбранную тему */
+	background-color: #999999;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+div.pr { 									/* раздел, содержащий ссылки-миниатюры работ */
+	text-align: center;
+	zoom: 1;
+	overflow: hidden;
+}
+
+div.pr a{ 								    /* ссылка-миниатюра работы */
+	float:left;
+	width: 160px;
+	height: 160px;
+	background-color:#EEEE;
+	border:solid 1px #CCCCCC;
+	margin: 2px;
+	text-align:center;
+}
+
+div.pr-120 a {
+	width: 140px;
+	height: 140px;
+	}
+
+
+div.pr a:hover {
+	border:solid 1px #999;
+}
+div#courswork a {							/* ссылка-миниатюра курсовой работы */
+	width: 200px;
+}
+div.cl {
+	clear: both;
+}
+div.pr a img {
+	margin: 5px;
+	text-align:center;
+}
+
+.nodisplay {
+	display: none;
+}
+
+/*--------------------------------------------------
+
+ССЫЛКА ДЛЯ ОПРОСОВ
+
+/*--------------------------------------------------*/
+
+a.vote {
+	display: inline-block;
+	background: url(http://img.avalon.ru/Icons/votes.gif) no-repeat 0 -32px;
+	height: 32px;
+	width: 70px;
+	vertical-align: middle;
+	}
+
+a.vote:hover {
+	background: url(http://img.avalon.ru/Icons/votes.gif) no-repeat 0 0;
+	}
+.w-150,
+.w150 {
+	width: 160px;
+	}
+.w-200,
+.w200 {
+	width: 210px;
+	}
+.w-250,
+.w250 {
+	width: 260px;
+}
+.f-right {
+	float: right;
+	}
+	.f-right img {
+		margin-top:5px;
+	}
+.f-left {
+	float: left;
+	}
+.illustration {
+	margin: 0 5px 5px;
+	border: 1px solid #CCC;
+	text-align: center;
+	}
+	.illustration img
+	{
+	    margin: 5px;
+	}
+	.illustration p {
+		font-size: 0.7em;
+		margin: 0;
+		padding: 3px;
+		text-align: center;
+		background: #CCC;
+		}
+
+.nobullet,
+.nobullet li {
+	list-style: none;
+}
+
+/*-----------------------------------------
+
+MB 2009-05-19
+
+two column layout
+
+------------------------------------------*/
+
+.column-60 {
+  width: 59.9%;
+  float: left;
+  }
+  .column-60 p {
+    margin-right: 20px;
+  }
+.column-40 {
+  width: 39.9%;
+  float: left;
+}
+
+.column-50 {
+	width: 49.9%;
+	float: left;
+	}
+	.column-50 p,
+	.column-50 h2 {
+			margin-right: 20px;
+	}
+
+/*--------------------------------------
+
+MB 2009-05-25
+
+Promo Line for School Academy
+
+---------------------------------------*/
+
+.promo-line {
+	font-size:  0.70em;
+	padding: 2px 1em;
+	margin:  0 0 2em;
+	background: #F2EDA1;
+	border: 1px solid #BD905F;
+	border-width: 0 0 1px 0;
+	color: #333;
+}
+dl.num
+{
+}
+dl.num dt
+{
+    list-style-type:  decimal-leading-zero;
+}
+dl.num dd
+{
+    margin: 0 2em 1em;
+}
+dl.num dd p
+{
+    margin: 0;
+}
+
+dl.FAQ  {
+
+	}
+	dl.FAQ dt  {
+
+		}
+	dl.FAQ dd {
+		margin-bottom:1em;
+		margin-left:2em;
+		text-indent:-2em;
+	}
+
+a.rss
+{
+    vertical-align: middle;
+}
+.text-images {
+	width: auto !important;
+	width: 350px;
+	min-width: 350px;
+	max-width: 35%;
+	margin: 0 10px;
+	}
+	.text-images a {
+		display:inline-block;
+		width:45%;
+		overflow:hidden;
+		margin: 0 2px 10px;
+		text-align:center;
+		}
+	.text-images img {
+		margin: 0;
+		}
+/* Документы об окончании обучения КСК  06.04.2011 EkaterinaP */
+.certificateTypes
+{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+	.certificateTypes li
+	{
+		float:left;
+		display:inline;
+		width:250px;
+		margin:5px 70px 0 10px;
+		text-align:center;
+		vertical-align:top;
+	}
+	.certificateTypes li img {
+		border:1px solid #bbb;
+	}
+
+
+.services-legend {
+	float: right;
+	width: 30%;
+	display: inline;
+	}
+	.services-legend li {
+		list-style: none;
+		}
+	.services-legend img {
+		vertical-align: middle;
+		}
+/* Раздел Авторизованные учебные центры */
+table.atc {
+			width:						84%;
+			margin:						auto 8%;
+			font-size:					0.8em;
+			}
+	table.atc td {
+		text-align:center;
+		padding:1em 0 5em;
+		}
+	table.atc h1 {
+		font: bold 1.5em "trebuchet ms", helvetica, arial, sans-serif;
+		margin: 0.95em 0 0.5em;
+		}
+	table.atc h1 a:link,
+	table.atc h1 a:visited {
+		color: #074180;
+		text-decoration: none;
+		}
+	table.atc h1 a:hover {
+		color: #630780;
+		}
+	table.atc a:visited {
+		/*color: #074180;*/
+		}
+	table.atc a:hover {
+		color: #000;
+		}
+	div.atc-content{
+		width:90%; 
+		margin:0 auto 5em;
+		line-height:1.4;
+		}
+		div.atc-content li{
+			margin-bottom:15px;
+			font-size:1.2em;
+			font-weight:bold;
+		}
+		div.atc-content li p{
+			font-size:0.8em;
+			font-weight:normal;
+		}
+		div.atc-content li li{
+			margin-bottom:5px;
+			font-size:0.8em;
+			font-weight:normal;
+			list-style:disc;
+			margin-left:-30px;
+		}
+	div.course-title1{
+		font-size:1.7em;
+		float:left;
+		margin-right:10px;
+		margin-left:5px;
+		}
+	div.course-title2{
+		font-size:0.7em;
+		clear:right;
+		}
+		
+	table.photo{
+		width:960px;
+		margin:0 auto;
+		margin-top:10px;
+		border-collapse:separate;
+		}
+		table.photo td{
+			text-align:center;
+			border:1px solid #999;
+			padding: 5px;
+			font-size:0.8em;
+			width:300px;
+		}
+		table.photo td p{
+			margin:0; padding:0;
+			text-align:center;
+			font-size:0.8em;
+			font-weight:normal;
+		}	
+	table.atc-course{
+		width:960px;
+		margin:0 auto;
+		margin-top:-10px;
+		border-collapse:separate;
+		}
+		table.atc-course td{
+			padding: 5px;
+			font-size:1em;
+			width:300px;
+		}
+		table.atc-course td ul{
+			margin-top:0;
+			margin-bottom:0;
+			margin-left:10px;
+			clear:both;
+		}
+		table.atc-course td li{
+			font-size:0.7em;
+		}
+		
+
+	div.certificate{
+		width:960px;
+		}
+/* Кнопки Записаться на курс и Оставить заявку 09.02.2012*/
+.text-enroll {
+	position: relative;
+	margin-left:30px;
+	padding-top:5px;
+}
+.text-enroll .button-enroll a{
+	position: absolute;
+	left:0;
+	top:0;
+	background:url(http://img.avalon.ru/Icons/courses_enroll.png) no-repeat;
+	width:173px;
+	height:31px;
+}
+.text-enroll .button-enroll2 a{
+	position: absolute;
+	left:0;
+	top:0;
+	background:url(http://img.avalon.ru/Icons/courses_enroll2.png) no-repeat;
+	width:173px;
+	height:31px;
+}

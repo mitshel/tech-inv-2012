@@ -1,0 +1,15 @@
+#back-top {
+	position:fixed; 
+	width: 77px; height: 77px; 
+	z-index: 6; 
+	right: 10px; top: 90%; 
+	background: url(http://img.avalon.ru/Icons/button-top/up.png) center top no-repeat;
+}
+#back-top:hover {
+	background: url(http://img.avalon.ru/Icons/button-top/up_over.png) center top no-repeat;
+	}
+#back-top-a {
+	width: 77px; 
+	height: 77px; 
+	display:block;
+}

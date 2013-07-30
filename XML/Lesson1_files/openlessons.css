@@ -1,0 +1,142 @@
+p.nextLesson
+{
+	text-align:		right;	
+	margin:			5px 5px;
+	font-variant:	small-caps; 
+	clear: both;
+}
+
+p.author
+{
+	text-align:		right;	
+	margin:			5px 5px;
+	font-variant:	small-caps;
+}
+
+.command, .instrument, .menu
+{
+	font-weight:	bold;
+	/*color:			black;*/
+	/*border:			1px solid #D6D3D6;
+	background-color:		#F7F3F7	*/
+}
+
+/* ! -- Размещение изображений с обтеканием справа -- KS 13.12.06 */
+img.left
+{
+	clear:			both;
+	float:			left;                                          
+	padding: 		0 10px 10px 0; 								 
+}
+
+.palette
+{
+font-style:italic;
+}
+.btn
+{
+font-weight:bold;
+}
+
+.command, 
+.instrument, 
+.menu
+{
+	font-weight:	bold;
+	color:			black;
+	border:			1px solid #D6D3D6;
+	background-color:		#F7F3F7	
+}
+
+
+/*Стиль для рисунка, урок Цветы в вазе FlowerV*/
+
+div#flowerv img {background:#CCCCCC; border: 1px solid #122E5C; padding: 2px;}
+
+/******************** Примеры работ слушателей *********************/
+/*  -- Вариант вертикального меню по темам курса -- KS 26.01.07 */
+table.gallerycontent {							/* таблицы, содержащая галерею работ слушателей */							
+	width: 100%;
+	background-color: #999999; 
+}
+table.gallerycontent td {
+	vertical-align:top; 
+	padding: 0 5px 5px 5px; 
+}
+table.gallerycontent a { 
+	text-decoration: none;
+	color: #084081; 
+}
+table.gallerycontent ul a:hover {
+	font-weight: bold
+}
+td.gallerymenu {									/* ячейка, содержащей меню по темам работ  */							
+	width: 200px;
+	background-color: #CCCCCC;
+}
+td.gallerymenu ul {								/* список-меню по темам работ  */	
+	border-top: solid 5px #CCCCCC; 
+	border-bottom: solid 5px #CCCCCC;
+}	
+td.gallerymenu ul, td.gallerymenu ul li { 	        /* меню ссылок по темам */												
+	margin: 0px;
+	padding: 0px;														
+	list-style-type: none;
+}
+td.gallerymenu ul li{
+	padding: 0px 10px 5px 10px;
+	width: 200px; 
+	background-color: #CCCCCC; 
+	border-bottom: solid 1px #FFFFFF; 
+}
+td.gallerymenu ul li.curpage {					/* элемент списка, содержащий выбранную тему */								
+	background-color: #999999; 
+	color: #FFFFFF; 
+	font-weight: bold; 	
+}
+div.pr { 									/* раздел, содержащий ссылки-миниатюры работ */		
+	float:left; 
+}
+div.pr a { 								    /* ссылка-миниатюра работы */				
+	float:left;
+	width: 120px;
+	height: 120px; 
+	padding-top:10px;
+	background-color:#999999; 
+	border:solid 1px #CCCCCC; 
+	margin:5px; 
+	text-align: center; 
+} 
+div.pr a:hover { 
+	background-color:#CCCCCC; 
+}
+div#courswork a {							/* ссылка-миниатюра курсовой работы */	
+	width: 170px;
+	height: 170px;
+}
+
+.illustration {
+	margin-bottom: 2em;
+	}
+	.illustration p {
+		text-align: center;
+		}
+	.illustration .comment {
+		font-size: 0.8em;
+		font-style: italic;
+		text-align: center;
+		}
+div.right {
+	float: right;
+	clear: right;
+	margin: 0 0 10px 10px;
+	}
+div.left {
+	float: left;
+	clear: left;
+	margin: 0 10px 10px 0;
+	}
+em {
+	font-weight: normal;
+	font-style:	italic;
+	}
